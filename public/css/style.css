@@ -1,0 +1,28 @@
+/* Home Page */
+.table-first{
+    width: 20%;
+}
+.table-second{
+    width: 3%;
+}
+.table-third{
+    width: 25%
+}
+#nextdesc{
+    display: none;
+}
+.showdesc{
+    vertical-align: middle;
+}
+#spin{
+    display: none;
+}
+#dataPabrik{
+    display: none;
+}
+.swal-footer {
+    text-align: center;
+}  
+img{
+    object-fit: cover;
+}
