@@ -106,11 +106,20 @@ class CreateTableCompany extends Migration
             
             $table->foreignId('product_id');
         });
+        
         Schema::create('ratings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('angket_penilaian');
             $table->string('laporan_ringkas_verifikasi');
-            $table->string('recommendation_for_improvement)');
+            $table->string('recommendation_for_improvement');
+
+            $table->foreignId('product_id');
+        });
+        Schema::create('docratings', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('angket_penilaian_doc');
+
+            $table->foreignId('category_id');
         });
     }
 

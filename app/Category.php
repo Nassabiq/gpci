@@ -11,4 +11,7 @@ class Category extends Model
     public function kategoriProduk(){
         return $this->hasOne(Product::class);
     }
+    public function kategoriAngket(){
+        return $this->hasOne(Docrating::class);
+    }
 }

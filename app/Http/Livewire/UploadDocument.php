@@ -19,13 +19,13 @@ class UploadDocument extends Component
 
     public function mount(){  
         $id_user = Auth::user()->id;
-        $this->company = Company::with('factories.produk.document')->where('user_id' , $id_user)->find($id_user);
+        $this->company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
         
     }
     public function render()
     {
         $produk = $this->product;
-        $this->document = Document::with('produk')->find($produk); 
+        $this->document = Document::where('product_id', $produk)->with('produk')->first(); 
         return view('livewire.upload-document');
     }
 

@@ -14,4 +14,8 @@ class Company extends Model
     public function factories(){
         return $this->hasMany(Factory::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -13,7 +13,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="#" class="d-block">{{ ucfirst(Auth::user()->name) }}</a>
             </div>
         </div>
 
@@ -97,7 +97,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('approve-sertifikasi') }}"
                                     class="nav-link text-sm {{ request()->routeIs('approve-sertifikasi') ? 'active' : '' }}">
-                                    <i class="fas fa-stamp nav-icon"></i>
+                                    <i class="fas fa-check nav-icon"></i>
                                     <p>Approve Sertifikasi</p>
                                 </a>
                             </li>

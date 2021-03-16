@@ -8,6 +8,8 @@ use App\Category;
 use App\Document;
 use App\Factory;
 use App\Product;
+use App\Rating;
+use Carbon\Carbon;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +38,7 @@ class Wizard extends Component
         $this->kategori = Category::get();
 
         $id_user = Auth::user()->id;
-        $this->company = Company::with('factories.produk.document')->where('user_id' , $id_user)->find($id_user);
+        $this->company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
     }
     public function render()
     {   
@@ -213,6 +215,7 @@ class Wizard extends Component
             'ukuran' => $this->ukuran,
             'category_id' => $this->kategori_produk,
             'jenis_sertifikasi' => $this->jenis_sertifikasi,
+            'tgl_pendaftaran' => Carbon::now(),
             'foto_produk' => json_encode($photodata, 128),
             'factory_id' => $id,
             'status' => 1
@@ -222,6 +225,9 @@ class Wizard extends Component
     public function nextSubmitThirdForm($id){
 
         Document::create([
+            'product_id' => $id
+        ]);
+        Rating::create([
             'product_id' => $id
         ]);
 

@@ -101,7 +101,44 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_akta_notaris_doc)
+                                    {{ $document->ket_akta_notaris_doc }}
+                                @else
+                                    <div x-data="{open:false}">
+                                        <button class="btn btn-sm btn-info ml-2 col-12" @click="open=true">Tambah
+                                            Keterangan</button>
+                                        <div class="modal fade" x-show="open" @click.away="open=false" tabindex="-1"
+                                            id="ketAktaNotaris">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Tambah Keterangan</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <input type="name" wire:model="ket_akta_notaris_doc"
+                                                                class="form-control"
+                                                                placeholder="Keterangan untuk Akta Notaris...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tutup</button>
+                                                        <button type="button"
+                                                            wire:click="ketAktaNotaris({{ $document->id }})"
+                                                            class="btn btn-primary">Simpan</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     @if ($document->siup_doc)
@@ -152,7 +189,39 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_siup_doc)
+                                    {{ $document->ket_siup_doc }}
+                                @else
+                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
+                                        data-target="#ketSIUP">Tambah Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketSIUP">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_siup_doc"
+                                                            class="form-control" placeholder="Keterangan untuk SIUP...">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button" wire:click="ketSIUP({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     @if ($document->tdp_doc)
@@ -203,7 +272,39 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_tdp_doc)
+                                    {{ $document->ket_tdp_doc }}
+                                @else
+                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
+                                        data-target="#ketTDP">Tambah Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketTDP">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_tdp_doc" class="form-control"
+                                                            placeholder="Keterangan untuk TDP...">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button" wire:click="ketTDP({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     @if ($document->npwp_doc)
@@ -254,7 +355,39 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_npwp_doc)
+                                    {{ $document->ket_npwp_doc }}
+                                @else
+                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
+                                        data-target="#ketNPWP">Tambah Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketNPWP">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_npwp_doc"
+                                                            class="form-control" placeholder="Keterangan untuk NPWP...">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button" wire:click="ketNPWP({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     @if ($document->api_doc)
@@ -305,7 +438,39 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_api_doc)
+                                    {{ $document->ket_api_doc }}
+                                @else
+                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
+                                        data-target="#ketAPI">Tambah Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketAPI">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_API_doc" class="form-control"
+                                                            placeholder="Keterangan untuk API...">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button" wire:click="ketAPI({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     @if ($document->daftar_merk_doc)
@@ -357,7 +522,41 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_daftar_merk_doc)
+                                    {{ $document->ket_daftar_merk_doc }}
+                                @else
+                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
+                                        data-target="#ketDaftarMerk">Tambah Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketDaftarMerk">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_daftar_merk_doc"
+                                                            class="form-control"
+                                                            placeholder="Keterangan untuk Daftar Merk...">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button"
+                                                        wire:click="ketDaftarMerk({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     @if ($document->sds_produk_doc)
@@ -409,7 +608,41 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_sds_produk_doc)
+                                    {{ $document->ket_sds_produk_doc }}
+                                @else
+                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
+                                        data-target="#ketNPWP">Tambah Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketNPWP">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_sds_produk_doc"
+                                                            class="form-control"
+                                                            placeholder="Keterangan untuk SDS Produk...">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button"
+                                                        wire:click="ketSDSProduk({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     @if ($document->material_bill_doc)
@@ -461,7 +694,41 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_material_bill_doc)
+                                    {{ $document->ket_material_bill_doc }}
+                                @else
+                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
+                                        data-target="#ketMaterialBill">Tambah Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketMaterialBill">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_material_bill_doc"
+                                                            class="form-control"
+                                                            placeholder="Keterangan untuk Material Bill...">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button"
+                                                        wire:click="ketMaterialBill({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     @if ($document->sds_material_doc)
@@ -513,7 +780,41 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td></td>
+                            <td>
+                                @if ($document->ket_sds_material_doc)
+                                    {{ $document->ket_sds_material_doc }}
+                                @else
+                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
+                                        data-target="#ketSDSMaterial">Tambah Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketSDSMaterial">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_sds_material_doc"
+                                                            class="form-control"
+                                                            placeholder="Keterangan untuk SDS Material...">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button"
+                                                        wire:click="ketSDSMaterial({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endif
                 </tbody>

@@ -15,6 +15,9 @@ class ApproveDokumen extends Component
     
     public $akta_notaris_doc, $siup_doc, $tdp_doc , $npwp_doc, $api_doc, $daftar_merk_doc, $sds_produk_doc,
     $material_bill_doc, $sds_material_doc;
+    
+    public $ket_akta_notaris_doc, $ket_siup_doc, $ket_tdp_doc , $ket_npwp_doc, $ket_api_doc, $ket_daftar_merk_doc,
+    $ket_sds_produk_doc, $ket_material_bill_doc, $ket_sds_material_doc;
 
     public function mount(){
         $this->companies = Company::with('factories.produk.document')->get();
@@ -55,6 +58,15 @@ class ApproveDokumen extends Component
 
         $this->emit('hideModal');
     }
+    public function ketAktaNotaris($id)
+    {
+        $document = Document::find($id);
+        $document->ket_akta_notaris_doc = $this->ket_akta_notaris_doc;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
+
 
     public function approveSIUP($id){
         $document = Document::find($id);
@@ -63,6 +75,16 @@ class ApproveDokumen extends Component
 
         $this->emit('hideModal');
     }
+    public function ketSIUP($id)
+    {
+        $document = Document::find($id);
+        $document->ket_siup_doc = $this->ket_siup_doc;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
+
+
     public function approveTDP($id){
         $document = Document::find($id);
         $document->status_tdp_doc = 2;
@@ -70,6 +92,17 @@ class ApproveDokumen extends Component
 
         $this->emit('hideModal');
     }
+    public function ketTDP($id)
+    {
+        $document = Document::find($id);
+        $document->ket_tdp_doc = $this->ket_tdp_doc;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
+
+
+
     public function approveNPWP($id){
         $document = Document::find($id);
         $document->status_npwp_doc = 2;
@@ -77,9 +110,27 @@ class ApproveDokumen extends Component
 
         $this->emit('hideModal');
     }
+    public function ketNPWP($id)
+    {
+        $document = Document::find($id);
+        $document->ket_npwp_doc = $this->ket_npwp_doc;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
+
+
     public function approveAPI($id){
         $document = Document::find($id);
         $document->status_api_doc = 2;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
+    public function ketAPI($id)
+    {
+        $document = Document::find($id);
+        $document->ket_api_doc = $this->ket_api_doc;
         $document->save();
 
         $this->emit('hideModal');
@@ -92,6 +143,15 @@ class ApproveDokumen extends Component
 
         $this->emit('hideModal');
     }
+    public function ketDaftarMerk($id)
+    {
+        $document = Document::find($id);
+        $document->ket_daftar_merk_doc = $this->ket_daftar_merk_doc;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
+
 
     public function approveSDSProduk($id){
         $document = Document::find($id);
@@ -100,6 +160,15 @@ class ApproveDokumen extends Component
 
         $this->emit('hideModal');
     }
+    public function ketSDSProduk($id)
+    {
+        $document = Document::find($id);
+        $document->ket_sds_produk_doc = $this->ket_sds_produk_doc;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
+
 
     public function approveMaterialBill($id){
         $document = Document::find($id);
@@ -108,10 +177,26 @@ class ApproveDokumen extends Component
 
         $this->emit('hideModal');
     }
+    public function ketMaterialBill($id)
+    {
+        $document = Document::find($id);
+        $document->ket_material_bill_doc = $this->ket_material_bill_doc;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
     
     public function approveSDSMaterial($id){
         $document = Document::find($id);
         $document->status_sds_material_doc = 2;
+        $document->save();
+
+        $this->emit('hideModal');
+    }
+    public function ketSDSMaterial($id)
+    {
+        $document = Document::find($id);
+        $document->ket_sds_material_doc = $this->ket_sds_material_doc;
         $document->save();
 
         $this->emit('hideModal');

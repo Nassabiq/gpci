@@ -227,27 +227,65 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <button type="button" class="btn text-primary" data-toggle="collapse"
+                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse"
                                                 data-target="#detail-{{ $produk->id }}">
-                                                <i class="fas fa-fw fa-info-circle"></i></button>
-
-                                            <button type="button" class="border-0 bg-transparent text-danger"
-                                                data-toggle="modal" data-target="#deleteModal"><abbr title="Delete FAQ">
-                                                    <i class="fas fa-fw fa-trash"></i>
+                                                <i class="fas fa-fw fa-info-circle"></i>
+                                                Detail
                                             </button>
+                                            @if ($produk->status == 3)
+                                                <button type="button" class="btn btn-sm btn-warning">
+                                                    Cetak Sertifikat
+                                                </button>
+                                            @endif
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="6" class="collapse" id="detail-{{ $produk->id }}">
-                                            @php
-                                                $images = json_decode($produk->foto_produk);
-                                            @endphp
-                                            @foreach ($images as $image)
-                                                <a href="#" class="imagemodal">
-                                                    <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
-                                                        alt="{{ $produk->nama_produk }}" width="200px" height="200px">
-                                                </a>
-                                            @endforeach
+                                            <label>Foto Produk</label>
+                                            <div class="d-flex">
+                                                <div class="col-lg-6 col-md-12">
+                                                    @php
+                                                        $images = json_decode($produk->foto_produk);
+                                                    @endphp
+                                                    @foreach ($images as $image)
+                                                        <a href="#" class="imagemodal">
+                                                            <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
+                                                                alt="{{ $produk->nama_produk }}" width="200px"
+                                                                height="200px" class="border border-primary rounded mx-2">
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                                <div class="col-lg-6 col-md-12">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item">
+                                                            <b>Jenis Sertifikasi</b> :
+                                                            {{ $produk->jenis_sertifikasi == 1 ? 'Pengajuan Baru' : 'Perpanjangan' }}
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Tipe Model</b> : {{ $produk->tipe_model }}
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Merk Dagang</b> : {{ $produk->merk_dagang }}
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Tipe Pengemasan</b> : {{ $produk->tipe_pengemasan }}
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Ukuran</b> : {{ $produk->ukuran }}
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Tanggal Pendaftaran</b> :
+                                                            {{ \Carbon\Carbon::parse($produk->tgl_pendaftaran)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                        </li>
+                                                        @if ($produk->status == 3)
+                                                            <li class="list-group-item">
+                                                                <b>Masa Berlaku s/d</b> :
+                                                                {{ \Carbon\Carbon::parse($produk->tgl_masa_berlaku)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                            </li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <div class="modal fade" id="imagepreview" tabindex="-1">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,13 +15,13 @@ class SertifikasiController extends Controller
     }
     public function showDataSertifikasi(Request $request){
         $id_user = Auth::user()->id;
-        $company = Company::with('factories.produk.document')->where('user_id' , $id_user)->find($id_user);
+        $company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
         return view('client/data-sertifikasi', compact('company', 'request'));
     }
 
     public function addSertifikasi(Request $request){
         $id_user = Auth::user()->id;
-        $company = Company::with('factories.produk.document')->where('user_id' , $id_user)->find($id_user);
+        $company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
 
         if ($company) {
             return view('client/add-plant');

@@ -11,7 +11,7 @@ class DocumentController extends Controller
 {
     public function index(){
         $id_user = Auth::user()->id;
-        $company = Company::with('factories.produk.document')->where('user_id' , $id_user)->find($id_user);
+        $company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
         if ($company) {
             return view('client/dokumen-sertifikasi', compact('company'));
         }else{
