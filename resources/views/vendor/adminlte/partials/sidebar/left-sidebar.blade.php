@@ -29,8 +29,7 @@
                         </p>
                     </a>
                 </li>
-
-                @if (Auth::user()->hasRole('client') || Auth::user()->hasRole('super-admin'))
+                @if (Auth::user()->hasRole('client') || Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('admin'))
                     <li class="nav-item has-treeview {{ request()->segment(1) == 'sertifikasi' ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->segment(1) == 'sertifikasi' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-book-reader"></i>
@@ -40,31 +39,49 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('show-sertifikasi') }}"
-                                    class="nav-link text-sm {{ request()->routeIs('show-sertifikasi') ? 'active' : '' }}">
-                                    <i class="fas fa-briefcase nav-icon"></i>
-                                    <p>Data Sertifikasi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('add-sertifikasi') }}"
-                                    class="nav-link text-sm {{ request()->routeIs('add-sertifikasi') ? 'active' : '' }}">
-                                    <i class="fas fa-plus-circle nav-icon"></i>
-                                    <p>Pendaftaran Sertifikasi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('dokumen-sertifikasi') }}"
-                                    class="nav-link text-sm {{ request()->routeIs('dokumen-sertifikasi') ? 'active' : '' }}">
-                                    <i class="fas fa-file nav-icon"></i>
-                                    <p>Dokumen Sertifikasi</p>
-                                </a>
-                            </li>
+                            @if (Auth::user()->hasRole('client') || Auth::user()->hasRole('super-admin'))
+                                <li class="nav-item">
+                                    <a href="{{ route('show-sertifikasi') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('show-sertifikasi') ? 'active' : '' }}">
+                                        <i class="fas fa-briefcase nav-icon"></i>
+                                        <p>Data Sertifikasi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('add-sertifikasi') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('add-sertifikasi') ? 'active' : '' }}">
+                                        <i class="fas fa-plus-circle nav-icon"></i>
+                                        <p>Pendaftaran Sertifikasi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('dokumen-sertifikasi') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('dokumen-sertifikasi') ? 'active' : '' }}">
+                                        <i class="fas fa-file nav-icon"></i>
+                                        <p>Dokumen Sertifikasi</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('super-admin'))
+                                <li class="nav-item">
+                                    <a href="{{ route('data-sertifikasi') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('data-sertifikasi') ? 'active' : '' }}">
+                                        <i class="fas fa-briefcase nav-icon"></i>
+                                        <p>Data Sertifikasi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('import-data-sertifikasi') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('import-data-sertifikasi') ? 'active' : '' }}">
+                                        <i class="fas fa-file-import nav-icon"></i>
+                                        <p>Import Data</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endif
-                @if (Auth::user()->hasRole('verifikator') || Auth::user()->hasRole('super-admin'))
+                @if (Auth::user()->hasRole('verifikator') || Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('admin'))
                     <li class="nav-item has-treeview {{ request()->segment(1) == 'penilaian' ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->segment(1) == 'penilaian' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-circle-notch"></i>
@@ -73,15 +90,28 @@
                                 <i class="right fas fa-angle-right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('penilaian-sertifikasi') }}"
-                                    class="nav-link text-sm {{ request()->routeIs('penilaian-sertifikasi') ? 'active' : '' }}">
-                                    <i class="fas fa-pen-alt nav-icon"></i>
-                                    <p>Penilaian Sertifikasi</p>
-                                </a>
-                            </li>
-                        </ul>
+                        @if (Auth::user()->hasRole('verifikator') || Auth::user()->hasRole('super-admin'))
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('penilaian-sertifikasi') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('penilaian-sertifikasi') ? 'active' : '' }}">
+                                        <i class="fas fa-pen-alt nav-icon"></i>
+                                        <p>Penilaian Sertifikasi</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        @endif
+                        @if (Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('admin'))
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('input-angket-penilaian') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('input-angket-penilaian') ? 'active' : '' }}">
+                                        <i class="fas fa-pen-alt nav-icon"></i>
+                                        <p>Input Angket Penilaian</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        @endif
                     </li>
                 @endif
                 @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('super-admin'))
@@ -114,8 +144,8 @@
 
                 @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('super-admin'))
                     {{-- User Administration --}}
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item has-treeview {{ request()->segment(1) == 'user' ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->segment(1) == 'user' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users"></i>
                             <p>
                                 User Administration
@@ -124,20 +154,33 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link text-sm">
+                                <a href="{{ route('approve-user') }}"
+                                    class="nav-link text-sm {{ request()->routeIs('approve-user') ? 'active' : '' }}">
                                     <i class="fas fa-user-check nav-icon"></i>
                                     <p>Approve User</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-sm">
-                                    <i class="fas fa-user-cog nav-icon"></i>
-                                    <p>Manage User</p>
-                                </a>
-                            </li>
+                            @if (Auth::user()->hasRole('super-admin'))
+                                <li class="nav-item">
+                                    <a href="{{ route('user-management') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('user-management') ? 'active' : '' }}">
+                                        <i class="fas fa-user-cog nav-icon"></i>
+                                        <p>Manage User</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endif
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('account') }}"
+                        class="nav-link {{ request()->routeIs('account') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user-circle"></i>
+                        <p>
+                            Account
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -60,10 +60,15 @@ class CreateTableCompany extends Migration
             $table->timestamp('tgl_masa_berlaku')->nullable();
             $table->foreignId('factory_id');
             $table->foreignId('category_id');
+            $table->foreignId('scoring_id')->nullable();
         });
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('categories');
+        });
+        Schema::create('scorings', function (Blueprint $table) {
+            $table->id();
+            $table->string('score');
         });
 
         Schema::create('documents', function (Blueprint $table) {
@@ -109,9 +114,9 @@ class CreateTableCompany extends Migration
         
         Schema::create('ratings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('angket_penilaian');
-            $table->string('laporan_ringkas_verifikasi');
-            $table->string('recommendation_for_improvement');
+            $table->string('angket_penilaian')->nullable();
+            $table->string('laporan_ringkas_verifikasi')->nullable();
+            $table->string('recommendation_for_improvement')->nullable();
 
             $table->foreignId('product_id');
         });

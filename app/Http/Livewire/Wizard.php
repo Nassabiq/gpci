@@ -215,7 +215,7 @@ class Wizard extends Component
             'ukuran' => $this->ukuran,
             'category_id' => $this->kategori_produk,
             'jenis_sertifikasi' => $this->jenis_sertifikasi,
-            'tgl_pendaftaran' => Carbon::now(),
+            'tgl_pendaftaran' => date('Y-m-d H:i:s'),
             'foto_produk' => json_encode($photodata, 128),
             'factory_id' => $id,
             'status' => 1

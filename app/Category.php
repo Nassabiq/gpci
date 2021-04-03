@@ -9,9 +9,9 @@ class Category extends Model
     public $timestamps = false;
 
     public function kategoriProduk(){
-        return $this->hasOne(Product::class);
+        return $this->hasMany(Product::class);
     }
     public function kategoriAngket(){
-        return $this->hasOne(Docrating::class);
+        return $this->hasOne(Docrating::class, 'category_id');
     }
 }

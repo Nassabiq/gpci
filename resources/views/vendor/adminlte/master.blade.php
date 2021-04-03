@@ -42,7 +42,7 @@
             rel="stylesheet">
         {{-- <script src="sweetalert2.min.js"></script> --}}
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js" defer></script>
-        <link rel="stylesheet" href="sweetalert2.min.css">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif

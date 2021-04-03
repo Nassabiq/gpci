@@ -5,9 +5,6 @@
         <p>
             Dokumen yang diperbolehkan harus berbentuk <b>PDF</b> <br> dan setiap dokumen memiliki ukuran maksimal 2MB
         </p>
-        @php
-            // dump(Storage::url('checklist-dokumen/' . $company->nama_perusahaan . '/' . $document->akta_notaris_docx`));
-        @endphp
         <hr>
         @if (session()->has('success'))
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
@@ -27,14 +24,14 @@
             </select>
         </div>
         @if ($document)
-            {{ $document->akta_notaris_doc }}
             <div class="table-responsive">
                 <table class="table">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Nama Dokumen</th>
-                            <th scope="col">File</th>
+                            <th scope="col">Dokumen</th>
+                            <th scope="col">Nama File</th>
+                            <th scope="col">Action</th>
                             <th scope="col">Status</th>
                             <th scope="col">Keterangan</th>
                         </tr>
@@ -44,54 +41,41 @@
                         <tr>
                             <th scope="row">1</th>
                             <td>Salinan akta notaris pendirian perusahaan.</td>
-                            <td>
-                                @if (!$document->akta_notaris_doc)
-                                    <div class="d-flex">
-                                        <div class="p-0">
-                                            <input type="hidden" wire:model="id" value="{{ $document->id }}">
-                                            <input type="file" wire:model="akta_notaris_doc">
-                                        </div>
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadAktaNotaris({{ $document->id }})">Upload</button>
-                                    </div>
-                                    @if (session()->has('success'))
-                                        <span class="message">{{ session('success') }}</span>
-                                    @endif
+                            @if (!$document->akta_notaris_doc)
+                                <td>
+                                    <input type="file" wire:model="akta_notaris_doc">
                                     @error('akta_notaris_doc') <span class="error">{{ $message }}</span> @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->akta_notaris_doc }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary ml-2"
+                                        wire:click.prevent="updateAktaNotaris({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->akta_notaris_doc }}
+                                    <div class="collapse mt-2" id="editakta" wire:ignore.self>
+                                        <div class="card card-body d-flex">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="akta_notaris_doc">
+                                                <button type="button" class="btn btn-sm btn-primary"
+                                                    wire:click.prevent="updateAktaNotaris({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->akta_notaris_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_akta_notaris_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            <input type="hidden" wire:model="id"
-                                                                value="{{ $document->id }}">
-                                                            <input type="file" wire:model="akta_notaris_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click.prevent="updateAktaNotaris({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('akta_notaris_doc') <span
-                                                            class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
+                                            @error('akta_notaris_doc') <span class="error">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        {{-- <object class="mt-4"
-                                                data="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->akta_notaris_doc) }}"
-                                                width="100%" height="500px" type="application/pdf"></object> --}}
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->akta_notaris_doc) }}"
+                                            class="btn btn-sm btn-primary" target="_blank">Dokumen</a>
+                                        @if ($document->status_akta_notaris_doc !== 2)
+                                            <button class="btn btn-sm btn-success ml-2" data-toggle="collapse"
+                                                data-target="#editakta">Edit</button>
+                                        @endif
+                                    </div>
+                                </td>
+                            @endif
                             <td>
                                 @switch($document->status_akta_notaris_doc)
                                     @case(0)
@@ -106,49 +90,47 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_akta_notaris_doc }}</td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
                             <td>Salinan Surat Izin Usaha Perdagangan (SIUP)</td>
-                            <td>
-                                @if (!$document->siup_doc)
-                                    <div class="d-flex">
-                                        <div class="p-0">
-                                            <input type="file" wire:model="siup_doc">
-                                        </div>
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadSIUP({{ $document->id }})">Upload</button>
-                                    </div>
+                            @if (!$document->siup_doc)
+                                <td>
+                                    <input type="file" wire:model="siup_doc">
                                     @error('siup_doc') <span class="error">{{ $message }}</span> @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->siup_doc }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        wire:click.prevent="updateSIUP({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->siup_doc }}
+                                    <div class="collapse mt-2" id="editsiup" wire:ignore.self>
+                                        <div class="card card-body">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="siup_doc">
+                                                <button type="button" class="btn btn-sm btn-primary ml-2"
+                                                    wire:click="updateSIUP({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->siup_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_siup_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            <input type="file" wire:model="siup_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click="updateSIUP({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('siup_doc') <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
                                         </div>
+                                        @error('siup_doc') <span class="error">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->siup_doc) }}"
+                                            class="btn btn-primary btn-sm" target="_blank  ">Dokumen</a>
+                                        @if ($document->status_siup_doc !== 2)
+                                            <button class="btn btn-success ml-2 btn-sm" data-toggle="collapse"
+                                                data-target="#editsiup">Edit</button>
+                                        @endif
+                                    </div>
+
+                                </td>
+                            @endif
                             <td>
                                 @switch($document->status_siup_doc)
                                     @case(0)
@@ -163,51 +145,46 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_siup_doc }}</td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
                             <td>Salinan Tanda Daftar Perusahaan (TDP).</td>
-                            <td>
-                                @if (!$document->tdp_doc)
-                                    <div class="d-flex">
-                                        <div class="p-0">
-                                            <input type="file" id="tdp_doc" wire:model="tdp_doc">
-                                        </div>
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadTDP({{ $document->id }})">Upload</button>
-                                    </div>
+                            @if (!$document->tdp_doc)
+                                <td>
+                                    <input type="file" id="tdp_doc" wire:model="tdp_doc">
                                     @error('tdp_doc') <span class="error">{{ $message }}</span> @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->tdp_doc }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        wire:click.prevent="updateTDP({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->tdp_doc }}
+                                    <div class="collapse mt-2" id="edittdp" wire:ignore.self>
+                                        <div class="card card-body">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="tdp_doc">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    wire:click="updateTDP({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->tdp_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_tdp_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            {{-- <input type="hidden" wire:model="id"
-                                                                value="{{ $document->id }}"> --}}
-                                                            <input type="file" wire:model="tdp_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click="updateTDP({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('tdp_doc') <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
+                                            @error('tdp_doc') <span class="error">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->tdp_doc) }}"
+                                            class="btn btn-primary btn-sm" target="_blank  ">Dokumen</a>
+                                        @if ($document->status_tdp_doc !== 2)
+                                            <button class="btn btn-success btn-sm ml-2" data-toggle="collapse"
+                                                data-target="#edittdp">Edit</button>
+                                        @endif
+                                    </div>
+                                </td>
+                            @endif
                             <td>
                                 @switch($document->status_tdp_doc)
                                     @case(0)
@@ -222,49 +199,46 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_tdp_doc }}</td>
                         </tr>
                         <tr>
                             <th scope="row">4</th>
                             <td>Salinan Nomor Pokok Wajib Pajak (NPWP) perusahaan.</td>
-                            <td>
-                                @if (!$document->npwp_doc)
-                                    <div class="d-flex">
-                                        <input type="file" wire:model="npwp_doc">
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadNPWP({{ $document->id }})">Upload</button>
-                                    </div>
+                            @if (!$document->npwp_doc)
+                                <td>
+                                    <input type="file" wire:model="npwp_doc">
                                     @error('npwp_doc') <span class="error">{{ $message }}</span> @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->npwp_doc }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click.prevent="updateNPWP({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->npwp_doc }}
+                                    <div class="collapse mt-2" id="editnpwp" wire:ignore.self>
+                                        <div class="card card-body">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="npwp_doc">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    wire:click="updateNPWP({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->npwp_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_npwp_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            {{-- <input type="hidden" wire:model="id"
-                                                                value="{{ $document->id }}"> --}}
-                                                            <input type="file" wire:model="npwp_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click="updateNPWP({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('npwp_doc') <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
                                         </div>
+                                        @error('npwp_doc') <span class="error">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->npwp_doc) }}"
+                                            class="btn btn-primary btn-sm" target="_blank  ">Dokumen</a>
+                                        @if ($document->status_npwp_doc !== 2)
+                                            <button class="btn btn-success ml-2 btn-sm" data-toggle="collapse"
+                                                data-target="#editnpwp">Edit</button>
+                                        @endif
+                                    </div>
+                                </td>
+                            @endif
                             <td>
                                 @switch($document->status_npwp_doc)
                                     @case(0)
@@ -279,49 +253,46 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_npwp_doc }}</td>
                         </tr>
                         <tr>
                             <th scope="row">5</th>
                             <td>Informasi importer dan salinan Angka Pengenal Importir (API).</td>
-                            <td>
-                                @if (!$document->api_doc)
-                                    <div class="d-flex">
-                                        <input type="file" wire:model="api_doc">
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadAPI({{ $document->id }})">Upload</button>
-                                    </div>
+                            @if (!$document->api_doc)
+                                <td>
+                                    <input type="file" wire:model="api_doc">
                                     @error('api_doc') <span class="error">{{ $message }}</span> @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->api_doc }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click.prevent="updateAPI({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->api_doc }}
+                                    <div class="mt-2 collapse" id="editapi" wire:ignore.self>
+                                        <div class="card card-body d-flex">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="api_doc">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    wire:click="updateAPI({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->api_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_api_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            {{-- <input type="hidden" wire:model="id"
-                                                                value="{{ $document->id }}"> --}}
-                                                            <input type="file" wire:model="api_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click="updateAPI({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('api_doc') <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
+                                            @error('api_doc') <span class="error">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->api_doc) }}"
+                                            class="btn btn-primary btn-sm" target="_blank  ">Dokumen</a>
+                                        @if ($document->status_api_doc !== 2)
+                                            <button class="btn btn-success ml-2 btn-sm" data-toggle="collapse"
+                                                data-target="#editapi">Edit</button>
+                                        @endif
+                                    </div>
+                                </td>
+                            @endif
                             <td>
                                 @switch($document->status_api_doc)
                                     @case(0)
@@ -336,50 +307,46 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_api_doc }}</td>
                         </tr>
                         <tr>
                             <th scope="row">6</th>
                             <td>Salinan Tanda Daftar Merk terbitan Dirjen HAKI Kemenhumham.</td>
-                            <td>
-                                @if (!$document->daftar_merk_doc)
-                                    <div class="d-flex">
-                                        <input type="file" wire:model="daftar_merk_doc">
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadDaftarMerk({{ $document->id }})">Upload</button>
-                                    </div>
+                            @if (!$document->daftar_merk_doc)
+                                <td>
+                                    <input type="file" wire:model="daftar_merk_doc">
                                     @error('daftar_merk_doc') <span class="error">{{ $message }}</span> @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->daftar_merk_doc }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click.prevent="updateDaftarMerk({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->daftar_merk_doc }}
+                                    <div id="editdaftarmerk" class="mt-2 collapse" wire:ignore.self>
+                                        <div class="card card-body">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="daftar_merk_doc">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    wire:click="updateDaftarMerk({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->daftar_merk_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_daftar_merk_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            {{-- <input type="hidden" wire:model="id"
-                                                                value="{{ $document->id }}"> --}}
-                                                            <input type="file" wire:model="daftar_merk_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click="updateDaftarMerk({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('daftar_merk_doc') <span
-                                                            class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
+                                            @error('daftar_merk_doc') <span class="error">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->daftar_merk_doc) }}"
+                                            class="btn btn-primary btn-sm" target="_blank">Dokumen</a>
+                                        @if ($document->status_daftar_merk_doc !== 2)
+                                            <button class="btn btn-success ml-2 btn-sm" data-toggle="collapse"
+                                                data-target="#editdaftarmerk">Edit</button>
+                                        @endif
+                                    </div>
+                                </td>
+                            @endif
                             <td>
                                 @switch($document->status_daftar_merk_doc)
                                     @case(0)
@@ -394,50 +361,46 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_daftar_merk_doc }}</td>
                         </tr>
                         <tr>
                             <th scope="row">7</th>
                             <td>Lembar keselamatan bahan (SDS) dari produk yang akan disertifikasi.</td>
-                            <td>
-                                @if (!$document->sds_produk_doc)
-                                    <div class="d-flex">
-                                        <input type="file" wire:model="sds_produk_doc">
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadSDSProduk({{ $document->id }})">Upload</button>
-                                    </div>
+                            @if (!$document->sds_produk_doc)
+                                <td>
+                                    <input type="file" wire:model="sds_produk_doc">
                                     @error('sds_produk_doc') <span class="error">{{ $message }}</span> @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->sds_produk_doc }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click.prevent="updateSDSProduk({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->sds_produk_doc }}
+                                    <div id="editsdsproduk" class="mt-2 collapse" wire:ignore.self>
+                                        <div class="card card-body">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="sds_produk_doc">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    wire:click="updateSDSProduk({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->sds_produk_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_sds_produk_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            {{-- <input type="hidden" wire:model="id"
-                                                                value="{{ $document->id }}"> --}}
-                                                            <input type="file" wire:model="sds_produk_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click="updateSDSProduk({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('sds_produk_doc') <span
-                                                            class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
+                                            @error('sds_produk_doc') <span class="error">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->sds_produk_doc) }}"
+                                            class="btn btn-primary btn-sm" target="_blank">Dokumen</a>
+                                        @if ($document->status_sds_produk_doc !== 2)
+                                            <button class="btn btn-success ml-2 btn-sm" data-toggle="collapse"
+                                                data-target="#editsdsproduk">Edit</button>
+                                        @endif
+                                    </div>
+                                </td>
+                            @endif
                             <td>
                                 @switch($document->status_sds_produk_doc)
                                     @case(0)
@@ -452,51 +415,48 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_sds_produk_doc }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">9</th>
+                            <th scope="row">8</th>
                             <td>Bill of material dari produk yang akan disertifikasi.</td>
-                            <td>
-                                @if (!$document->material_bill_doc)
-                                    <div class="d-flex">
-                                        <input type="file" wire:model="material_bill_doc">
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadMaterialBill({{ $document->id }})">Upload</button>
-                                    </div>
+                            @if (!$document->material_bill_doc)
+                                <td>
+                                    <input type="file" wire:model="material_bill_doc">
                                     @error('material_bill_doc') <span class="error">{{ $message }}</span>
                                     @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->material_bill_doc }}
+
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click.prevent="updateMaterialBill({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->material_bill_doc }}
+                                    <div id="editmaterialbill" class="mt-2 collapse" wire:ignore.self>
+                                        <div class="card card-body">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="material_bill_doc">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    wire:click="updateMaterialBill({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->material_bill_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_material_bill_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            {{-- <input type="hidden" wire:model="id"
-                                                                value="{{ $document->id }}"> --}}
-                                                            <input type="file" wire:model="material_bill_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click="updateMaterialBill({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('material_bill_doc') <span
-                                                            class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
+                                            @error('material_bill_doc') <span class="error">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->material_bill_doc) }}"
+                                            class="btn btn-primary btn-sm" target="_blank  ">Dokumen</a>
+                                        @if ($document->status_material_bill_doc !== 2)
+                                            <button class="btn btn-success ml-2 btn-sm" data-toggle="collapse"
+                                                data-target="#editmaterialbill">Edit</button>
+                                        @endif
+                                    </div>
+                                </td>
+                            @endif
                             <td>
                                 @switch($document->status_material_bill_doc)
                                     @case(0)
@@ -511,51 +471,48 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_material_bill_doc }}</td>
                         </tr>
                         <tr>
                             <th scope="row">9</th>
                             <td>Lembar keselamatan bahan (SDS) dari seluruh bahan baku yang digunakan.</td>
-                            <td>
-                                @if (!$document->sds_material_doc)
-                                    <div class="d-flex">
-                                        <input type="file" wire:model="sds_material_doc">
-                                        <button type="button" class="btn btn-primary ml-2"
-                                            wire:click.prevent="uploadSDSMaterial({{ $document->id }})">Upload</button>
-                                    </div>
+                            @if (!$document->sds_material_doc)
+                                <td>
+                                    <input type="file" wire:model="sds_material_doc">
                                     @error('sds_material_doc') <span class="error">{{ $message }}</span>
                                     @enderror
-                                @else
-                                    <div class="row">
-                                        <div x-data="{open:false}">
-                                            <div class="document col-12 mb-4">
-                                                {{ $document->sds_material_doc }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click.prevent="updateSDSMaterial({{ $document->id }})">Upload</button>
+                                </td>
+                            @else
+                                <td>
+                                    {{ $document->sds_material_doc }}
+                                    <div id="editsdsmaterial" class="mt-2 collapse" wire:ignore.self>
+                                        <div class="card card-body">
+                                            <div class="d-flex">
+                                                <input type="file" wire:model="sds_material_doc">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    wire:click="updateSDSMaterial({{ $document->id }})">Edit</button>
                                             </div>
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->sds_material_doc) }}"
-                                                class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                            @if ($document->status_sds_material_doc !== 2)
-                                                <button class="btn btn-success ml-2 col-3"
-                                                    @click="open=true">Edit</button>
-                                                {{-- Edit Dokumen Form --}}
-                                                <div x-show="open" @click.away="open=false" class="mt-4 col-12">
-                                                    <div class="card card-body d-flex">
-                                                        <div class="p-0">
-                                                            {{-- <input type="hidden" wire:model="id"
-                                                                value="{{ $document->id }}"> --}}
-                                                            <input type="file" wire:model="sds_material_doc">
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary ml-2 mt-3"
-                                                            wire:click="updateSDSMaterial({{ $document->id }})">Edit</button>
-                                                    </div>
-                                                    @error('sds_material_doc') <span
-                                                            class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            @endif
+                                            @error('sds_material_doc') <span class="error">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
-                                @endif
-                            </td>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $document->sds_material_doc) }}"
+                                            class="btn btn-primary btn-sm" target="_blank">Dokumen</a>
+                                        @if ($document->status_sds_material_doc !== 2)
+                                            <button class="btn btn-success ml-2 btn-sm" data-target="#editsdsmaterial"
+                                                data-toggle="collapse">Edit</button>
+                                        @endif
+                                    </div>
+                                </td>
+                            @endif
+
                             <td>
                                 @switch($document->status_sds_material_doc)
                                     @case(0)
@@ -570,7 +527,7 @@
                                     @default
                                 @endswitch
                             </td>
-                            <td>@mdo</td>
+                            <td>{{ $document->ket_sds_material_doc }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -601,7 +558,6 @@
 </div>
 
 @section('js')
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.4/pdfobject.js"
         integrity="sha512-pOkH5W0iYlsujt/wd8KQwGJlc76bfVQ+gN3wNj2jE671otBKfTqSU17mdb74MdGqU2G7ScJqH9BqQ8UvWL0hdg=="
         crossorigin="anonymous"></script>

@@ -8,20 +8,29 @@ use Livewire\Component;
 
 class ApproveSertifikasi extends Component
 {
-    public $products;
+    public $product, $produk, $scoring_id;
     public function render()
     {
-        $this->products =  Product::with('ratings')->get();
+        $this->produk = Product::with('ratings')->find($this->product);
         return view('livewire.approve-sertifikasi');
     }
     
     public function approveSertifikasi($id)
     {
+        $this->validate([
+            'scoring_id' => 'required',
+        ],
+        [
+            'scoring_id.required' => 'harap isi scoring sertifikasi terlebih dahulu'
+        ]
+        );
         $product = Product::find($id);
         $product->status = 3;
-        $product->tgl_approve = Carbon::now();
-        $product->tgl_masa_berlaku = Carbon::now()->addYear();
+        $product->scoring_id = $this->scoring_id;
+        $product->tgl_approve = date('Y-m-d H:i:s');
+        $product->tgl_masa_berlaku = Carbon::now()->addYear()->locale('id');
         $product->save();
-        return redirect()->route('approve-sertifikasi');
+
+        return redirect()->to('/approve/approve-sertifikasi/'.$id);
     }
 }

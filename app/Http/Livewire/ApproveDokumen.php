@@ -51,7 +51,7 @@ class ApproveDokumen extends Component
     //     }
     // }
 
-    public function approveAktaNotaris($id){
+    public function approveAktaNotaris($id, $name){
         $document = Document::find($id);
         $document->status_akta_notaris_doc = 2;
         $document->save();

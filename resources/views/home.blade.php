@@ -20,7 +20,6 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-
                         {{ __('You are logged in!') }}
                     </div>
                 </div>

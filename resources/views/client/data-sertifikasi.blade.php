@@ -233,9 +233,10 @@
                                                 Detail
                                             </button>
                                             @if ($produk->status == 3)
-                                                <button type="button" class="btn btn-sm btn-warning">
+                                                <a href="/cetak-pdf/{{ $produk->id }}" target="_blank"
+                                                    class="btn btn-sm btn-warning">
                                                     Cetak Sertifikat
-                                                </button>
+                                                </a>
                                             @endif
                                         </td>
                                     </tr>

@@ -1,108 +1,172 @@
 <div>
     {{-- The whole world belongs to you --}}
-    <div class="container">
-        <h2>Approve Sertifikasi</h2>
-        <hr>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama Produk</th>
-                    <th scope="col">Nama Perusahaan</th>
-                    <th scope="col">Pabrik</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
+    <h4>Detail Penilaian Sertifikasi</h4>
+    <hr>
+    <ul>
+        <li>Untuk memulai penilaian, harap ubah status produk pada tombol dibawah</li>
+        <li>Template Form Penilaian bisa diunduh pada list yang ada dibawah ini</li>
+    </ul>
+    @if ($produk->status !== 3)
+        <button class="btn btn-outline-primary my-2 float-right" data-toggle="modal" data-target="#modalConfirm">
+            Approve
+        </button>
+    @else
+        <button class="btn btn-primary my-2 float-right">
+            Produk telah disertifikasi
+        </button>
+    @endif
+    <div class="modal fade" id="modalConfirm" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5>Approve Dokumen?</h5>
+                    <p>Score untuk sertifikasi : </p>
+                    <select class="custom-select" wire:model="scoring_id">
+                        <option>Pilih Score Sertifikasi</option>
+                        <option value="1">Bronze</option>
+                        <option value="2">Silver</option>
+                        <option value="3">Gold</option>
+                    </select>
+                    @error('scoring_id') <span class="error">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
 
-            <tbody>
-                @php
-                    $i = 1;
-                @endphp
-                @foreach ($products as $product)
-                    <tr>
-                        <th scope="row">{{ $i++ }}</th>
-                        <td>{{ $product->nama_produk }}</td>
-                        <td>{{ $product->pabrik->perusahaan->nama_perusahaan }}</td>
-                        <td>{{ $product->pabrik->nama_fasilitas }}</td>
-                        <td>
-                            @if ($product->status == 1)
-                                <span class="badge badge-pill badge-danger">Belum Diverifikasi</span>
-                            @elseif($product->status == 2)
-                                <span class="badge badge-pill badge-warning">Sedang Diverifikasi</span>
-                            @elseif($product->status == 3)
-                                <span class="badge badge-pill badge-success">Terverifikasi</span>
-                            @endif
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse"
-                                data-target="#dokumen{{ $product->id }}">Details</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" class="collapse" id="dokumen{{ $product->id }}">
-                            <ul class="list-group">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Angket Penilaian
-                                    <span
-                                        class="badge {{ $product->ratings->angket_penilaian ? 'badge-success' : 'badge-danger' }}  badge-pill">
-                                        @if ($product->ratings->angket_penilaian)
-                                            <i class="fas fa-check"></i>
-                                        @else
-                                            <i class="fas fa-times"></i>
-                                        @endif
-                                    </span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Laporan Ringkas Verifikasi
-                                    <span
-                                        class="badge {{ $product->ratings->laporan_ringkas_verifikasi ? 'badge-success' : 'badge-danger' }}  badge-pill">
-                                        @if ($product->ratings->laporan_ringkas_verifikasi)
-                                            <i class="fas fa-check"></i>
-                                        @else
-                                            <i class="fas fa-times"></i>
-                                        @endif
-                                    </span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Recommendation for Improvement
-                                    <span
-                                        class="badge {{ $product->ratings->recommendation_for_improvement ? 'badge-success' : 'badge-danger' }}  badge-pill">
-                                        @if ($product->ratings->recommendation_for_improvement)
-                                            <i class="fas fa-check"></i>
-                                        @else
-                                            <i class="fas fa-times"></i>
-                                        @endif
-                                    </span>
-                                </li>
-                            </ul>
-                            @if ($product->status !== 3)
-                            <button class="btn btn-outline-primary mt-2 float-right" data-toggle="modal"
-                                data-target="#modalConfirm">
-                                Approve
-                            </button>
-                            @endif
-                            <div class="modal fade" id="modalConfirm" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <h5>Approve Dokumen?</h5>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Back</button>
-                                            
-                                                <button type="button"
-                                                    wire:click="approveSertifikasi({{ $product->id }})"
-                                                    class="btn btn-primary">Yes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    <button type="button" wire:click="approveSertifikasi({{ $produk->id }})"
+                        class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
     </div>
+    @php
+        $contactPlant = json_decode($produk->pabrik->contact);
+        $contactPerusahaan = json_decode($produk->pabrik->perusahaan->contact);
+    @endphp
+    <table class="table table-sm">
+        <tbody>
+            <tr>
+                <th class="table-first">Nama Produk</th>
+                <td class="table-second">:</td>
+                <td>{{ $produk->nama_produk }}</td>
+            </tr>
+            <tr>
+                <th class="table-first">Perusahaan</th>
+                <td class="table-second">:</td>
+                <td>{{ $produk->pabrik->perusahaan->nama_perusahaan }}</td>
+            </tr>
+            <tr>
+                <th class="table-first">Contact Perusahaan</th>
+                <td class="table-second">:</td>
+                <td>
+                    <ul>
+                        <li>Nama : {{ $contactPerusahaan->cp_1->nama }}</li>
+                        <li>Email : {{ $contactPerusahaan->cp_1->email }}</li>
+                        <li>No. Telp : {{ $contactPerusahaan->cp_1->no_hp }}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th class="table-first">Plant</th>
+                <td class="table-second">:</td>
+                <td>{{ $produk->pabrik->nama_fasilitas }}</td>
+            </tr>
+            <tr>
+                <th class="table-first">Contact Plant</th>
+                <td class="table-second">:</td>
+                <td>
+                    <ul>
+                        <li>Nama : {{ $contactPlant->nama }}</li>
+                        <li>Email : {{ $contactPlant->email }}</li>
+                        <li>No. Telp : {{ $contactPlant->no_hp }}</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5>List Dokumen Audit Sertifikasi</h5>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">List</th>
+                <th scope="col">Status</th>
+                <th scope="col">Dokumen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Angket Penilaian</td>
+                <td>
+                    <span
+                        class="badge {{ $produk->ratings->angket_penilaian !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
+                        @if ($produk->ratings->angket_penilaian !== null)
+                            <i class="fas fa-check"></i>
+                        @else
+                            <i class="fas fa-times"></i>
+                        @endif
+                    </span>
+                </td>
+                @if ($this->produk->ratings->angket_penilaian)
+                    <td>
+                        <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->angket_penilaian) }}"
+                            class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                    </td>
+                @endif
+            </tr>
+            <tr>
+                <td>Laporan Ringkas Verifikasi</td>
+                <td>
+                    <span
+                        class="badge {{ $produk->ratings->laporan_ringkas_verifikasi !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
+                        @if ($produk->ratings->laporan_ringkas_verifikasi !== null)
+                            <i class="fas fa-check"></i>
+                        @else
+                            <i class="fas fa-times"></i>
+                        @endif
+                    </span>
+                </td>
+                @if ($this->produk->ratings->laporan_ringkas_verifikasi)
+                    <td>
+                        <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->laporan_ringkas_verifikasi) }}"
+                            class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                    </td>
+                @endif
+            </tr>
+            <tr>
+                <td>Recommendation for Improvement</td>
+                <td>
+                    <span
+                        class="badge {{ $produk->ratings->recommendation_for_improvement !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
+                        @if ($produk->ratings->recommendation_for_improvement !== null)
+                            <i class="fas fa-check"></i>
+                        @else
+                            <i class="fas fa-times"></i>
+                        @endif
+                    </span>
+                </td>
+                @if ($this->produk->ratings->recommendation_for_improvement)
+                    <td>
+                        <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->recommendation_for_improvement) }}"
+                            class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                    </td>
+                @endif
+            </tr>
+        </tbody>
+    </table>
 </div>
+@section('js')
+
+    <script>
+        window.addEventListener('swal:error', event => {
+            swal({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+                dangerMode: true,
+                timer: 1500,
+            });
+        });
+
+    </script>
+@endsection

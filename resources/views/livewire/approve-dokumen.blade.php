@@ -47,6 +47,7 @@
                     <tr>
                         <th scope="col">Nama Dokumen</th>
                         <th scope="col">File</th>
+                        <th scope="col">Action</th>
                         <th scope="col">Status</th>
                         <th scope="col">Keterangan</th>
                     </tr>
@@ -56,36 +57,34 @@
                         <tr>
                             <td>Salinan akta notaris pendirian perusahaan.</td>
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->akta_notaris_doc }}
-                                    </div>
-                                    @if ($perusahaan)
-                                        <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->akta_notaris_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
-                                    @endif
-                                    @if ($document->status_akta_notaris_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
-                                            data-target="#modalAkta">Approve</button>
-                                    @endif
-                                </div>
-                                {{-- Modal --}}
-                                <div class="modal fade" id="modalAkta" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <h5>Approve Dokumen ?</h5>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">No</button>
-                                                <button type="button"
-                                                    wire:click="approveAktaNotaris({{ $document->id }})"
-                                                    class="btn btn-primary">Yes</button>
+                                {{ $document->akta_notaris_doc }}
+                            </td>
+                            <td class="d-flex">
+                                @if ($perusahaan)
+                                    <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->akta_notaris_doc) }}"
+                                        class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
+                                @endif
+                                @if ($document->status_akta_notaris_doc !== 2)
+                                    <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
+                                        data-target="#modalAkta">Approve</button>
+                                    {{-- Modal --}}
+                                    <div class="modal fade" id="modalAkta" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <h5>Approve Dokumen ?</h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">No</button>
+                                                    <button type="button"
+                                                        wire:click="approveAktaNotaris({{ $document->id }}, 'status_akta_notaris_doc')"
+                                                        class="btn btn-primary">Yes</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </td>
                             <td>
                                 @switch($document->status_akta_notaris_doc)
@@ -105,34 +104,31 @@
                                 @if ($document->ket_akta_notaris_doc)
                                     {{ $document->ket_akta_notaris_doc }}
                                 @else
-                                    <div x-data="{open:false}">
-                                        <button class="btn btn-sm btn-info ml-2 col-12" @click="open=true">Tambah
-                                            Keterangan</button>
-                                        <div class="modal fade" x-show="open" @click.away="open=false" tabindex="-1"
-                                            id="ketAktaNotaris">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Tambah Keterangan</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                    <button class="btn btn-sm btn-info ml-2" data-toggle="modal"
+                                        data-target="#ketAkta">Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketAkta" wire:ignore.self>
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="name" wire:model="ket_akta_notaris_doc"
+                                                            class="form-control"
+                                                            placeholder="Keterangan untuk Akta Notarisc...">
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <input type="name" wire:model="ket_akta_notaris_doc"
-                                                                class="form-control"
-                                                                placeholder="Keterangan untuk Akta Notaris...">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Tutup</button>
-                                                        <button type="button"
-                                                            wire:click="ketAktaNotaris({{ $document->id }})"
-                                                            class="btn btn-primary">Simpan</button>
-                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                    <button type="button"
+                                                        wire:click="ketAktaNotaris({{ $document->id }})"
+                                                        class="btn btn-primary">Simpan</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -143,38 +139,45 @@
                     @endif
                     @if ($document->siup_doc)
                         <tr>
+                            {{-- Nama Dokumen --}}
                             <td>Salinan Surat Izin Usaha Perdagangan (SIUP)</td>
+                            {{-- Nama File --}}
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->siup_doc }}
-                                    </div>
+                                {{ $document->siup_doc }}
+                            </td>
+                            {{-- Action --}}
+                            <td>
+                                <div class="d-flex">
                                     @if ($perusahaan)
                                         <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->siup_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
+                                            class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
                                     @endif
                                     @if ($document->status_siup_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
+                                        <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
                                             data-target="#modalSIUP">Approve</button>
-                                    @endif
-                                </div>
-                                {{-- Modal --}}
-                                <div class="modal fade" id="modalSIUP" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <h5>Approve Dokumen ?</h5>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">No</button>
-                                                <button type="button" wire:click="approveSIUP({{ $document->id }})"
-                                                    class="btn btn-primary">Yes</button>
+
+                                        {{-- Modal --}}
+                                        <div class="modal fade" id="modalSIUP" tabindex="-1">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <h5>Approve Dokumen ?</h5>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">No</button>
+                                                        <button type="button"
+                                                            wire:click="approveSIUP({{ $document->id }})"
+                                                            class="btn btn-primary">Yes</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                    @endif
                                 </div>
                             </td>
+                            {{-- Status --}}
                             <td>
                                 @switch($document->status_siup_doc)
                                     @case(0)
@@ -189,13 +192,14 @@
                                     @default
                                 @endswitch
                             </td>
+                            {{-- Keterangan --}}
                             <td>
                                 @if ($document->ket_siup_doc)
                                     {{ $document->ket_siup_doc }}
                                 @else
-                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
-                                        data-target="#ketSIUP">Tambah Keterangan</button>
-                                    <div class="modal fade" tabindex="-1" id="ketSIUP">
+                                    <button class="btn btn-sm btn-info ml-2" data-toggle="modal"
+                                        data-target="#ketSIUP">Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketSIUP" wire:ignore.self>
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -228,16 +232,16 @@
                         <tr>
                             <td>Salinan Tanda Daftar Perusahaan (TDP).</td>
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->tdp_doc }}
-                                    </div>
+                                {{ $document->tdp_doc }}
+                            </td>
+                            <td>
+                                <div class="d-flex">
                                     @if ($perusahaan)
                                         <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->tdp_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
+                                            class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
                                     @endif
                                     @if ($document->status_tdp_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
+                                        <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
                                             data-target="#modalTDP">Approve</button>
                                     @endif
                                 </div>
@@ -276,9 +280,9 @@
                                 @if ($document->ket_tdp_doc)
                                     {{ $document->ket_tdp_doc }}
                                 @else
-                                    <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
-                                        data-target="#ketTDP">Tambah Keterangan</button>
-                                    <div class="modal fade" tabindex="-1" id="ketTDP">
+                                    <button class="btn btn-sm btn-info ml-2" data-toggle="modal"
+                                        data-target="#ketTDP">Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketTDP" wire:ignore.self>
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -311,16 +315,16 @@
                         <tr>
                             <td>Salinan Nomor Pokok Wajib Pajak (NPWP) Perusahaan</td>
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->npwp_doc }}
-                                    </div>
+                                {{ $document->npwp_doc }}
+                            </td>
+                            <td>
+                                <div class="d-flex">
                                     @if ($perusahaan)
                                         <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->npwp_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
+                                            class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
                                     @endif
                                     @if ($document->status_npwp_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
+                                        <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
                                             data-target="#modalNPWP">Approve</button>
                                     @endif
                                 </div>
@@ -360,7 +364,7 @@
                                     {{ $document->ket_npwp_doc }}
                                 @else
                                     <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
-                                        data-target="#ketNPWP">Tambah Keterangan</button>
+                                        data-target="#ketNPWP">Keterangan</button>
                                     <div class="modal fade" tabindex="-1" id="ketNPWP">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
@@ -394,16 +398,16 @@
                         <tr>
                             <td>Informasi importer dan salinan Angka Pengenal Importir (API).</td>
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->api_doc }}
-                                    </div>
+                                {{ $document->api_doc }}
+                            </td>
+                            <td>
+                                <div class="d-flex">
                                     @if ($perusahaan)
                                         <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->api_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
+                                            class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
                                     @endif
                                     @if ($document->status_npwp_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
+                                        <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
                                             data-target="#modalAPI">Approve</button>
                                     @endif
                                 </div>
@@ -443,8 +447,8 @@
                                     {{ $document->ket_api_doc }}
                                 @else
                                     <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
-                                        data-target="#ketAPI">Tambah Keterangan</button>
-                                    <div class="modal fade" tabindex="-1" id="ketAPI">
+                                        data-target="#ketAPI">Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketAPI" wire:ignore.self>
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -456,7 +460,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <input type="name" wire:model="ket_API_doc" class="form-control"
+                                                        <input type="name" wire:model="ket_api_doc" class="form-control"
                                                             placeholder="Keterangan untuk API...">
                                                     </div>
                                                 </div>
@@ -477,16 +481,16 @@
                         <tr>
                             <td>Salinan Tanda Daftar Merk terbitan Dirjen HAKI Kemenhumham.</td>
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->daftar_merk_doc }}
-                                    </div>
+                                {{ $document->daftar_merk_doc }}
+                            </td>
+                            <td>
+                                <div class="d-flex">
                                     @if ($perusahaan)
                                         <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->daftar_merk_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
+                                            class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
                                     @endif
                                     @if ($document->status_npwp_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
+                                        <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
                                             data-target="#modalDaftarMerk">Approve</button>
                                     @endif
                                 </div>
@@ -527,8 +531,8 @@
                                     {{ $document->ket_daftar_merk_doc }}
                                 @else
                                     <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
-                                        data-target="#ketDaftarMerk">Tambah Keterangan</button>
-                                    <div class="modal fade" tabindex="-1" id="ketDaftarMerk">
+                                        data-target="#ketDaftarMerk">Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketDaftarMerk" wire:ignore.self>
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -563,16 +567,16 @@
                         <tr>
                             <td>Lembar keselamatan bahan (SDS) dari produk yang akan disertifikasi.</td>
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->sds_produk_doc }}
-                                    </div>
+                                {{ $document->sds_produk_doc }}
+                            </td>
+                            <td>
+                                <div class="d-flex">
                                     @if ($perusahaan)
                                         <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->sds_produk_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
+                                            class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
                                     @endif
                                     @if ($document->status_npwp_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
+                                        <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
                                             data-target="#modalSDSProduk">Approve</button>
                                     @endif
                                 </div>
@@ -613,8 +617,8 @@
                                     {{ $document->ket_sds_produk_doc }}
                                 @else
                                     <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
-                                        data-target="#ketNPWP">Tambah Keterangan</button>
-                                    <div class="modal fade" tabindex="-1" id="ketNPWP">
+                                        data-target="#ketSDSProduk">Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketSDSProduk" wire:ignore.self>
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -649,16 +653,16 @@
                         <tr>
                             <td>Bill of material dari produk yang akan disertifikasi.</td>
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->material_bill_doc }}
-                                    </div>
+                                {{ $document->material_bill_doc }}
+                            </td>
+                            <td>
+                                <div class="d-flex">
                                     @if ($perusahaan)
                                         <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->material_bill_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
+                                            class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
                                     @endif
                                     @if ($document->status_npwp_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
+                                        <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
                                             data-target="#modalMaterialBill">Approve</button>
                                     @endif
                                 </div>
@@ -699,12 +703,12 @@
                                     {{ $document->ket_material_bill_doc }}
                                 @else
                                     <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
-                                        data-target="#ketMaterialBill">Tambah Keterangan</button>
-                                    <div class="modal fade" tabindex="-1" id="ketMaterialBill">
+                                        data-target="#ketMaterialBill">Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketMaterialBill" wire:ignore.self>
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Tambah Keterangan</h5>
+                                                    <h5 class="modal-title">Keterangan</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -735,16 +739,16 @@
                         <tr>
                             <td>Lembar keselamatan bahan (SDS) dari seluruh bahan baku yang digunakan.</td>
                             <td>
-                                <div class="row">
-                                    <div class="document col-12 mb-4">
-                                        {{ $document->sds_material_doc }}
-                                    </div>
+                                {{ $document->sds_material_doc }}
+                            </td>
+                            <td>
+                                <div class="d-flex">
                                     @if ($perusahaan)
                                         <a href="{{ asset('storage/checklist-dokumen/' . $perusahaan->nama_perusahaan . '/' . $document->sds_material_doc) }}"
-                                            class="btn btn-primary col-5" target="_blank  ">Lihat Dokumen</a>
+                                            class="btn btn-sm btn-primary" target="_blank  ">Dokumen</a>
                                     @endif
                                     @if ($document->status_npwp_doc !== 2)
-                                        <button class="btn btn-success ml-2 col-3 approve" data-toggle="modal"
+                                        <button class="btn btn-success btn-sm ml-2 approve" data-toggle="modal"
                                             data-target="#modalSDSMaterial">Approve</button>
                                     @endif
                                 </div>
@@ -785,8 +789,8 @@
                                     {{ $document->ket_sds_material_doc }}
                                 @else
                                     <button class="btn btn-sm btn-info ml-2 col-12" data-toggle="modal"
-                                        data-target="#ketSDSMaterial">Tambah Keterangan</button>
-                                    <div class="modal fade" tabindex="-1" id="ketSDSMaterial">
+                                        data-target="#ketSDSMaterial">Keterangan</button>
+                                    <div class="modal fade" tabindex="-1" id="ketSDSMaterial" wire:ignore.self>
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -831,9 +835,10 @@
 
         window.livewire.on('hideModal', () => {
             $('.modal').modal('hide');
+            $('.modal-backdrop').remove();
         });
 
-        // $(document).on('click', '.approve', function() {
+        // $(document).on('click', '.showmodal', function() {
         //     let name = $(this).data('name');
         //     let id = $(this).data('id');
         //     $('.modal').modal('show');

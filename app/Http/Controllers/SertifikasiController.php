@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Company;
+use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use PDF;
 
 class SertifikasiController extends Controller
 {
@@ -17,6 +22,24 @@ class SertifikasiController extends Controller
         $id_user = Auth::user()->id;
         $company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
         return view('client/data-sertifikasi', compact('company', 'request'));
+    }
+    
+    public function showAllDataSertifikasi(){
+        $company = Company::with('factories.produk.document')->get();
+        return view('client/all-data-sertifikasi', compact('company'));
+    }
+
+    public function showSelectedDataSertifikasi($id)
+    {
+        $company = Company::with('factories.produk.document')->find($id);
+        return view('client/detail-data-sertifikasi', compact('company'));
+    }
+    public function cetak_pdf($id, Request $request)
+    {
+        $produk = Product::with('pabrik.perusahaan', 'kategoriProduk')->find($id);
+        $company = Company::with('factories.produk.document')->get();
+        $kategori = Category::with('kategoriProduk')->get();
+        return view('sertifikatgold' , compact('produk', 'kategori', 'company'));
     }
 
     public function addSertifikasi(Request $request){
