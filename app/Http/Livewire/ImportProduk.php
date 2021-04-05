@@ -8,9 +8,11 @@ use App\Factory;
 use App\Product;
 use App\Rating;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ImportProduk extends Component
 {
+    use WithFileUploads;
     public $kategori, $plant, $plant_id;
     public $nama_produk, $tipe_model, $ukuran, $merk_dagang, $deskripsi_produk, $tipe_pengemasan , $kategori_produk,
     $jenis_sertifikasi, $foto_produk = [];
@@ -28,6 +30,9 @@ class ImportProduk extends Component
         return view('livewire.import-produk');
     }
     public function uploadProduk(){
+        $pabrik = Factory::with('perusahaan')->find($this->plant_id);
+        // dd($data->nama_fasilitas, $data->perusahaan->nama_perusahaan);
+
         // $messages = [
         // 'required' => 'kolom :attribute kosong, harap diisi',
         // 'min' => ':attribute harus diisi minimal :min karakter',
@@ -48,9 +53,9 @@ class ImportProduk extends Component
 
         $i = 1;
         foreach ($this->foto_produk as $photo) {
-            $nama_file = $this->nama_perusahaan.'-'.$this->nama_fasilitas.'-'.$this->nama_produk;
+            $nama_file = $pabrik->perusahaan->nama_perusahaan.'-'.$pabrik->nama_fasilitas.'-'.$this->nama_produk;
             $data = $nama_file."-".$i++.".".$photo->extension();
-            $photo->storeAs('foto_produk/'.$this->nama_perusahaan, $data);
+            $photo->storeAs('foto_produk/'. $pabrik->perusahaan->nama_perusahaan, $data);
             $photodata[] = $data;
         }
         // Produk
@@ -70,7 +75,7 @@ class ImportProduk extends Component
         ]);
         $this->nextForm($produk->id);
     }
-    public function nextSubmitThirdForm($id){
+    public function nextForm($id){
 
         Document::create([
             'product_id' => $id

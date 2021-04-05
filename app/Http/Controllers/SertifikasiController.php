@@ -25,7 +25,7 @@ class SertifikasiController extends Controller
     }
     
     public function showAllDataSertifikasi(){
-        $company = Company::with('factories.produk.document')->get();
+        $company = Company::with('factories.produk.document')->paginate(5);
         return view('client/all-data-sertifikasi', compact('company'));
     }
 

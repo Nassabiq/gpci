@@ -2,7 +2,7 @@
     <div class="card card-outline card-teal p-4">
         <div class="card-body setup-content">
             {{-- Informasi Produk --}}
-            @dump($plant)
+            {{-- @dump($plant) --}}
             <div class="col-md-12">
                 <h3>Informasi Produk</h3>
                 <hr>
@@ -85,7 +85,7 @@
                 <div class="input-group mb-3 mx-0">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" {{-- wire:model="foto_produk" --}} name="foto_produk[]"
-                            wire:model="foto_produk" multiple id="photoproduk" onchange="savePhoto(this)">
+                            wire:model="foto_produk" multiple id="photoproduk">
                         <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                     </div>
                 </div>
