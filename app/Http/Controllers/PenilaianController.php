@@ -23,7 +23,7 @@ class PenilaianController extends Controller
     }
 
     public function angketPenilaian(){
-        $categories = Category::with('kategoriAngket')->get();
+        $categories = Category::with('kategoriAngket')->where('id', '!=', 1)->get();
         return view('client/angket-penilaian', compact('categories'));
     }
     public function inputAngketPenilaian(Request $request)

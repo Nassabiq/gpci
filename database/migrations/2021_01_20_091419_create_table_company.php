@@ -62,54 +62,29 @@ class CreateTableCompany extends Migration
             $table->foreignId('category_id');
             $table->foreignId('scoring_id')->nullable();
         });
+        Schema::create('product_document', function (Blueprint $table) {
+            $table->id();
+            $table->integer('product_id');
+            $table->integer('document_id');
+            $table->string('nama_dokumen')->nullable();
+            $table->integer('status');
+            $table->text('keterangan')->nullable();
+        });
+        Schema::create('documents', function (Blueprint $table) {
+            $table->id('id');
+            $table->string('nama_dokumen');
+
+            $table->foreignId('category_id');
+        });
+
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('categories');
         });
+
         Schema::create('scorings', function (Blueprint $table) {
             $table->id();
             $table->string('score');
-        });
-
-        Schema::create('documents', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('akta_notaris_doc')->nullable();
-            $table->integer('status_akta_notaris_doc')->nullable();
-            $table->string('ket_akta_notaris_doc')->nullable();
-
-            $table->string('siup_doc')->nullable();
-            $table->integer('status_siup_doc')->nullable();
-            $table->string('ket_siup_doc')->nullable();
-            
-            $table->string('tdp_doc')->nullable();
-            $table->integer('status_tdp_doc')->nullable();
-            $table->string('ket_tdp_doc')->nullable();
-            
-            $table->string('npwp_doc')->nullable();
-            $table->integer('status_npwp_doc')->nullable();
-            $table->string('ket_npwp_doc')->nullable();
-            
-            $table->string('api_doc')->nullable();
-            $table->integer('status_api_doc')->nullable();
-            $table->string('ket_api_doc')->nullable();
-            
-            $table->string('daftar_merk_doc')->nullable();
-            $table->integer('status_daftar_merk_doc')->nullable();
-            $table->string('ket_daftar_merk_doc')->nullable();
-            
-            $table->string('sds_produk_doc')->nullable();
-            $table->integer('status_sds_produk_doc')->nullable();
-            $table->string('ket_sds_produk_doc')->nullable();
-            
-            $table->string('material_bill_doc')->nullable();
-            $table->integer('status_material_bill_doc')->nullable();
-            $table->string('ket_material_bill_doc')->nullable();
-            
-            $table->string('sds_material_doc')->nullable();
-            $table->integer('status_sds_material_doc')->nullable();
-            $table->string('ket_sds_material_doc')->nullable();
-            
-            $table->foreignId('product_id');
         });
         
         Schema::create('ratings', function (Blueprint $table) {

@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Input Data Sertifikasi')
+@section('title', 'Input Angket Penilaian Sertifikasi')
 @section('content')
     <div class="container">
         <h2>Input Angket Penilaian</h2>

@@ -14,7 +14,8 @@ class Product extends Model
         return $this->belongsTo(Factory::class, 'factory_id');
     }
     public function document(){
-        return $this->hasOne(Document::class);
+        return $this->belongsToMany(Document::class, 'product_document')->withPivot('nama_dokumen', 'status',
+        'keterangan');
     }
     public function kategoriProduk(){
         return $this->belongsTo(Category::class, 'category_id');

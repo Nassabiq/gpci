@@ -6,10 +6,11 @@
         <li>Untuk memulai penilaian, harap ubah status produk pada tombol dibawah</li>
         <li>Template Form Penilaian bisa diunduh pada list yang ada dibawah ini</li>
     </ul>
-    @if ($produk->status !== 3)
+    @if ($produk->status == 2)
         <button class="btn btn-outline-primary my-2 float-right" data-toggle="modal" data-target="#modalConfirm">
             Approve
         </button>
+    @elseif($produk->status == 1)
     @else
         <button class="btn btn-primary my-2 float-right">
             Produk telah disertifikasi

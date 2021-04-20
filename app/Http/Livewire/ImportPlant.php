@@ -63,6 +63,6 @@ class ImportPlant extends Component
             'company_id' => $this->company_id
         ]);
         session()->flash('success', 'Import Data Plant Berhasil');
-        return redirect('/sertifikasi/import-data-sertifikasi');
+        return redirect('/import/data-sertifikasi');
     }
 }

@@ -35,7 +35,7 @@ class Wizard extends Component
     public $nama3, $jabatan3, $no_hp3, $email3, $no_telp3, $fax3;
 
     public function mount(){
-        $this->kategori = Category::get();
+        $this->kategori = Category::where('id', '!=', 1)->get();
 
         $id_user = Auth::user()->id;
         $this->company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
@@ -219,14 +219,21 @@ class Wizard extends Component
             'foto_produk' => json_encode($photodata, 128),
             'factory_id' => $id,
             'status' => 1
-            ]);
+        ]);
+
+        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 100));
+        
+        for ($i=0; $i < count($document); $i++) { 
+            if (isset($document[$i]->id)) {
+                # code...
+                $produk->document()->attach($document[$i]->id, ['status' => 0]);
+            }
+        }
+        
         $this->nextSubmitThirdForm($produk->id);
     }
     public function nextSubmitThirdForm($id){
 
-        Document::create([
-            'product_id' => $id
-        ]);
         Rating::create([
             'product_id' => $id
         ]);

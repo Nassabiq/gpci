@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Auth\LoginController@showLoginForm');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -27,7 +25,7 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'revalidate']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/account', 'AccountController@index')->name('account');
     Route::post('/account/edit', 'AccountController@changePassword');
@@ -45,7 +43,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['middleware' => ['role:admin|super-admin']], function(){
             Route::get('/data-sertifikasi', 'SertifikasiController@showAllDataSertifikasi')->name('data-sertifikasi');
             Route::get('/data-sertifikasi/{companies:id}', 'SertifikasiController@showSelectedDataSertifikasi')->name('detail-data-sertifikasi');
-            Route::get('/import-data-sertifikasi', 'ImportDataController@index')->name('import-data-sertifikasi');
+        });
+    });
+    Route::prefix('import')->group(function(){
+        Route::group(['middleware' => ['role:admin|super-admin']], function(){
+            Route::get('/data-sertifikasi', 'ImportDataController@index')->name('import-data-sertifikasi');
+            Route::get('/checklist-dokumen', 'ChecklistDokumenController@index')->name('import-checklist-dokumen');
+            Route::get('/kategori-produk', 'KategoriProdukController@index')->name('add-kategori-produk');
+            Route::post('/kategori-produk/post', 'KategoriProdukController@store');
+            Route::post('/kategori-produk/{id}/edit', 'KategoriProdukController@edit');
+            Route::post('/kategori-produk/{id}/delete', 'KategoriProdukController@delete');
         });
     });
     Route::prefix('penilaian')->group(function(){

@@ -17,28 +17,32 @@ class UserSeeder extends Seeder
         $superadmin = User::create([
             'name' => 'Anas Sabiq',
             'email' => 'nasirudinsabiq@gmail.com',
-            'password' => bcrypt('anas1412')
+            'password' => bcrypt('anas1412'),
+            'status' => 1,
         ]);
         $superadmin->assignRole('super-admin');
         
         $admin = User::create([
             'name' => 'admin',
             'email' => 'admin@gpci.or.id',
-            'password' => bcrypt('admingpci')
+            'password' => bcrypt('admingpci'),
+            'status' => 1,
         ]);
         $admin->assignRole('admin');
         
         $verifikator = User::create([
             'name' => 'verifikator',
             'email' => 'verifikator@gpci.or.id',
-            'password' => bcrypt('verifikatorgpci')
+            'password' => bcrypt('verifikatorgpci'),
+            'status' => 1,
         ]);
         $verifikator->assignRole('verifikator');
         
         $client = User::create([
             'name' => 'client',
             'email' => 'client@gpci.or.id',
-            'password' => bcrypt('clientgpci')
+            'password' => bcrypt('clientgpci'),
+            'status' => 0,
         ]);
         $client->assignRole('client');
     }

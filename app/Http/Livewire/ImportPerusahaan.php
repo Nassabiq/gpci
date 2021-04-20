@@ -90,6 +90,6 @@ class ImportPerusahaan extends Component
         ]);
 
         session()->flash('success', 'Import Data Perusahaan Berhasil');
-        return redirect('/sertifikasi/import-data-sertifikasi');
+        return redirect('/import/data-sertifikasi');
     }
 }

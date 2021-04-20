@@ -22,7 +22,7 @@ class ImportProduk extends Component
         {
             $q->where('user_id', '=', 0);
         })->get();
-        $this->kategori = Category::get();
+        $this->kategori = Category::where('id', '!=', 1)->get();
     }
 
     public function render()
@@ -73,18 +73,22 @@ class ImportProduk extends Component
             'factory_id' => $this->plant_id,
             'status' => 1
         ]);
+        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 100));
+        for ($i=0; $i < count($document); $i++) {
+            if (isset($document[$i]->id)) {
+                # code...
+                $produk->document()->attach($document[$i]->id, ['status' => 0]);
+            }
+        }
         $this->nextForm($produk->id);
     }
     public function nextForm($id){
 
-        Document::create([
-            'product_id' => $id
-        ]);
         Rating::create([
             'product_id' => $id
         ]);
 
         session()->flash('success', 'Import Data Produk Berhasil');
-        return redirect('/sertifikasi/import-data-sertifikasi');
+        return redirect('/import/data-sertifikasi');
     }
 }

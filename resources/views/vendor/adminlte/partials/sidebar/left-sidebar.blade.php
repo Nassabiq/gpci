@@ -70,14 +70,42 @@
                                         <p>Data Sertifikasi</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('import-data-sertifikasi') }}"
-                                        class="nav-link text-sm {{ request()->routeIs('import-data-sertifikasi') ? 'active' : '' }}">
-                                        <i class="fas fa-file-import nav-icon"></i>
-                                        <p>Import Data</p>
-                                    </a>
-                                </li>
                             @endif
+                        </ul>
+                    </li>
+                @endif
+                @if (Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('admin'))
+                    <li class="nav-item has-treeview {{ request()->segment(1) == 'import' ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->segment(1) == 'import' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-file-upload"></i>
+                            <p>
+                                Import Data
+                                <i class="right fas fa-angle-right"></i>
+                            </p>
+                        </a>
+
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('import-data-sertifikasi') }}"
+                                    class="nav-link text-sm {{ request()->routeIs('import-data-sertifikasi') ? 'active' : '' }}">
+                                    <i class="fas fa-file-import nav-icon"></i>
+                                    <p>Import Data</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('import-checklist-dokumen') }}"
+                                    class="nav-link text-sm {{ request()->routeIs('import-checklist-dokumen') ? 'active' : '' }}">
+                                    <i class="fas fa-file-import nav-icon"></i>
+                                    <p>Checklist Dokumen</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('add-kategori-produk') }}"
+                                    class="nav-link text-sm {{ request()->routeIs('add-kategori-produk') ? 'active' : '' }}">
+                                    <i class="fas fa-folder-plus nav-icon"></i>
+                                    <p>Add Kategori Produk</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif
@@ -90,8 +118,8 @@
                                 <i class="right fas fa-angle-right"></i>
                             </p>
                         </a>
-                        @if (Auth::user()->hasRole('verifikator') || Auth::user()->hasRole('super-admin'))
-                            <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview">
+                            @if (Auth::user()->hasRole('verifikator') || Auth::user()->hasRole('super-admin'))
                                 <li class="nav-item">
                                     <a href="{{ route('penilaian-sertifikasi') }}"
                                         class="nav-link text-sm {{ request()->routeIs('penilaian-sertifikasi') ? 'active' : '' }}">
@@ -99,10 +127,8 @@
                                         <p>Penilaian Sertifikasi</p>
                                     </a>
                                 </li>
-                            </ul>
-                        @endif
-                        @if (Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('admin'))
-                            <ul class="nav nav-treeview">
+                            @endif
+                            @if (Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('admin'))
                                 <li class="nav-item">
                                     <a href="{{ route('input-angket-penilaian') }}"
                                         class="nav-link text-sm {{ request()->routeIs('input-angket-penilaian') ? 'active' : '' }}">
@@ -110,8 +136,8 @@
                                         <p>Input Angket Penilaian</p>
                                     </a>
                                 </li>
-                            </ul>
-                        @endif
+                            @endif
+                        </ul>
                     </li>
                 @endif
                 @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('super-admin'))

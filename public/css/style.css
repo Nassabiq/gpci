@@ -26,3 +26,153 @@
 img{
     object-fit: cover;
 }
+
+
+
+/* form starting stylings ------------------------------- */
+.group{ 
+  position:relative;
+  align-items: center;
+  margin-bottom:45px;
+  padding: 0 40px; 
+}
+.group-register{ 
+  position:relative;
+  align-items: center;
+  margin-bottom:25px;
+  padding: 0 40px; 
+}
+.input-auth{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+.input-auth:focus { outline:none; }
+
+/* LABEL ======================================= */
+.label-auth{
+  color:#999; 
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:40px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.input-auth:focus ~ .label-auth, .input-auth:valid ~ .label-auth 		{
+  top:-20px;
+  font-size:14px;
+  color:#74C365;
+}
+
+/* BOTTOM BARS ================================= */
+.bar 	{ position:relative; display:block; width:100%; }
+.bar:before, .bar:after 	{
+  content:'';
+  height:3px; 
+  width:0;
+  bottom:0; 
+  position:absolute;
+  background:#74C365; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+.input-auth:focus ~ .bar:before, .input-auth:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+.input-auth:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+
+.btn-auth{
+    background-color: #74C365;
+    font-size: 18px;
+    letter-spacing: 3px;
+}
+
+.login-card{
+    border-radius: 20px;
+}
+.logo{
+    z-index: -1;
+    width: 30%;
+}
+
+.con{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.subtitle{
+    letter-spacing: 3px;
+}
+.bg-login{
+    background-color: #74C365;
+}
+
+.register{
+  color: black;
+}
+.register:hover{
+  text-decoration: none;
+  color: green;
+}
+
+.alert-auth{
+  padding-top: -100px;
+}
+
+/* Dashboard */
+
+.icon-dashboard{
+   font-size: 48px;
+}
+

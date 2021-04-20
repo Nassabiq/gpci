@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,8 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
+
+    use ThrottlesLogins;
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -29,7 +32,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('auth.login', ['body_class' => 'bg-login']);
     }
 
     /**
@@ -67,6 +70,13 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ], $messages);
 
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         } else {
@@ -78,11 +88,13 @@ class LoginController extends Controller
                     return redirect()->intended('/home');
                 } else {
                 // if unsuccessful -> redirect back
+                    $this->incrementLoginAttempts($request);
                     return redirect()->back()->withInput($request->only('email'))->withErrors([
-                        'status' => 'Akun belum disetujui, Silahkan Hubungi Kontak yang tersedia untuk melakukan aktivasi'
+                        'status' => 'Akun belum disetujui, Silahkan Hubungi Admin untuk melakukan proses aktivasi akun'
                     ]);
                 }
             } else{
+                $this->incrementLoginAttempts($request);
                 return redirect()->back()->withInput($request->only('email'))->withErrors([
                     'password' => 'Password Salah'
                 ]);

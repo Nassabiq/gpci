@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             KategoriProdukSeeder::class,
             ScoreSeeder::class,
+            DocumentSeeder::class,
         ]);
     }
 }

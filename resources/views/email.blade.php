@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -14,8 +14,7 @@
 <body style="margin: 0 auto; padding: 0; font-family: 'Palanquin', sans-serif;">
     <table style="border: 1px solid #cccccc; border-collapse: collapse; width: 600px;
             margin: 0 auto;">
-        <tr
-            style="background-image: url({{ $message->embed('img/gg.jpg') }}); padding: 40px 0 0 0; text-align: center;">
+        <tr style="background-color: #09db6f; padding: 40px 0 0 0; text-align: center;">
             <td>
                 <table style="width: 100%; border-collapse: collapse;
             margin: 0 auto;">
@@ -92,7 +91,32 @@
             </td>
         </tr>
     </table>
-    {{-- {{ $nama_perusahaan }}, Berhasil --}}
 </body>
 
-</html>
+</html> --}}
+@extends('beautymail::templates.sunny')
+
+@section('content')
+
+    @include ('beautymail::templates.sunny.heading' , [
+    'heading' => 'Thank You for Submitting Your Application Form',
+    'level' => 'h2',
+    ])
+
+    @include('beautymail::templates.sunny.contentStart')
+    <div style="text-align: center">
+        <p>Terima kasih atas pendaftarannya dari {{ $nama }}. Formulir pendaftaran sertifikasi Green Label
+            Indonesia
+            (GLI) telah kami terima dengan baik.</p>
+        <p>
+            Selanjutnya adalah input checklist dokumen, mohon dipersiapkan copy dokumen pelengkap sesuai
+            checklist tersebut dan di-input kembali pada Sistem sertifikasi Green Label Indonesia <a
+                href="google.com">disini</a>. <br>
+        </p>
+        <p style="margin-top: 10px">
+            Demikian informasi dari kami. Terima kasih atas perhatiannya.
+        </p>
+    </div>
+
+    @include('beautymail::templates.sunny.contentEnd')
+@stop

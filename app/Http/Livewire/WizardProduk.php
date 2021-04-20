@@ -26,7 +26,7 @@ class WizardProduk extends Component
     $kategori_produk, $jenis_sertifikasi, $foto_produk = [];
 
     public function mount(){
-        $this->kategori = Category::get();
+        $this->kategori = Category::where('id', '!=', 1)->get();
 
         $id_user = Auth::user()->id;
         $this->company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
@@ -84,14 +84,21 @@ class WizardProduk extends Component
             'factory_id' => $this->nama_pabrik,
             'status' => 1
          ]);
-         $this->nextSubmitFirstForm($produk->id);
+
+        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 100));
+
+        for ($i=0; $i <= count($document); $i++) {
+            if (isset($document[$i]->id)) {
+                # code...
+                $produk->document()->attach($document[$i]->id, ['status' => 0]);
+            } 
+        }
+        
+        $this->nextSubmitFirstForm($produk->id);
          
     }
 
     public function nextSubmitFirstForm($id){
-        Document::create([
-            'product_id' => $id
-        ]);
         Rating::create([
             'product_id' => $id
         ]);

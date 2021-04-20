@@ -425,7 +425,7 @@
                         <div class="input-group mb-3 mx-0">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" {{-- wire:model="foto_produk" --}} name="foto_produk[]"
-                                    wire:model="foto_produk" multiple id="photoproduk">
+                                    accept="image/*" wire:model="foto_produk" multiple id="photoproduk">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                             </div>
                         </div>

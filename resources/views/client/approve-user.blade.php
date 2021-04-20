@@ -18,6 +18,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
                     <th scope="col">Status</th>
+                    <th scope="col">No. Telp</th>
                     <th scope="col">Tgl Mendaftar</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -40,6 +41,9 @@
                             @else
                                 <span class="badge badge-pill badge-success">Sudah diaktivasi</span>
                             @endif
+                        </td>
+                        <td>
+                            {{ $item->phone }}
                         </td>
                         <td>
                             {{ Carbon\Carbon::parse($item->created_at)->locale('id')->diffForHumans() }}

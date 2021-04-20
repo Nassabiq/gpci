@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'status'
+        'name', 'email','phone', 'password', 'status'
     ];
 
     /**
@@ -38,8 +38,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function adminlte_profile_url()
-    {
+    public function adminlte_profile_url(){
         return 'profile/username';
+    }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class, 'user_id');
     }
 }
