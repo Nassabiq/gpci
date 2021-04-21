@@ -4,56 +4,58 @@
     <div class="container">
         <h2>Approve User</h2>
         <hr>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">No. Telp</th>
-                    <th scope="col">Tgl Mendaftar</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $no = 1;
-                @endphp
-                @foreach ($user as $item)
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <th scope="row">{{ $no++ }}</th>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->email }}</td>
-                        @foreach ($item->roles as $role)
-                            <td>{{ Str::ucfirst($role->name) }}</td>
-                        @endforeach
-                        <td>
-                            @if ($item->status == 0)
-                                <span class="badge badge-pill badge-danger">Belum diaktivasi</span>
-                            @else
-                                <span class="badge badge-pill badge-success">Sudah diaktivasi</span>
-                            @endif
-                        </td>
-                        <td>
-                            {{ $item->phone }}
-                        </td>
-                        <td>
-                            {{ Carbon\Carbon::parse($item->created_at)->locale('id')->diffForHumans() }}
-                        </td>
-                        <td>
-                            @if ($item->status == 0)
-                                <button type="submit" class="btn btn-sm btn-primary showModal" data-id="{{ $item->id }}"
-                                    data-name="{{ $item->name }}">
-                                    Approve
-                                </button>
-                            @endif
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">No. Telp</th>
+                        <th scope="col">Tgl Mendaftar</th>
+                        <th scope="col">Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @php
+                        $no = 1;
+                    @endphp
+                    @foreach ($user as $item)
+                        <tr>
+                            <th scope="row">{{ $no++ }}</th>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->email }}</td>
+                            @foreach ($item->roles as $role)
+                                <td>{{ Str::ucfirst($role->name) }}</td>
+                            @endforeach
+                            <td>
+                                @if ($item->status == 0)
+                                    <span class="badge badge-pill badge-danger">Belum diaktivasi</span>
+                                @else
+                                    <span class="badge badge-pill badge-success">Sudah diaktivasi</span>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $item->phone }}
+                            </td>
+                            <td>
+                                {{ Carbon\Carbon::parse($item->created_at)->locale('id')->diffForHumans() }}
+                            </td>
+                            <td>
+                                @if ($item->status == 0)
+                                    <button type="submit" class="btn btn-sm btn-primary showModal"
+                                        data-id="{{ $item->id }}" data-name="{{ $item->name }}">
+                                        Approve
+                                    </button>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex justify-content-center">
             {{ $user->links() }}
         </div>

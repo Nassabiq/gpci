@@ -87,74 +87,76 @@
     </table>
 
     <h5>List Dokumen Audit Sertifikasi</h5>
-    <table class="table">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">List</th>
-                <th scope="col">Status</th>
-                <th scope="col">Dokumen</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Angket Penilaian</td>
-                <td>
-                    <span
-                        class="badge {{ $produk->ratings->angket_penilaian !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
-                        @if ($produk->ratings->angket_penilaian !== null)
-                            <i class="fas fa-check"></i>
-                        @else
-                            <i class="fas fa-times"></i>
-                        @endif
-                    </span>
-                </td>
-                @if ($this->produk->ratings->angket_penilaian)
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">List</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Dokumen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Angket Penilaian</td>
                     <td>
-                        <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->angket_penilaian) }}"
-                            class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                        <span
+                            class="badge {{ $produk->ratings->angket_penilaian !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
+                            @if ($produk->ratings->angket_penilaian !== null)
+                                <i class="fas fa-check"></i>
+                            @else
+                                <i class="fas fa-times"></i>
+                            @endif
+                        </span>
                     </td>
-                @endif
-            </tr>
-            <tr>
-                <td>Laporan Ringkas Verifikasi</td>
-                <td>
-                    <span
-                        class="badge {{ $produk->ratings->laporan_ringkas_verifikasi !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
-                        @if ($produk->ratings->laporan_ringkas_verifikasi !== null)
-                            <i class="fas fa-check"></i>
-                        @else
-                            <i class="fas fa-times"></i>
-                        @endif
-                    </span>
-                </td>
-                @if ($this->produk->ratings->laporan_ringkas_verifikasi)
+                    @if ($this->produk->ratings->angket_penilaian)
+                        <td>
+                            <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->angket_penilaian) }}"
+                                class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                        </td>
+                    @endif
+                </tr>
+                <tr>
+                    <td>Laporan Ringkas Verifikasi</td>
                     <td>
-                        <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->laporan_ringkas_verifikasi) }}"
-                            class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                        <span
+                            class="badge {{ $produk->ratings->laporan_ringkas_verifikasi !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
+                            @if ($produk->ratings->laporan_ringkas_verifikasi !== null)
+                                <i class="fas fa-check"></i>
+                            @else
+                                <i class="fas fa-times"></i>
+                            @endif
+                        </span>
                     </td>
-                @endif
-            </tr>
-            <tr>
-                <td>Recommendation for Improvement</td>
-                <td>
-                    <span
-                        class="badge {{ $produk->ratings->recommendation_for_improvement !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
-                        @if ($produk->ratings->recommendation_for_improvement !== null)
-                            <i class="fas fa-check"></i>
-                        @else
-                            <i class="fas fa-times"></i>
-                        @endif
-                    </span>
-                </td>
-                @if ($this->produk->ratings->recommendation_for_improvement)
+                    @if ($this->produk->ratings->laporan_ringkas_verifikasi)
+                        <td>
+                            <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->laporan_ringkas_verifikasi) }}"
+                                class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                        </td>
+                    @endif
+                </tr>
+                <tr>
+                    <td>Recommendation for Improvement</td>
                     <td>
-                        <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->recommendation_for_improvement) }}"
-                            class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                        <span
+                            class="badge {{ $produk->ratings->recommendation_for_improvement !== null ? 'badge-success' : 'badge-danger' }}  badge-pill">
+                            @if ($produk->ratings->recommendation_for_improvement !== null)
+                                <i class="fas fa-check"></i>
+                            @else
+                                <i class="fas fa-times"></i>
+                            @endif
+                        </span>
                     </td>
-                @endif
-            </tr>
-        </tbody>
-    </table>
+                    @if ($this->produk->ratings->recommendation_for_improvement)
+                        <td>
+                            <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->recommendation_for_improvement) }}"
+                                class="btn btn-sm btn-success" target="_blank  ">Preview</a>
+                        </td>
+                    @endif
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 @section('js')
 

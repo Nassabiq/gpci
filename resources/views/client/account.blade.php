@@ -13,7 +13,7 @@
                 Akun anda masih menggunakan password default, harap ubah password demi keamanan akun anda
             </div>
         @endif
-        <ul class="list-group col-6">
+        <ul class="list-group col-lg-6 col-md-12 col-12">
             @foreach ($user->roles as $role)
                 @if ($role->name !== 'client')
                     <li class="list-group-item d-flex justify-content-between align-items-center">

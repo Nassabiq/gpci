@@ -13,38 +13,40 @@
         </div>
         <button class="btn btn-primary btn-sm" wire:click.prevent="add()">Tambah Dokumen</button>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Nama Dokumen</th>
-                <th scope="col">Kategori</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $no = 1;
-            @endphp
-            @foreach ($docs as $doc)
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <th scope="row">{{ $no++ }}</th>
-                    <td>{{ $doc->nama_dokumen }}</td>
-                    <td>{{ $doc->kategoriProduk->categories }}</td>
-                    <td>
-                        @if ($doc->kategoriProduk->id !== 1)
-                            <div class="d-flex">
-                                <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click.prevent="edit({{ $doc }})">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm ml-2"
-                                    wire:click="delete({{ $doc->id }})">Delete</button>
-                            </div>
-                        @endif
-                    </td>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Dokumen</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Action</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @php
+                    $no = 1;
+                @endphp
+                @foreach ($docs as $doc)
+                    <tr>
+                        <th scope="row">{{ $no++ }}</th>
+                        <td>{{ $doc->nama_dokumen }}</td>
+                        <td>{{ $doc->kategoriProduk->categories }}</td>
+                        <td>
+                            @if ($doc->kategoriProduk->id !== 1)
+                                <div class="d-flex">
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click.prevent="edit({{ $doc }})">Edit</button>
+                                    <button type="button" class="btn btn-danger btn-sm ml-2"
+                                        wire:click="delete({{ $doc->id }})">Delete</button>
+                                </div>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
     <div class="modal fade" id="addDokumen" tabindex="-1" wire:ignore.self data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">

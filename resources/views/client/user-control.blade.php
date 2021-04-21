@@ -12,46 +12,48 @@
                 <small>{{ $error }}</small>
             </div>
         @endforeach
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $no = 1;
-                @endphp
-                @foreach ($users as $user)
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <th scope="row">{{ $no++ }}</th>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        @foreach ($user->roles as $role)
-                            <td>{{ Str::ucfirst($role->name) }}</td>
-                        @endforeach
-                        <td>
-                            @if ($user->status == 0)
-                                <span class="badge badge-pill badge-danger">Belum diaktivasi</span>
-                            @else
-                                <span class="badge badge-pill badge-success">Sudah diaktivasi</span>
-                            @endif
-                        </td>
-                        <td>
-                            <form method="post" action="user-management/delete-user/{{ $user->id }}">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-primary">Delete</button>
-                            </form>
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @php
+                        $no = 1;
+                    @endphp
+                    @foreach ($users as $user)
+                        <tr>
+                            <th scope="row">{{ $no++ }}</th>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            @foreach ($user->roles as $role)
+                                <td>{{ Str::ucfirst($role->name) }}</td>
+                            @endforeach
+                            <td>
+                                @if ($user->status == 0)
+                                    <span class="badge badge-pill badge-danger">Belum diaktivasi</span>
+                                @else
+                                    <span class="badge badge-pill badge-success">Sudah diaktivasi</span>
+                                @endif
+                            </td>
+                            <td>
+                                <form method="post" action="user-management/delete-user/{{ $user->id }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-primary">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex justify-content-center">
             {{ $users->links() }}
         </div>

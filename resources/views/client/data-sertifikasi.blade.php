@@ -195,154 +195,159 @@
                     </div>
                 </div>
                 <div id="dataProduk">
-                    <table class="table table-bordered w-100">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama Produk</th>
-                                <th scope="col">Deskripsi</th>
-                                <th scope="col">Pabrik</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach ($company->factories as $item)
-                                @foreach ($item->produk as $produk)
-                                    <tr>
-                                        <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $produk->nama_produk }}</td>
-                                        <td>{{ $produk->deskripsi_produk }}</td>
-                                        <td>{{ $item->nama_fasilitas }}</td>
-                                        <td>
-                                            @if ($produk->status == 1)
-                                                <span class="badge badge-pill badge-danger">Belum Diverifikasi</span>
-                                            @elseif($produk->status == 2)
-                                                <span class="badge badge-pill badge-warning">Sedang Diverifikasi</span>
-                                            @elseif($produk->status == 3)
-                                                <span class="badge badge-pill badge-success">Terverifikasi</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse"
-                                                data-target="#detail-{{ $produk->id }}">
-                                                <i class="fas fa-fw fa-info-circle"></i>
-                                                Detail
-                                            </button>
-                                            @if ($produk->status == 3)
-                                                <a href="/cetak-pdf/{{ $produk->id }}" target="_blank"
-                                                    class="btn btn-sm btn-warning">
-                                                    Cetak Sertifikat
-                                                </a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6" class="collapse" id="detail-{{ $produk->id }}">
-                                            <label>Foto Produk</label>
-                                            <div class="d-flex">
-                                                <div class="col-lg-6 col-md-12">
-                                                    @php
-                                                        $images = json_decode($produk->foto_produk);
-                                                    @endphp
-                                                    @foreach ($images as $image)
-                                                        <a href="#" class="imagemodal">
-                                                            <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
-                                                                alt="{{ $produk->nama_produk }}" width="200px"
-                                                                height="200px" class="border border-primary rounded mx-2">
-                                                        </a>
-                                                    @endforeach
-                                                </div>
-                                                <div class="col-lg-6 col-md-12">
-                                                    <ul class="list-group">
-                                                        <li class="list-group-item">
-                                                            <b>Jenis Sertifikasi</b> :
-                                                            {{ $produk->jenis_sertifikasi == 1 ? 'Pengajuan Baru' : 'Perpanjangan' }}
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <b>Tipe Model</b> : {{ $produk->tipe_model }}
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <b>Merk Dagang</b> : {{ $produk->merk_dagang }}
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <b>Tipe Pengemasan</b> : {{ $produk->tipe_pengemasan }}
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <b>Ukuran</b> : {{ $produk->ukuran }}
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <b>Tanggal Pendaftaran</b> :
-                                                            {{ \Carbon\Carbon::parse($produk->tgl_pendaftaran)->locale('id')->isoFormat('dddd, D MMMM Y') }}
-                                                        </li>
-                                                        @if ($produk->status == 3)
+                    <div class="table-responsive">
+                        <table class="table table-bordered w-100">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Produk</th>
+                                    <th scope="col">Deskripsi</th>
+                                    <th scope="col">Pabrik</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $no = 1;
+                                @endphp
+                                @foreach ($company->factories as $item)
+                                    @foreach ($item->produk as $produk)
+                                        <tr>
+                                            <th scope="row">{{ $no++ }}</th>
+                                            <td>{{ $produk->nama_produk }}</td>
+                                            <td>{{ $produk->deskripsi_produk }}</td>
+                                            <td>{{ $item->nama_fasilitas }}</td>
+                                            <td>
+                                                @if ($produk->status == 1)
+                                                    <span class="badge badge-pill badge-danger">Belum Diverifikasi</span>
+                                                @elseif($produk->status == 2)
+                                                    <span class="badge badge-pill badge-warning">Sedang Diverifikasi</span>
+                                                @elseif($produk->status == 3)
+                                                    <span class="badge badge-pill badge-success">Terverifikasi</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse"
+                                                    data-target="#detail-{{ $produk->id }}">
+                                                    <i class="fas fa-fw fa-info-circle"></i>
+                                                    Detail
+                                                </button>
+                                                @if ($produk->status == 3)
+                                                    <a href="/cetak-pdf/{{ $produk->id }}" target="_blank"
+                                                        class="btn btn-sm btn-warning">
+                                                        Cetak Sertifikat
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" class="collapse" id="detail-{{ $produk->id }}">
+                                                <label>Foto Produk</label>
+                                                <div class="d-flex">
+                                                    <div class="col-lg-6 col-md-12">
+                                                        @php
+                                                            $images = json_decode($produk->foto_produk);
+                                                        @endphp
+                                                        @foreach ($images as $image)
+                                                            <a href="#" class="imagemodal">
+                                                                <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
+                                                                    alt="{{ $produk->nama_produk }}" width="200px"
+                                                                    height="200px"
+                                                                    class="border border-primary rounded mx-2">
+                                                            </a>
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-12">
+                                                        <ul class="list-group">
                                                             <li class="list-group-item">
-                                                                <b>Masa Berlaku s/d</b> :
-                                                                {{ \Carbon\Carbon::parse($produk->tgl_masa_berlaku)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                                <b>Jenis Sertifikasi</b> :
+                                                                {{ $produk->jenis_sertifikasi == 1 ? 'Pengajuan Baru' : 'Perpanjangan' }}
                                                             </li>
-                                                        @endif
-                                                    </ul>
+                                                            <li class="list-group-item">
+                                                                <b>Tipe Model</b> : {{ $produk->tipe_model }}
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Merk Dagang</b> : {{ $produk->merk_dagang }}
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Tipe Pengemasan</b> : {{ $produk->tipe_pengemasan }}
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Ukuran</b> : {{ $produk->ukuran }}
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Tanggal Pendaftaran</b> :
+                                                                {{ \Carbon\Carbon::parse($produk->tgl_pendaftaran)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                            </li>
+                                                            @if ($produk->status == 3)
+                                                                <li class="list-group-item">
+                                                                    <b>Masa Berlaku s/d</b> :
+                                                                    {{ \Carbon\Carbon::parse($produk->tgl_masa_berlaku)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                                </li>
+                                                            @endif
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <div class="modal fade" id="imagepreview" tabindex="-1">
-                                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <img src="" id="image-full" style="width: 100%;">
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="imagepreview" tabindex="-1">
+                                            <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <img src="" id="image-full" style="width: 100%;">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 @endforeach
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div id="dataPabrik">
-                    <table class="table table-bordered w-100">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama Fasilitas</th>
-                                <th scope="col">No. Telp</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Kode Pos</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @php
-                                $no2 = 1;
-                            @endphp
-                            @foreach ($company->factories as $pabrik)
+                    <div class="table-responsive">
+                        <table class="table table-bordered w-100">
+                            <thead class="thead-light">
                                 <tr>
-                                    <th scope="row">{{ $no2++ }}</th>
-                                    <td>{{ $pabrik->nama_fasilitas }}</td>
-                                    <td>{{ $pabrik->no_telp_fasilitas }}</td>
-                                    <td>{{ $pabrik->email_fasilitas }}</td>
-                                    <td>{{ $pabrik->kodepos_fasilitas }}</td>
-                                    <td>
-                                        <button type="button" class="btn text-primary"><abbr title="Detail Produk">
-                                                <i class="fas fa-fw fa-info-circle"></i></abbr></button>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Fasilitas</th>
+                                    <th scope="col">No. Telp</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Kode Pos</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
 
-                                        <button type="button" class="border-0 bg-transparent text-danger"
-                                            data-toggle="modal" data-target="#deleteModal"><abbr title="Delete FAQ">
-                                                <i class="fas fa-fw fa-trash"></i>
-                                        </button>
-                                    </td>
-                            @endforeach
-                            {{-- <div class="detail-produk">
+                            <tbody>
+                                @php
+                                    $no2 = 1;
+                                @endphp
+                                @foreach ($company->factories as $pabrik)
+                                    <tr>
+                                        <th scope="row">{{ $no2++ }}</th>
+                                        <td>{{ $pabrik->nama_fasilitas }}</td>
+                                        <td>{{ $pabrik->no_telp_fasilitas }}</td>
+                                        <td>{{ $pabrik->email_fasilitas }}</td>
+                                        <td>{{ $pabrik->kodepos_fasilitas }}</td>
+                                        <td>
+                                            <button type="button" class="btn text-primary"><abbr title="Detail Produk">
+                                                    <i class="fas fa-fw fa-info-circle"></i></abbr></button>
+
+                                            <button type="button" class="border-0 bg-transparent text-danger"
+                                                data-toggle="modal" data-target="#deleteModal"><abbr title="Delete FAQ">
+                                                    <i class="fas fa-fw fa-trash"></i>
+                                            </button>
+                                        </td>
+                                @endforeach
+                                {{-- <div class="detail-produk">
 
                             </div> --}}
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             @endif
         </div>

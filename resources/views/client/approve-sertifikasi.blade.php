@@ -5,44 +5,46 @@
 
         <h2>Approve Sertifikasi</h2>
         <hr>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama Produk</th>
-                    <th scope="col">Nama Perusahaan</th>
-                    <th scope="col">Pabrik</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @php
-                    $i = 1;
-                @endphp
-                @foreach ($products as $product)
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <th scope="row">{{ $i++ }}</th>
-                        <td>{{ $product->nama_produk }}</td>
-                        <td>{{ $product->pabrik->perusahaan->nama_perusahaan }}</td>
-                        <td>{{ $product->pabrik->nama_fasilitas }}</td>
-                        <td>
-                            @if ($product->status == 1)
-                                <span class="badge badge-pill badge-danger">Belum Diverifikasi</span>
-                            @elseif($product->status == 2)
-                                <span class="badge badge-pill badge-warning">Sedang Diverifikasi</span>
-                            @elseif($product->status == 3)
-                                <span class="badge badge-pill badge-success">Terverifikasi</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ url('/approve/approve-sertifikasi/' . $product->id) }}"
-                                class="btn btn-sm btn-primary">Details</a>
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Produk</th>
+                        <th scope="col">Nama Perusahaan</th>
+                        <th scope="col">Pabrik</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach ($products as $product)
+                        <tr>
+                            <th scope="row">{{ $i++ }}</th>
+                            <td>{{ $product->nama_produk }}</td>
+                            <td>{{ $product->pabrik->perusahaan->nama_perusahaan }}</td>
+                            <td>{{ $product->pabrik->nama_fasilitas }}</td>
+                            <td>
+                                @if ($product->status == 1)
+                                    <span class="badge badge-pill badge-danger">Belum Diverifikasi</span>
+                                @elseif($product->status == 2)
+                                    <span class="badge badge-pill badge-warning">Sedang Diverifikasi</span>
+                                @elseif($product->status == 3)
+                                    <span class="badge badge-pill badge-success">Terverifikasi</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ url('/approve/approve-sertifikasi/' . $product->id) }}"
+                                    class="btn btn-sm btn-primary">Details</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 @endsection
