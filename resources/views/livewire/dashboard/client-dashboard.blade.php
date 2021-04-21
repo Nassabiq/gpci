@@ -111,3 +111,28 @@
         </div>
     </div>
 </div>
+@section('js')
+    @foreach ($product_is_approved as $item)
+        @php
+            $now = \Carbon\Carbon::now()->toDateString();
+            $date_interval = \Carbon\Carbon::parse($item->tgl_masa_berlaku)
+                ->subMonth(12)
+                ->addDay()
+                ->toDateString();
+        @endphp
+        @if ($now == $date_interval)
+            <script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Anda Memiliki Sertifikasi yang Berlaku 2 Bulan Lagi!',
+                        text: 'Silahkan Lakukan Perpanjangan Sertifikasi',
+                        timer: 5000,
+                        timerProgressBar: true,
+                    });
+                });
+
+            </script>
+        @endif
+    @endforeach
+@endsection

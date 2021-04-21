@@ -12,6 +12,7 @@ use App\Rating;
 use Carbon\Carbon;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WizardProduk extends Component
 {   
@@ -102,7 +103,7 @@ class WizardProduk extends Component
         Rating::create([
             'product_id' => $id
         ]);
-        session()->flash('success', 'Pendaftaran Berhasil');
+        toast('Pendaftaran Sertifikasi Berhasil!','success');
         return redirect('/home');
 
     }

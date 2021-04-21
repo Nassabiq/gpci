@@ -7,12 +7,6 @@
         {{-- @dump($roles) --}}
 
         <button type="button" class="btn btn-sm btn-primary add-account mb-2">Tambah Akun</button>
-        @if (session()->has('success'))
-            <div class="alert alert-success" role="alert">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                {{ session('success') }}
-            </div>
-        @endif
         @foreach ($errors->all() as $error)
             <div class="alert alert-danger" role="alert">
                 <small>{{ $error }}</small>

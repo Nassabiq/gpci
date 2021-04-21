@@ -55,9 +55,9 @@ class CreateTableCompany extends Migration
             $table->string('ukuran');
             $table->integer('status');
             $table->boolean('jenis_sertifikasi');
-            $table->timestamp('tgl_pendaftaran');
-            $table->timestamp('tgl_approve')->nullable();
-            $table->timestamp('tgl_masa_berlaku')->nullable();
+            $table->dateTime('tgl_pendaftaran');
+            $table->dateTime('tgl_approve')->nullable();
+            $table->dateTime('tgl_masa_berlaku')->nullable();
             $table->foreignId('factory_id');
             $table->foreignId('category_id');
             $table->foreignId('scoring_id')->nullable();

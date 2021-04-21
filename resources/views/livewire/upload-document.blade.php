@@ -6,9 +6,6 @@
             Dokumen yang diperbolehkan harus berbentuk <b>PDF</b> <br> dan setiap dokumen memiliki ukuran maksimal 2MB
         </p>
         <hr>
-        @if (session()->has('success'))
-            <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-        @endif
         <div class="col-3 my-3">
             <select class="custom-select" id="produk" wire:model="product">
                 <option value="" selected>Jenis Produk</option>
@@ -85,13 +82,13 @@
                                 <td>
                                     @switch($doc->pivot->status)
                                         @case(0)
-                                        <span class="badge badge-pill badge-secondary">kosong</span>
+                                            <span class="badge badge-pill badge-secondary">kosong</span>
                                         @break
                                         @case(1)
-                                        <span class="badge badge-pill badge-danger">Belum diapprove</span>
+                                            <span class="badge badge-pill badge-danger">Belum diapprove</span>
                                         @break
                                         @case(2)
-                                        <span class="badge badge-pill badge-success">Approved</span>
+                                            <span class="badge badge-pill badge-success">Approved</span>
                                         @break
                                         @default
                                     @endswitch
@@ -146,21 +143,6 @@
                 timer: 1500,
             });
         });
-        // window.livewire.on('hideModal', () => {
-        //     $('.modal').modal('hide');
-        // });
-        // $(document).on('click', '.showPDF', function() {
-        //     let url = $(this).data('url');
-        //     console.log(url);
-        //     $('.modal').modal('show');
-        //     let doc = $('#document');
-        //     // doc.append('<iframe src="' + url + '" width="100%" height="500px" type="application/pdf"></iframe>');
-        //     PDFObject.embed(url, '#document')
-
-        //     $(".modal").on('hidden.bs.modal', function() {
-        //         let url1 = $(this).data('url', null);
-        //     });
-        // });
 
     </script>
 @endsection

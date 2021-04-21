@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 
 class KategoriProdukController extends Controller
@@ -26,8 +27,9 @@ class KategoriProdukController extends Controller
         $category = Category::create([
             'categories' => $request->categories
         ]);
-
-        return redirect()->route('add-kategori-produk')->with('success', 'Data Berhasil ditambah');
+        
+        toast('Data Berhasil Ditambahkan!','success');
+        return redirect()->route('add-kategori-produk');
     }
 
     public function edit(Request $request, $id){
@@ -42,12 +44,15 @@ class KategoriProdukController extends Controller
         $category->categories = $request->categories;
         $category->save();
 
-        return redirect()->route('add-kategori-produk')->with('success', 'Data Berhasil diubah');
+        toast('Data Berhasil Diubah!','success');
+        return redirect()->route('add-kategori-produk');
     }
     public function delete($id)
     {
         $category = Category::find($id);
         $category->delete();
-        return redirect()->route('add-kategori-produk')->with('success', 'Data Berhasil dihapus');
+
+        toast('Data Berhasil Dihapus!','success');
+        return redirect()->route('add-kategori-produk');
     }
 }

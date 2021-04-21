@@ -216,9 +216,25 @@
 @section('js')
     <script src="https://unpkg.com/sweetalert2@7.8.2/dist/sweetalert2.all.js"></script>
     <script>
-        window.livewire.on('hideModal', () => {
+        window.addEventListener('hideModal', () => {
             $('.modal').modal('hide');
             $('.modal-backdrop').remove();
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: event.detail.type,
+                title: event.detail.message
+            })
         });
         window.addEventListener('swal:error', event => {
             swal({

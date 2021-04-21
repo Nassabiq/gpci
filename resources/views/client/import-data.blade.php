@@ -4,13 +4,8 @@
     <div class="container">
         <h2>Import Data</h2>
         <hr>
-        @if (session()->has('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
         <div class="row">
-            <div class="col-3">
+            <div class="col-lg-3 col-md-12 col-12 mb-4">
                 <div class="list-group" id="list-tab" role="tablist">
                     <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
                         href="#list-home" role="tab" aria-controls="home">Import Data Perusahaan</a>
@@ -20,7 +15,7 @@
                         href="#list-messages" role="tab" aria-controls="messages">Import Data Produk</a>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-lg-9 col-md-12 col-12">
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                         @livewire('import-perusahaan')

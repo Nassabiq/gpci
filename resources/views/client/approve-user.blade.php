@@ -4,12 +4,6 @@
     <div class="container">
         <h2>Approve User</h2>
         <hr>
-        @if (session('success'))
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                {{ session('success') }}
-            </div>
-        @endif
         <table class="table">
             <thead class="thead-light">
                 <tr>

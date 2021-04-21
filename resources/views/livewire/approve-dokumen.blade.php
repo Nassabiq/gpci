@@ -3,9 +3,9 @@
     <div class="container">
         <h2>Approve Dokumen</h2>
         <hr>
-        <label for="company" class="col-1">Perusahaan</label>
-        <div class="d-flex">
-            <div class="col-3">
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                <label for="company">Perusahaan</label>
                 <select class="custom-select" id="company" wire:model="selectedCompany">
                     <option value="" selected>Perusahaan</option>
                     @if ($companies)
@@ -19,8 +19,8 @@
             </div>
 
             @if (!is_null($selectedCompany))
-                <label for="factory" class="col-1">Factory</label>
-                <div class="col-3">
+                <div class="col-lg-4 col-12">
+                    <label for="factory">Factory</label>
                     <select class="form-control" wire:model="selectedFactory">
                         <option value="" selected>Factory</option>
                         @foreach ($factories as $factory)
@@ -30,8 +30,8 @@
                 </div>
             @endif
             @if (!is_null($selectedFactory))
-                <label for="products" class="col-1">Products</label>
-                <div class="col-3">
+                <div class="col-lg-4 col-12">
+                    <label for="products">Products</label>
                     <select class="form-control" wire:model="selectedProduct">
                         <option value="0">Product</option>
                         @foreach ($products as $product)
@@ -90,13 +90,13 @@
                                 <td>
                                     @switch($doc->pivot->status)
                                         @case(0)
-                                        <span class="badge badge-pill badge-secondary">kosong</span>
+                                            <span class="badge badge-pill badge-secondary">kosong</span>
                                         @break
                                         @case(1)
-                                        <span class="badge badge-pill badge-danger">Belum diapprove</span>
+                                            <span class="badge badge-pill badge-danger">Belum diapprove</span>
                                         @break
                                         @case(2)
-                                        <span class="badge badge-pill badge-success">Approved</span>
+                                            <span class="badge badge-pill badge-success">Approved</span>
                                         @break
                                         @default
                                     @endswitch

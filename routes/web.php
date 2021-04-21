@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth', 'revalidate']], function () {
         Route::group(['middleware' => ['role:admin|super-admin']], function(){
             Route::get('/input-angket-penilaian', 'PenilaianController@angketPenilaian')->name('input-angket-penilaian');
             Route::post('/input-angket-penilaian/post', 'PenilaianController@inputAngketPenilaian');
-            Route::post('/edit-angket-penilaian/edit/{docratings:id}', 'PenilaianController@editAngketPenilaian');
+            Route::post('/edit-angket-penilaian/edit/{id}', 'PenilaianController@editAngketPenilaian');
         });
     });
     Route::prefix('approve')->group(function(){

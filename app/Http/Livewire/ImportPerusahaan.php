@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Company;
+use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class ImportPerusahaan extends Component
@@ -89,7 +90,7 @@ class ImportPerusahaan extends Component
             'user_id' => 0,
         ]);
 
-        session()->flash('success', 'Import Data Perusahaan Berhasil');
+        toast('Import Data Sertifikasi Berhasil!','success');
         return redirect('/import/data-sertifikasi');
     }
 }

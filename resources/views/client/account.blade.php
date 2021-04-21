@@ -8,18 +8,6 @@
         </small>
         <button type="button" class="btn btn-sm btn-warning float-right changePassword">Ubah Password</button>
         <hr>
-        @if (session('success'))
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                {{ session('error') }}
-            </div>
-        @endif
         @if (Hash::check('gpci12345', $user->password))
             <div class="alert alert-danger mb-2 col-6" role="alert">
                 Akun anda masih menggunakan password default, harap ubah password demi keamanan akun anda

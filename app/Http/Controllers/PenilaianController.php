@@ -6,6 +6,9 @@ use App\Category;
 use App\Docrating;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PenilaianController extends Controller
 {
@@ -19,7 +22,11 @@ class PenilaianController extends Controller
     public function detailsProduct($id)
     {
         $product = Product::with('pabrik.perusahaan')->find($id);
-        return view('client/detail-penilaian-sertifikasi', compact('product'));
+        if ($product) {
+            return view('client/detail-penilaian-sertifikasi', compact('product'));
+        } else {
+            return abort(404);
+        }
     }
 
     public function angketPenilaian(){
@@ -47,12 +54,14 @@ class PenilaianController extends Controller
             'angket_penilaian_doc' => $data,
             'category_id' => $request->category_id
         ]);
-        return redirect()->route('input-angket-penilaian')->with('success', 'Data Berhasil ditambahkan');
+
+        toast('Data Berhasil ditambahkan!','success');
+        return redirect()->route('input-angket-penilaian');
     }
     public function editAngketPenilaian(Request $request, $id)
     {   
         $docs = Docrating::find($id);
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'angket_penilaian_doc_edit' => 'required|mimes:xlsx,xls|max:4096',
             'category_id_edit' => 'required'
         ],
@@ -61,21 +70,30 @@ class PenilaianController extends Controller
             'mimes' => 'file harus dalam format xlsx / excel',
             'max' => 'batas ukuran file harus kurang dari 4MB'
             ]);
-            
-        if ($request->hasFile('angket_penilaian_doc')) {
-            $filename = asset('public/storage/template_angket/'. $docs->angket_penilaian_doc);
-            unlink($filename);
-            $file = $request->file('angket_penilaian_doc');
-            $nama_file = 'Angket-Penilaian-'.$request->category_id_edit;
-            $data = $nama_file.'.'.$file->getClientOriginalExtension();
-            $file->storeAs('template_angket/', $data);
-            // dd($data);
-
-
-            $docs->angket_penilaian_doc = $data;
-            $docs->category_id = $request->category_id_edit;
-            $docs->save();
-            return redirect()->route('input-angket-penilaian')->with('success', 'Data Berhasil diubah');
+        
+        if ($validator->fails()) {
+            toast('Gagal Mengubah Data!','error');
+            return redirect()->route('input-angket-penilaian');
+        } else{
+            if ($request->hasFile('angket_penilaian_doc_edit')) {
+                $filename = asset('public/storage/template_angket/'. $docs->angket_penilaian_doc);
+                Storage::delete($filename);
+                $file = $request->file('angket_penilaian_doc_edit');
+                $nama_file = 'Angket-Penilaian-'.$request->category_id_edit;
+                $data = $nama_file.'.'.$file->getClientOriginalExtension();
+                $file->storeAs('template_angket/', $data);
+                // dd($data);
+    
+    
+                $docs->angket_penilaian_doc = $data;
+                $docs->category_id = $request->category_id_edit;
+                $docs->save();
+    
+                toast('Data Berhasil diubah!','success');
+                return redirect()->route('input-angket-penilaian');
+            } else{
+                return false;
+            }
         }
     }
 }

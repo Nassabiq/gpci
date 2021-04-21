@@ -4,12 +4,7 @@
     <div class="container">
         <h2>Input Angket Penilaian</h2>
         <hr>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        <div class="col-6">
+        <div class="col-lg-6 col-md-12 col-12">
             <div class="card">
                 <div class="card-body">
                     <form action="/penilaian/input-angket-penilaian/post" method="post" enctype="multipart/form-data">
@@ -19,7 +14,9 @@
                                 <div class="form-group">
                                     <label>Dokumen Template</label>
                                     <br>
-                                    <input type="file" name="angket_penilaian_doc">
+                                    <small class="text-success">Dokumen harus berupa file excel (xls, xslx)</small>
+                                    <br>
+                                    <input type="file" name="angket_penilaian_doc" class="mt-4">
                                     <br>
                                     @error('angket_penilaian_doc')
                                         <small class="text-danger">{{ $message }}</small>

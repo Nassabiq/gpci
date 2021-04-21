@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Category;
 use App\Document;
+use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class ChecklistDokumen extends Component
@@ -53,8 +54,10 @@ class ChecklistDokumen extends Component
             'category_id' => $this->kategori_input
         ]);
         
-        session()->flash('message', 'Dokumen Berhasil ditambah.');
-        $this->dispatchBrowserEvent('hide-modal');
+        $this->dispatchBrowserEvent('show-toast', [
+            'type' => 'success',
+            'message' => 'Checklist Dokumen Berhasil Ditambahkan!'
+        ]);
         $this->resetInput();
     }
 
@@ -63,7 +66,9 @@ class ChecklistDokumen extends Component
         $this->updateMode = true;
         $this->doc_id = $doc->id;
         $this->nama_dokumen = $doc->nama_dokumen;
-        $this->dispatchBrowserEvent('show-modal');
+        $this->dispatchBrowserEvent('show-modal',[
+            'message' => 'File tidak Ada!'
+        ]);
     }
 
     public function editDokumen(){
@@ -83,8 +88,10 @@ class ChecklistDokumen extends Component
                 'category_id' => $this->kategori_input
             ]);
 
-            session()->flash('message', 'Dokumen Berhasil diubah.');
-            $this->dispatchBrowserEvent('hide-modal');
+            $this->dispatchBrowserEvent('show-toast',[
+                'type' => 'success',
+                'message' => 'Checklist Dokumen Berhasil Diubah!'
+            ]);
             $this->resetInput();
         }
     }
@@ -92,6 +99,9 @@ class ChecklistDokumen extends Component
     public function delete($id){
         $docs = Document::find($id);
         $docs->delete();
-        session()->flash('message', 'Dokumen Berhasil dihapus');
+        $this->dispatchBrowserEvent('show-toast',[
+            'type' => 'success',
+            'message' => 'Checklist Dokumen Berhasil Dihapus!'
+        ]);
     }   
 }

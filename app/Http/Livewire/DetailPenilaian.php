@@ -28,7 +28,10 @@ class DetailPenilaian extends Component
         $product->status = 2;
         $product->save();
 
-        $this->emit('hideModal');
+        $this->dispatchBrowserEvent('hideModal', [
+            'type' => 'success',
+            'message' => 'Status Produk Sudah Diubah!'
+        ]);
     }
 
     public function download($id){

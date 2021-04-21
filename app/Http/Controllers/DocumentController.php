@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,8 @@ class DocumentController extends Controller
         if ($company) {
             return view('client/dokumen-sertifikasi', compact('company'));
         }else{
-            return redirect()->route('home')->with('jsAlert' , 'Data Sertifikasi tidak ada!!');
+            toast('Tidak Ada Data Sertifikasi!','warning');
+            return redirect()->route('home');
         }
     }
 }

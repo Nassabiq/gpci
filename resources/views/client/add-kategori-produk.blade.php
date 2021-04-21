@@ -7,12 +7,6 @@
             <button class="btn btn-sm btn-primary addKategori" data-title="Tambah Kategori">Tambah Kategori</button>
         </div>
         <hr>
-        @if (session()->has('success'))
-            <div class="alert alert-success" role="alert">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                {{ session('success') }}
-            </div>
-        @endif
         @error('categories')
             <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert">×</button>
@@ -53,7 +47,7 @@
 
     </div>
 
-    <div class="modal fade" tabindex="-1">
+    <div class="modal fade" tabindex="-1" id="addEdit">
         <div class="modal-dialog">
             <form method="post" id="form">
                 @csrf
@@ -80,7 +74,7 @@
         </div>
     </div>
     <div class="modal fade" tabindex="-1" id="deleteKategori">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <form method="post" id="form-delete">
                 @csrf
                 <div class="modal-content">
@@ -103,7 +97,7 @@
             event.preventDefault();
             let title = $(this).data('title');
             let form = $('#form');
-            $('.modal').modal('show');
+            $('#addEdit').modal('show');
 
             form.attr('action', '/import/kategori-produk/post');
             $('#title').html(title);
@@ -118,7 +112,7 @@
             let value = $(this).data('value');
             let form = $('#form');
             let input = $('#input');
-            $('.modal').modal('show');
+            $('#addEdit').modal('show');
 
             form.attr('action', '/import/kategori-produk/' + id + '/edit');
             $('#title').html(title);

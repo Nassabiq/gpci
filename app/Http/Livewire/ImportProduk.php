@@ -9,6 +9,7 @@ use App\Product;
 use App\Rating;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ImportProduk extends Component
 {
@@ -88,7 +89,7 @@ class ImportProduk extends Component
             'product_id' => $id
         ]);
 
-        session()->flash('success', 'Import Data Produk Berhasil');
+        toast('Import Data Sertifikasi Berhasil!','success');
         return redirect('/import/data-sertifikasi');
     }
 }

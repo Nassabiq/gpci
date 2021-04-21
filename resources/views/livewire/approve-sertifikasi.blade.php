@@ -12,7 +12,7 @@
         </button>
     @elseif($produk->status == 1)
     @else
-        <button class="btn btn-primary my-2 float-right">
+        <button class="btn btn-primary my-2 float-right" disabled>
             Produk telah disertifikasi
         </button>
     @endif

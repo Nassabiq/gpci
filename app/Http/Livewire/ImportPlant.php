@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Company;
 use App\Factory;
+use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class ImportPlant extends Component
@@ -62,7 +63,7 @@ class ImportPlant extends Component
             'contact' => json_encode($contact_pabrik, 128),
             'company_id' => $this->company_id
         ]);
-        session()->flash('success', 'Import Data Plant Berhasil');
+        toast('Import Data Sertifikasi Berhasil!','success');
         return redirect('/import/data-sertifikasi');
     }
 }

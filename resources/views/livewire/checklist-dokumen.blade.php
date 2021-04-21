@@ -3,7 +3,7 @@
     <hr>
 
     <div class="d-flex mb-2 justify-content-between">
-        <div class="col-3">
+        <div class="col-lg-3 col-md-6 col-6">
             <select class="custom-select" wire:model="kategori">
                 <option value="">Kategori</option>
                 @foreach ($categories as $category)
@@ -13,12 +13,6 @@
         </div>
         <button class="btn btn-primary btn-sm" wire:click.prevent="add()">Tambah Dokumen</button>
     </div>
-    @if (session()->has('message'))
-        <div class="alert alert-success" style="margin-top:30px;">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            {{ session('message') }}
-        </div>
-    @endif
     <table class="table table-striped">
         <thead>
             <tr>
@@ -38,7 +32,7 @@
                     <td>{{ $doc->nama_dokumen }}</td>
                     <td>{{ $doc->kategoriProduk->categories }}</td>
                     <td>
-                        @if ($doc->kategoriProduk->id !== 100)
+                        @if ($doc->kategoriProduk->id !== 1)
                             <div class="d-flex">
                                 <button type="button" class="btn btn-primary btn-sm"
                                     wire:click.prevent="edit({{ $doc }})">Edit</button>
@@ -113,6 +107,30 @@
         window.addEventListener('hide-modal', () => {
             $('.modal').modal('hide');
             $('.modal-backdrop').remove();
+        });
+
+    </script>
+    <script>
+        window.addEventListener('show-toast', event => {
+            $('.modal').modal('hide');
+            $('.modal-backdrop').remove();
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: event.detail.type,
+                title: event.detail.message
+            })
+
         });
 
     </script>
