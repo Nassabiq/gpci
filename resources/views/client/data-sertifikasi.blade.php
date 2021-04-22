@@ -251,7 +251,7 @@
                                                         @endphp
                                                         @foreach ($images as $image)
                                                             <a href="#" class="imagemodal">
-                                                                <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
+                                                                <img src="{{ Storage::url('foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
                                                                     alt="{{ $produk->nama_produk }}" width="200px"
                                                                     height="200px"
                                                                     class="border border-primary rounded mx-2">

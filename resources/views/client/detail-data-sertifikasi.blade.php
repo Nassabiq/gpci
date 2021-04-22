@@ -181,6 +181,7 @@
                     </tbody>
 
                 </table>
+                {{-- @dump(Storage::url('foto_produk')) --}}
                 <div class="row justify-content-between mt-3 pb-3">
                     <div class="col-lg-3 col-6">
                         <button type="button" class="btn btn-sm btn-primary" id="showDesc" onclick="showDesc(this)">Data
@@ -251,7 +252,7 @@
                                                         @endphp
                                                         @foreach ($images as $image)
                                                             <a href="#" class="imagemodal">
-                                                                <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
+                                                                <img src="{{ Storage::url('foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
                                                                     alt="{{ $produk->nama_produk }}" width="200px"
                                                                     height="200px"
                                                                     class="border border-primary rounded mx-2 mb-2">

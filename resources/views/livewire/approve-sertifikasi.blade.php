@@ -111,7 +111,7 @@
                     </td>
                     @if ($this->produk->ratings->angket_penilaian)
                         <td>
-                            <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->angket_penilaian) }}"
+                            <a href="{{ Storage::url('dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->angket_penilaian) }}"
                                 class="btn btn-sm btn-success" target="_blank  ">Preview</a>
                         </td>
                     @endif
@@ -130,7 +130,7 @@
                     </td>
                     @if ($this->produk->ratings->laporan_ringkas_verifikasi)
                         <td>
-                            <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->laporan_ringkas_verifikasi) }}"
+                            <a href="{{ Storage::url('dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->laporan_ringkas_verifikasi) }}"
                                 class="btn btn-sm btn-success" target="_blank  ">Preview</a>
                         </td>
                     @endif
@@ -149,7 +149,7 @@
                     </td>
                     @if ($this->produk->ratings->recommendation_for_improvement)
                         <td>
-                            <a href="{{ asset('storage/dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->recommendation_for_improvement) }}"
+                            <a href="{{ Storage::url('dokumen_audit/' . $this->produk->nama_produk . '/' . $this->produk->ratings->recommendation_for_improvement) }}"
                                 class="btn btn-sm btn-success" target="_blank  ">Preview</a>
                         </td>
                     @endif

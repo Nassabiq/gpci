@@ -65,7 +65,7 @@
                                         {{ $doc->pivot->nama_dokumen }}
                                     </td>
                                     <td class="d-flex">
-                                        <a href="{{ asset('storage/checklist-dokumen/' . $this->perusahaan->nama_perusahaan . '/' . $doc->pivot->nama_dokumen) }}"
+                                        <a href="{{ Storage::url('checklist-dokumen/' . $this->perusahaan->nama_perusahaan . '/' . $doc->pivot->nama_dokumen) }}"
                                             class="btn btn-sm btn-primary" target="_blank">Preview</a>
 
                                         <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"

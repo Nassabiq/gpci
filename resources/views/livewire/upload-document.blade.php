@@ -70,7 +70,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $doc->pivot->nama_dokumen) }}"
+                                            <a href="{{ Storage::url('checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $doc->pivot->nama_dokumen) }}"
                                                 class="btn btn-sm btn-primary" target="_blank">Dokumen</a>
                                             @if ($doc->pivot->status !== 2)
                                                 <button class="btn btn-sm btn-success ml-2" data-toggle="collapse"
