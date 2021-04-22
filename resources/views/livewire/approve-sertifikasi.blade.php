@@ -87,7 +87,7 @@
     </table>
 
     <h5>List Dokumen Audit Sertifikasi</h5>
-    <div class="table-responsive">
+    <div class="table-responsive-md">
         <table class="table">
             <thead class="thead-light">
                 <tr>

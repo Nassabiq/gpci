@@ -182,12 +182,12 @@
 
                 </table>
                 <div class="row justify-content-between mt-3 pb-3">
-                    <div class="col-3">
+                    <div class="col-lg-3 col-6">
                         <button type="button" class="btn btn-sm btn-primary" id="showDesc" onclick="showDesc(this)">Data
                             Lengkap
                             <i class="fas fa-chevron-down showdesc pl-2" id="fa-icon"></i></button>
                     </div>
-                    <div class="col-2">
+                    <div class="col-lg-2 col-5">
                         <select class="custom-select" onchange="showData(this)">
                             <option value="1">Produk</option>
                             <option value="2">Fasilitas Produksi</option>
@@ -195,7 +195,7 @@
                     </div>
                 </div>
                 <div id="dataProduk">
-                    <div class="table-responsive">
+                    <div class="table-responsive-md">
                         <table class="table table-bordered w-100">
                             <thead class="thead-light">
                                 <tr>
@@ -254,7 +254,7 @@
                                                                 <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
                                                                     alt="{{ $produk->nama_produk }}" width="200px"
                                                                     height="200px"
-                                                                    class="border border-primary rounded mx-2">
+                                                                    class="border border-primary rounded mx-2 mb-2">
                                                             </a>
                                                         @endforeach
                                                     </div>
@@ -307,7 +307,7 @@
                     </div>
                 </div>
                 <div id="dataPabrik">
-                    <div class="table-responsive">
+                    <div class="table-responsive-md">
                         <table class="table table-bordered w-100">
                             <thead class="thead-light">
                                 <tr>

@@ -43,7 +43,7 @@
         </div>
         {{-- @dump($document) --}}
         @if ($selectedProduct != 0)
-            <div class="table-responsive">
+            <div class="table-responsive-md">
                 <table class="table mt-4">
                     <thead class="thead-light">
                         <tr>

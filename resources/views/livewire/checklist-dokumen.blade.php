@@ -13,7 +13,7 @@
         </div>
         <button class="btn btn-primary btn-sm" wire:click.prevent="add()">Tambah Dokumen</button>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive-md">
         <table class="table table-striped">
             <thead>
                 <tr>

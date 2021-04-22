@@ -4,7 +4,7 @@
     <div class="container">
         <h2>Approve User</h2>
         <hr>
-        <div class="table-responsive">
+        <div class="table-responsive-md">
             <table class="table">
                 <thead class="thead-light">
                     <tr>

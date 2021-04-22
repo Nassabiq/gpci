@@ -195,7 +195,7 @@
                     </div>
                 </div>
                 <div id="dataProduk">
-                    <div class="table-responsive">
+                    <div class="table-responsive-md">
                         <table class="table table-bordered w-100">
                             <thead class="thead-light">
                                 <tr>
@@ -307,7 +307,7 @@
                     </div>
                 </div>
                 <div id="dataPabrik">
-                    <div class="table-responsive">
+                    <div class="table-responsive-md">
                         <table class="table table-bordered w-100">
                             <thead class="thead-light">
                                 <tr>
