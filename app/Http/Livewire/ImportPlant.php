@@ -21,29 +21,30 @@ class ImportPlant extends Component
         return view('livewire.import-plant');
     }
     public function uploadPlant(){
-        // $messages = [
-        // 'required' => 'kolom :attribute kosong, harap diisi',
-        // 'min' => ':attribute harus diisi minimal :min karakter',
-        // 'max' => ':attribute harus diisi maksimal :max karakter',
-        // 'numeric' => ':attribute harus berupa angka',
-        // 'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
-        // ];
-        // $validatedData = $this->validate([
-        // 'nama_fasilitas' => 'required',
-        // 'email_fasilitas' => 'required|unique:fasilitas_produksi|email',
-        // 'alamat_fasilitas' => 'required',
-        // 'kodepos_fasilitas' => 'required|numeric',
-        // 'no_telp_fasilitas' => 'required',
-        // 'fax_fasilitas' => 'required',
+        $messages = [
+        'required' => 'kolom :attribute kosong, harap diisi',
+        'min' => ':attribute harus diisi minimal :min karakter',
+        'max' => ':attribute harus diisi maksimal :max karakter',
+        'numeric' => ':attribute harus berupa angka',
+        'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
+        ];
+        $validatedData = $this->validate([
+        'nama_fasilitas' => 'required',
+        'email_fasilitas' => 'required|unique:fasilitas_produksi|email',
+        'alamat_fasilitas' => 'required',
+        'kodepos_fasilitas' => 'required|numeric',
+        'no_telp_fasilitas' => 'required',
+        'fax_fasilitas' => 'required',
 
-        // 'nama2' => 'required',
-        // 'jabatan2' => 'required',
-        // 'no_hp2' => 'required',
-        // 'email2' => 'required|email',
-        // 'no_telp2' => 'required',
-        // 'fax2' => 'required',
+        'nama2' => 'required',
+        'jabatan2' => 'required',
+        'no_hp2' => 'required',
+        'email2' => 'required|email',
+        'no_telp2' => 'required',
+        'fax2' => 'required',
 
-        // ],$messages);
+        ],$messages);
+        
         $contact_pabrik = [
             'nama' => $this->nama3,
             'jabatan' => $this->jabatan3,

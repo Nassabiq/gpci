@@ -105,13 +105,12 @@
 
     @include('beautymail::templates.sunny.contentStart')
     <div style="text-align: center">
-        <p>Terima kasih atas pendaftarannya dari {{ $nama }}. Formulir pendaftaran sertifikasi Green Label
-            Indonesia
-            (GLI) telah kami terima dengan baik.</p>
+        <p>Terima kasih atas pendaftaran Sertifikasi Green Label Indonesia (GLI) dari {{ $nama }}. Formulir
+            pendaftaran sertifikasi GLI telah kami terima dengan baik.</p>
         <p>
             Selanjutnya adalah input checklist dokumen, mohon dipersiapkan copy dokumen pelengkap sesuai
             checklist tersebut dan di-input kembali pada Sistem sertifikasi Green Label Indonesia <a
-                href="google.com">disini</a>. <br>
+                href="{{ route('dokumen-sertifikasi') }}">disini</a>. <br>
         </p>
         <p style="margin-top: 10px">
             Demikian informasi dari kami. Terima kasih atas perhatiannya.

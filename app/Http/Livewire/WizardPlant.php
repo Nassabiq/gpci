@@ -43,49 +43,48 @@ class WizardPlant extends Component
     }
 
     public function firstStepSubmit(){
-        // $messages = [
-        //     'required' => 'kolom :attribute kosong, harap diisi',
-        //     'min' => ':attribute harus diisi minimal :min karakter',
-        //     'max' => ':attribute harus diisi maksimal :max karakter',
-        //     'numeric' => ':attribute harus berupa angka',
-        //     'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
-        // ];
-        // $validatedData = $this->validate([
-        //     'nama_fasilitas' => 'required',
-        //     'email_fasilitas' => 'required|unique:fasilitas_produksi|email',
-        //     'alamat_fasilitas' => 'required',
-        //     'kodepos_fasilitas' => 'required|numeric',
-        //     'no_telp_fasilitas' => 'required',
-        //     'fax_fasilitas' => 'required',
+        $messages = [
+            'required' => 'kolom :attribute kosong, harap diisi',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus berupa angka',
+            'unique:factories' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
+        ];
+        $validatedData = $this->validate([
+            'nama_fasilitas' => 'required',
+            'email_fasilitas' => 'required|unique:factories|email',
+            'alamat_fasilitas' => 'required',
+            'kodepos_fasilitas' => 'required|numeric',
+            'no_telp_fasilitas' => 'required',
+            'fax_fasilitas' => 'required',
 
-        //     'nama2' => 'required',
-        //     'jabatan2' => 'required',
-        //     'no_hp2' => 'required',
-        //     'email2' => 'required|email',
-        //     'no_telp2' => 'required',
-        //     'fax2' => 'required',
+            'nama3' => 'required',
+            'jabatan3' => 'required',
+            'no_hp3' => 'required',
+            'email3' => 'required|email',
+            'no_telp3' => 'required',
+            'fax3' => 'required',
 
-        // ],$messages);
+        ],$messages);
         $this->currentStep = 2;
     }
     public function secondStepSubmit(){
-        // $messages = [
-        //     'required' => 'kolom :attribute kosong, harap diisi',
-        //     'min' => ':attribute harus diisi minimal :min karakter',
-        //     'max' => ':attribute harus diisi maksimal :max karakter',
-        //     'numeric' => ':attribute harus berupa angka',
-        //     'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
-        // ];
-        // $validatedData = $this->validate([
-        //     'nama_produk' => 'required',
-        //     'deskripsi_produk' => 'required',
-        //     'foto_produk' => 'required',
-        //     'tipe_model' => 'required',
-        //     'merk_dagang' => 'required',
-        //     'tipe_pengemasan' => 'required',
-        //     'foto_produk.*' => 'required|image|max:1024',
-        //     'ukuran' => 'required',
-        // ],$messages);
+        $messages = [
+            'required' => 'kolom :attribute kosong, harap diisi',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus berupa angka',
+        ];
+        $validatedData = $this->validate([
+            'nama_produk' => 'required',
+            'deskripsi_produk' => 'required',
+            'foto_produk' => 'required',
+            'tipe_model' => 'required',
+            'merk_dagang' => 'required',
+            'tipe_pengemasan' => 'required',
+            'foto_produk.*' => 'required|image|max:1024',
+            'ukuran' => 'required',
+        ],$messages);
         
         $this->currentStep = 3;
     }

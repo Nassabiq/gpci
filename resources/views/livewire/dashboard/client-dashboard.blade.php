@@ -117,9 +117,10 @@
             $now = \Carbon\Carbon::now()->toDateString();
             $date_interval = \Carbon\Carbon::parse($item->tgl_masa_berlaku)
                 ->subMonth(12)
-                ->addDay()
+                ->format('M, Y')
                 ->toDateString();
         @endphp
+        @dump($date_interval)
         @if ($now == $date_interval)
             <script>
                 $(document).ready(function() {

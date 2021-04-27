@@ -245,14 +245,14 @@
                                         <tr>
                                             <td colspan="6" class="collapse" id="detail-{{ $produk->id }}">
                                                 <label>Foto Produk</label>
-                                                <div class="d-flex">
+                                                <div class="row">
                                                     <div class="col-lg-6 col-md-12">
                                                         @php
                                                             $images = json_decode($produk->foto_produk);
                                                         @endphp
                                                         @foreach ($images as $image)
                                                             <a href="#" class="imagemodal">
-                                                                <img src="{{ Storage::url('foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
+                                                                <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
                                                                     alt="{{ $produk->nama_produk }}" width="200px"
                                                                     height="200px"
                                                                     class="border border-primary rounded mx-2 mb-2">

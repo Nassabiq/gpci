@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @auth
+        <meta name="user_id" content="{{ auth()->user()->id }}">
+    @endauth
+
 
     {{-- Custom Meta Tags --}}
     @yield('meta_tags')

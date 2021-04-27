@@ -47,84 +47,83 @@ class Wizard extends Component
     }
 
     public function firstStepSubmit(){
-        // $messages = [
-        //     'required' => 'kolom :attribute kosong, harap diisi',
-        //     'min' => ':attribute harus diisi minimal :min karakter',
-        //     'max' => ':attribute harus diisi maksimal :max karakter',
-        //     'numeric' => ':attribute harus berupa angka',
-        //     'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'  
-        // ];
-        // $validatedData = $this->validate([
-        //     'nama_perusahaan' => 'required',
-        //     'alamat_perusahaan' => 'required',
-        //     'email_perusahaan' => 'required|unique:perusahaan|email',
-        //     'no_telp_perusahaan' => 'required',
-        //     'fax_perusahaan' => 'required',
-        //     'kodepos_perusahaan' => 'required|numeric',
-        //     'no_akta_notaris' => 'required',
-        //     'no_siup' => 'required',
-        //     'no_tdp' => 'required',
-        //     'no_npwp' => 'required',
-        //     'no_api' => 'required',
-        //     'sertifikasi_ekolabel' => 'nullable',
-        //     'lembaga_ekolabel' => 'nullable',
-        //     'website_perusahaan' => 'required',
+        $messages = [
+            'required' => 'kolom :attribute kosong, harap diisi',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus berupa angka',
+            'unique:companies' => ':attribute sudah digunakan, silahkan gunakan email yang lain'  
+        ];
+        $validatedData = $this->validate([
+            'nama_perusahaan' => 'required',
+            'alamat_perusahaan' => 'required',
+            'email_perusahaan' => 'required|unique:companies|email',
+            'no_telp_perusahaan' => 'required',
+            'fax_perusahaan' => 'required',
+            'kodepos_perusahaan' => 'required|numeric',
+            'no_akta_notaris' => 'required',
+            'no_siup' => 'required',
+            'no_tdp' => 'required',
+            'no_npwp' => 'required',
+            'no_api' => 'required',
+            'sertifikasi_ekolabel' => 'nullable',
+            'lembaga_ekolabel' => 'nullable',
+            'website_perusahaan' => 'required',
 
-        //     'nama' => 'required',
-        //     'jabatan' => 'required',
-        //     'no_hp' => 'required',
-        //     'email' => 'required|email',
-        //     'no_telp' => 'required',
-        //     'fax' => 'required',
-        // ], $messages);
+            'nama1' => 'required',
+            'jabatan1' => 'required',
+            'no_hp1' => 'required',
+            'email1' => 'required|email',
+            'no_telp1' => 'required',
+            'fax1' => 'required',
+        ], $messages);
 
         $this->currentStep = 2;
     }
     public function secondStepSubmit(){
-        // $messages = [
-        //     'required' => 'kolom :attribute kosong, harap diisi',
-        //     'min' => ':attribute harus diisi minimal :min karakter',
-        //     'max' => ':attribute harus diisi maksimal :max karakter',
-        //     'numeric' => ':attribute harus berupa angka',
-        //     'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
-        // ];
-        // $validatedData = $this->validate([
-        //     'nama_fasilitas' => 'required',
-        //     'email_fasilitas' => 'required|unique:fasilitas_produksi|email',
-        //     'alamat_fasilitas' => 'required',
-        //     'kodepos_fasilitas' => 'required|numeric',
-        //     'no_telp_fasilitas' => 'required',
-        //     'fax_fasilitas' => 'required',
+        $messages = [
+            'required' => 'kolom :attribute kosong, harap diisi',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus berupa angka',
+            'unique:factories' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
+        ];
+        $validatedData = $this->validate([
+            'nama_fasilitas' => 'required',
+            'email_fasilitas' => 'required|unique:factories|email',
+            'alamat_fasilitas' => 'required',
+            'kodepos_fasilitas' => 'required|numeric',
+            'no_telp_fasilitas' => 'required',
+            'fax_fasilitas' => 'required',
 
-        //     'nama2' => 'required',
-        //     'jabatan2' => 'required',
-        //     'no_hp2' => 'required',
-        //     'email2' => 'required|email',
-        //     'no_telp2' => 'required',
-        //     'fax2' => 'required',
+            'nama3' => 'required',
+            'jabatan3' => 'required',
+            'no_hp3' => 'required',
+            'email3' => 'required|email',
+            'no_telp3' => 'required',
+            'fax3' => 'required',
 
-        // ],$messages);
+        ],$messages);
         $this->currentStep = 3;
     }
     public function thirdStepSubmit(){
-        // $messages = [
-        //     'required' => 'kolom :attribute kosong, harap diisi',
-        //     'min' => ':attribute harus diisi minimal :min karakter',
-        //     'max' => ':attribute harus diisi maksimal :max karakter',
-        //     'numeric' => ':attribute harus berupa angka',
-        //     'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
-        // ];
-        // $validatedData = $this->validate([
-        //     'nama_produk' => 'required',
-        //     'deskripsi_produk' => 'required',
-        //     'foto_produk' => 'required',
-        //     'tipe_model' => 'required',
-        //     'merk_dagang' => 'required',
-        //     'tipe_pengemasan' => 'required',
-        //     'foto_produk.*' => 'required|image|max:1024',
-        //     'ukuran' => 'required',
-        // ],$messages);
-        
+        $messages = [
+            'required' => 'kolom :attribute kosong, harap diisi',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus berupa angka',
+        ];
+        $validatedData = $this->validate([
+            'nama_produk' => 'required',
+            'deskripsi_produk' => 'required',
+            'foto_produk' => 'required',
+            'tipe_model' => 'required',
+            'merk_dagang' => 'required',
+            'tipe_pengemasan' => 'required',
+            'foto_produk.*' => 'required|image|max:1024',
+            'ukuran' => 'required',
+        ],$messages);
+
         $this->currentStep = 4;
     }
 
@@ -222,7 +221,7 @@ class Wizard extends Component
             'status' => 1
         ]);
 
-        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 100));
+        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 1));
         
         for ($i=0; $i < count($document); $i++) { 
             if (isset($document[$i]->id)) {
@@ -239,7 +238,6 @@ class Wizard extends Component
             'product_id' => $id
         ]);
 
-        // session()->flash('success', 'Pendaftaran Berhasil');
         toast('Pendaftaran Sertifikasi Berhasil!','success');
         return redirect('/home');
     }

@@ -32,25 +32,24 @@ class ImportProduk extends Component
     }
     public function uploadProduk(){
         $pabrik = Factory::with('perusahaan')->find($this->plant_id);
-        // dd($data->nama_fasilitas, $data->perusahaan->nama_perusahaan);
 
-        // $messages = [
-        // 'required' => 'kolom :attribute kosong, harap diisi',
-        // 'min' => ':attribute harus diisi minimal :min karakter',
-        // 'max' => ':attribute harus diisi maksimal :max karakter',
-        // 'numeric' => ':attribute harus berupa angka',
-        // 'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
-        // ];
-        // $validatedData = $this->validate([
-        // 'nama_produk' => 'required',
-        // 'deskripsi_produk' => 'required',
-        // 'foto_produk' => 'required',
-        // 'tipe_model' => 'required',
-        // 'merk_dagang' => 'required',
-        // 'tipe_pengemasan' => 'required',
-        // 'foto_produk.*' => 'required|image|max:1024',
-        // 'ukuran' => 'required',
-        // ],$messages);
+        $messages = [
+        'required' => 'kolom :attribute kosong, harap diisi',
+        'min' => ':attribute harus diisi minimal :min karakter',
+        'max' => ':attribute harus diisi maksimal :max karakter',
+        'numeric' => ':attribute harus berupa angka',
+        'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
+        ];
+        $validatedData = $this->validate([
+        'nama_produk' => 'required',
+        'deskripsi_produk' => 'required',
+        'foto_produk' => 'required',
+        'tipe_model' => 'required',
+        'merk_dagang' => 'required',
+        'tipe_pengemasan' => 'required',
+        'foto_produk.*' => 'required|image|max:1024',
+        'ukuran' => 'required',
+        ],$messages);
 
         $i = 1;
         foreach ($this->foto_produk as $photo) {

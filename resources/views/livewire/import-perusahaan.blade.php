@@ -130,43 +130,43 @@
                         <label class="col-12 px-0">Contact Person 1:</label> <br>
                         {{-- Nama --}}
                         <div class="cp col-lg-6 col-md-12 col-12 pl-0">
-                            <input type="text" wire:model="nama1" class="form-control form-control-sm" id="nama1"
+                            <input type="text" wire:model="nama" class="form-control form-control-sm" id="nama1"
                                 placeholder="Nama ...">
-                            @error('nama1') <span class="error">{{ $message }}</span> @enderror
+                            @error('nama') <span class="error">{{ $message }}</span> @enderror
                         </div>
                         {{-- Jabatan --}}
                         <div class="cp col-lg-6 col-md-12 col-12 px-0">
-                            <input type="text" wire:model="jabatan1" class="form-control form-control-sm" id="jabatan1"
+                            <input type="text" wire:model="jabatan" class="form-control form-control-sm" id="jabatan1"
                                 placeholder="Jabatan...">
-                            @error('jabatan1') <span class="error">{{ $message }}</span> @enderror
+                            @error('jabatan') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="form-group row">
                         {{-- Nomor WA --}}
                         <div class="cp col-lg-6 col-md-12 col-12 pl-0">
-                            <input type="text" wire:model="no_hp1" class="form-control form-control-sm" id="no_hp1"
+                            <input type="text" wire:model="no_hp" class="form-control form-control-sm" id="no_hp1"
                                 placeholder="No Handphone (WA) ...">
-                            @error('no_hp1') <span class="error">{{ $message }}</span> @enderror
+                            @error('no_hp') <span class="error">{{ $message }}</span> @enderror
                         </div>
                         {{-- Email --}}
                         <div class="cp col-lg-6 col-md-12 col-12 px-0">
-                            <input type="email" wire:model="email1" class="form-control form-control-sm" id="email1"
+                            <input type="email" wire:model="email" class="form-control form-control-sm" id="email1"
                                 placeholder="Email...">
-                            @error('email1') <span class="error">{{ $message }}</span> @enderror
+                            @error('email') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="form-group row">
                         {{-- No Telp --}}
                         <div class="cp col-lg-6 col-md-12 col-12 pl-0">
-                            <input type="text" wire:model="no_telp1" class="form-control form-control-sm" id="no_telp1"
+                            <input type="text" wire:model="no_telp" class="form-control form-control-sm" id="no_telp1"
                                 placeholder="No Telp ...">
                             @error('no_telp') <span class="error">{{ $message }}</span> @enderror
                         </div>
                         {{-- Fax --}}
                         <div class="cp col-lg-6 col-md-12 col-12 px-0">
-                            <input type="text" wire:model="fax1" class="form-control form-control-sm" id="fax1"
+                            <input type="text" wire:model="fax" class="form-control form-control-sm" id="fax1"
                                 placeholder="No Fax...">
-                            @error('fax1') <span class="error">{{ $message }}</span> @enderror
+                            @error('fax') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>

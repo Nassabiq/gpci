@@ -244,21 +244,21 @@
                                         <tr>
                                             <td colspan="6" class="collapse" id="detail-{{ $produk->id }}">
                                                 <label>Foto Produk</label>
-                                                <div class="d-flex">
-                                                    <div class="col-lg-6 col-md-12">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-12">
                                                         @php
                                                             $images = json_decode($produk->foto_produk);
                                                         @endphp
                                                         @foreach ($images as $image)
                                                             <a href="#" class="imagemodal">
-                                                                <img src="{{ Storage::url('foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
+                                                                <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
                                                                     alt="{{ $produk->nama_produk }}" width="200px"
-                                                                    height="200px"
+                                                                    class="mr-2 mb-2" height="200px"
                                                                     class="border border-primary rounded mx-2">
                                                             </a>
                                                         @endforeach
                                                     </div>
-                                                    <div class="col-lg-6 col-md-12">
+                                                    <div class="col-lg-6 col-md-6 col-12">
                                                         <ul class="list-group">
                                                             <li class="list-group-item">
                                                                 <b>Jenis Sertifikasi</b> :
@@ -332,19 +332,14 @@
                                         <td>{{ $pabrik->email_fasilitas }}</td>
                                         <td>{{ $pabrik->kodepos_fasilitas }}</td>
                                         <td>
-                                            <button type="button" class="btn text-primary"><abbr title="Detail Produk">
-                                                    <i class="fas fa-fw fa-info-circle"></i></abbr></button>
-
-                                            <button type="button" class="border-0 bg-transparent text-danger"
-                                                data-toggle="modal" data-target="#deleteModal"><abbr title="Delete FAQ">
-                                                    <i class="fas fa-fw fa-trash"></i>
+                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse"
+                                                data-target="#detail-plant-{{ $pabrik->id }}">
+                                                <i class="fas fa-fw fa-info-circle"></i>
+                                                Detail
                                             </button>
                                         </td>
+                                    </tr>
                                 @endforeach
-                                {{-- <div class="detail-produk">
-
-                            </div> --}}
-                                </tr>
                             </tbody>
                         </table>
                     </div>

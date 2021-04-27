@@ -12,7 +12,7 @@ class ImportPerusahaan extends Component
     $kodepos_perusahaan, $no_akta_notaris, $no_siup, $no_tdp, $no_npwp, $no_api, $sertifikasi_ekolabel,
     $lembaga_ekolabel, $website_perusahaan, $contact;
 
-    public $nama1, $jabatan1, $no_hp1, $email1, $no_telp1, $fax1;
+    public $nama, $jabatan, $no_hp, $email, $no_telp, $fax;
     public $nama2, $jabatan2, $no_hp2, $email2, $no_telp2, $fax2;
 
     public function render()
@@ -21,36 +21,36 @@ class ImportPerusahaan extends Component
     }
 
     public function uploadPerusahaan(){
-        // $messages = [
-        //     'required' => 'kolom :attribute kosong, harap diisi',
-        //     'min' => ':attribute harus diisi minimal :min karakter',
-        //     'max' => ':attribute harus diisi maksimal :max karakter',
-        //     'numeric' => ':attribute harus berupa angka',
-        //     'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
-        // ];
-        // $validatedData = $this->validate([
-        //     'nama_perusahaan' => 'required',
-        //     'alamat_perusahaan' => 'required',
-        //     'email_perusahaan' => 'required|unique:perusahaan|email',
-        //     'no_telp_perusahaan' => 'required',
-        //     'fax_perusahaan' => 'required',
-        //     'kodepos_perusahaan' => 'required|numeric',
-        //     'no_akta_notaris' => 'required',
-        //     'no_siup' => 'required',
-        //     'no_tdp' => 'required',
-        //     'no_npwp' => 'required',
-        //     'no_api' => 'required',
-        //     'sertifikasi_ekolabel' => 'nullable',
-        //     'lembaga_ekolabel' => 'nullable',
-        //     'website_perusahaan' => 'required',
+        $messages = [
+            'required' => 'kolom :attribute kosong, harap diisi',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus berupa angka',
+            'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
+        ];
+        $validatedData = $this->validate([
+            'nama_perusahaan' => 'required',
+            'alamat_perusahaan' => 'required',
+            'email_perusahaan' => 'required|unique:perusahaan|email',
+            'no_telp_perusahaan' => 'required',
+            'fax_perusahaan' => 'required',
+            'kodepos_perusahaan' => 'required|numeric',
+            'no_akta_notaris' => 'required',
+            'no_siup' => 'required',
+            'no_tdp' => 'required',
+            'no_npwp' => 'required',
+            'no_api' => 'required',
+            'sertifikasi_ekolabel' => 'nullable',
+            'lembaga_ekolabel' => 'nullable',
+            'website_perusahaan' => 'required',
 
-        //     'nama' => 'required',
-        //     'jabatan' => 'required',
-        //     'no_hp' => 'required',
-        //     'email' => 'required|email',
-        //     'no_telp' => 'required',
-        //     'fax' => 'required',
-        // ], $messages);
+            'nama' => 'required',
+            'jabatan' => 'required',
+            'no_hp' => 'required',
+            'email' => 'required|email',
+            'no_telp' => 'required',
+            'fax' => 'required',
+        ], $messages);
 
         $contact_perusahaan = [
             "cp_1" => [

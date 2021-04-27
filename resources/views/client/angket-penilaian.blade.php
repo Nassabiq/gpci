@@ -82,7 +82,7 @@
                         <td>
                             @if (isset($kategori->kategoriAngket->angket_penilaian_doc))
                                 <div class="d-flex">
-                                    <a href="{{ Storage::url('template_angket/' . $kategori->kategoriAngket->angket_penilaian_doc) }}"
+                                    <a href="{{ asset('storage/template_angket/' . $kategori->kategoriAngket->angket_penilaian_doc) }}"
                                         class="btn btn-sm btn-success" target="_blank  ">Preview</a>
                                     <button type="button" class="btn btn-sm btn-info ml-2" id="edit"
                                         data-id="{{ $kategori->kategoriAngket->id }}"
