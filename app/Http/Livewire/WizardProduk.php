@@ -85,7 +85,7 @@ class WizardProduk extends Component
             'status' => 1
          ]);
 
-        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 100));
+        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 1));
 
         for ($i=0; $i <= count($document); $i++) {
             if (isset($document[$i]->id)) {

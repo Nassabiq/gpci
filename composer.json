@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
         "livewire/livewire": "^2.3",
+        "pusher/pusher-php-server": "^6.1",
         "realrashid/sweet-alert": "^3.2",
         "simplesoftwareio/simple-qrcode": "~4",
         "snowfire/beautymail": "^1.1",

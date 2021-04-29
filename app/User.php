@@ -47,23 +47,8 @@ class User extends Authenticatable
         return $this->hasOne(Company::class, 'user_id');
     }
 
-    protected $appends = [
-        'avatar'
-    ];
-
-    public function getAvatarAttribute()
+    public function messages()
     {
-        return 'https://www.gravatar.com/avatar/' . md5(strtolower($this->email));
+        return $this->hasMany(Message::class);
     }
-
-    public function messagesTo()
-    {
-        return $this->hasOne(Message::class, 'to_id')->latest();
-    }
-
-    public function messagesFrom()
-    {
-        return $this->hasOne(Message::class, 'from_id')->latest();
-    }
-
 }

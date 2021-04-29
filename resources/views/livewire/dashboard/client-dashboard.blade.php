@@ -114,13 +114,11 @@
 @section('js')
     @foreach ($product_is_approved as $item)
         @php
-            $now = \Carbon\Carbon::now()->toDateString();
+            $now = \Carbon\Carbon::now()->format('M, Y');
             $date_interval = \Carbon\Carbon::parse($item->tgl_masa_berlaku)
-                ->subMonth(12)
-                ->format('M, Y')
-                ->toDateString();
+                ->subMonth(2)
+                ->format('M, Y');
         @endphp
-        @dump($date_interval)
         @if ($now == $date_interval)
             <script>
                 $(document).ready(function() {

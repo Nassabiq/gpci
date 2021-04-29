@@ -141,7 +141,7 @@ class WizardPlant extends Component
             'factory_id' => $id,
             'status' => 1
         ]);
-        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 100));
+        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 1));
 
         for ($i=0; $i < count($document); $i++) { 
             if (isset($document[$i]->id)) {
@@ -158,7 +158,7 @@ class WizardPlant extends Component
             'product_id' => $id
         ]);
         // session()->flash('success', 'Pendaftaran Berhasil');
-        // toast('Penda    ftaran Sertifikasi Berhasil!','success');
+        // toast('Pendaftaran Sertifikasi Berhasil!','success');
         toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         return redirect('/home');
     }

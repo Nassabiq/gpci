@@ -15,7 +15,7 @@ use Illuminate\Queue\SerializesModels;
 class MessageSent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    public $user; public $message;
     /**
      * Create a new event instance.
      *

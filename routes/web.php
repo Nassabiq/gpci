@@ -34,6 +34,12 @@ Route::group(['middleware' => ['auth', 'revalidate']], function () {
     Route::get('/account', 'AccountController@index')->name('account');
     Route::post('/account/edit', 'AccountController@changePassword');
 
+    Route::get('/home', 'HomeController@index')->name('home');
+    
+    Route::get('/chats', 'MessageController@index');
+    Route::get('messages', 'MessageController@fetchMessages');
+    Route::post('messages', 'MessageController@sendMessage');
+
     Route::prefix('sertifikasi')->group(function(){
         Route::group(['middleware' => ['role:client|super-admin']], function(){
             Route::get('/add-sertifikasi', 'SertifikasiController@addSertifikasi')->name('add-sertifikasi');
