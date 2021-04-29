@@ -8,7 +8,6 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class PenilaianController extends Controller
 {
@@ -55,7 +54,8 @@ class PenilaianController extends Controller
             'category_id' => $request->category_id
         ]);
 
-        toast('Data Berhasil ditambahkan!','success');
+        // toast('Data Berhasil ditambahkan!','success');
+        toastr()->success('Data Berhasil ditambahkan!');
         return redirect()->route('input-angket-penilaian');
     }
     public function editAngketPenilaian(Request $request, $id)
@@ -72,7 +72,9 @@ class PenilaianController extends Controller
             ]);
         
         if ($validator->fails()) {
-            toast('Gagal Mengubah Data!','error');
+
+            toastr()->error('Gagal Mengubah Data!');
+            // toast('Gagal Mengubah Data!','error');
             return redirect()->route('input-angket-penilaian');
         } else{
             if ($request->hasFile('angket_penilaian_doc_edit')) {
@@ -88,8 +90,9 @@ class PenilaianController extends Controller
                 $docs->angket_penilaian_doc = $data;
                 $docs->category_id = $request->category_id_edit;
                 $docs->save();
-    
-                toast('Data Berhasil diubah!','success');
+                
+                toastr()->success('Data Berhasil diubah!');
+                // toast('Data Berhasil diubah!','success');
                 return redirect()->route('input-angket-penilaian');
             } else{
                 return false;

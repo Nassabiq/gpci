@@ -61,6 +61,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ asset('img/favicon/site.webmanifest') }}">
+    @toastr_css
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
@@ -78,7 +79,7 @@
         <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/build/pdf.min.js"></script>
 
         {{-- Configured Scripts --}}
-        @include('adminlte::plugins', ['type' => 'js'])
+        @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 
         <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @else
@@ -94,5 +95,8 @@
 
 
 </body>
+@jquery
+@toastr_js
+@toastr_render
 
 </html>

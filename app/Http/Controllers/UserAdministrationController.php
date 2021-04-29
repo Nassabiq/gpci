@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class UserAdministrationController extends Controller
 {
@@ -31,14 +30,17 @@ class UserAdministrationController extends Controller
         ]);
         $user->assignRole($request->role);
         
-        toast('Data Berhasil Ditambah!','success');
+        toastr()->success('Data Berhasil ditambahkan!');
+        // toast('Data Berhasil Ditambah!','success');
         return redirect()->route('user-management');
     }
     
     public function destroy($id){
         $user = User::find($id);
         $user->delete();
-        toast('Akun ini Berhasil Dihapus!','success');
+
+        toastr()->success('Data Berhasil dihapus!');
+        // toast('Akun ini Berhasil Dihapus!','success');
         return redirect()->route('user-management');
     }
     
@@ -51,7 +53,8 @@ class UserAdministrationController extends Controller
         $user->status = 1;
         $user->save();
         
-        toast('Status Akun Berhasil Diubah!','success');
+        toastr()->success('Data Berhasil diubah!');
+        // toast('Status Akun Berhasil Diubah!','success');
         return redirect()->route('approve-user');
     }
 }

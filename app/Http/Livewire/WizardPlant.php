@@ -12,7 +12,6 @@ use App\Rating;
 use Carbon\Carbon;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class WizardPlant extends Component
 {   
@@ -159,7 +158,8 @@ class WizardPlant extends Component
             'product_id' => $id
         ]);
         // session()->flash('success', 'Pendaftaran Berhasil');
-        toast('Pendaftaran Sertifikasi Berhasil!','success');
+        // toast('Penda    ftaran Sertifikasi Berhasil!','success');
+        toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         return redirect('/home');
     }
 

@@ -9,12 +9,11 @@ use App\Product;
 use App\Rating;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class ImportProduk extends Component
 {
     use WithFileUploads;
-    public $kategori, $plant, $plant_id;
+    public $kategori, $plant, $factory_id;
     public $nama_produk, $tipe_model, $ukuran, $merk_dagang, $deskripsi_produk, $tipe_pengemasan , $kategori_produk,
     $jenis_sertifikasi, $foto_produk = [];
 
@@ -31,27 +30,28 @@ class ImportProduk extends Component
         return view('livewire.import-produk');
     }
     public function uploadProduk(){
-        $pabrik = Factory::with('perusahaan')->find($this->plant_id);
-
+        
         $messages = [
-        'required' => 'kolom :attribute kosong, harap diisi',
-        'min' => ':attribute harus diisi minimal :min karakter',
-        'max' => ':attribute harus diisi maksimal :max karakter',
-        'numeric' => ':attribute harus berupa angka',
-        'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
+            'required' => 'kolom :attribute kosong, harap diisi',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus berupa angka',
+            'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
         ];
         $validatedData = $this->validate([
-        'nama_produk' => 'required',
-        'deskripsi_produk' => 'required',
-        'foto_produk' => 'required',
-        'tipe_model' => 'required',
-        'merk_dagang' => 'required',
-        'tipe_pengemasan' => 'required',
-        'foto_produk.*' => 'required|image|max:1024',
-        'ukuran' => 'required',
+            'nama_produk' => 'required',
+            'deskripsi_produk' => 'required',
+            'foto_produk' => 'required',
+            'tipe_model' => 'required',
+            'merk_dagang' => 'required',
+            'tipe_pengemasan' => 'required',
+            'foto_produk.*' => 'required|image|max:1024',
+            'ukuran' => 'required',
+            'factory_id' => 'required'
         ],$messages);
-
+        
         $i = 1;
+        $pabrik = Factory::with('perusahaan')->find($this->factory_id);
         foreach ($this->foto_produk as $photo) {
             $nama_file = $pabrik->perusahaan->nama_perusahaan.'-'.$pabrik->nama_fasilitas.'-'.$this->nama_produk;
             $data = $nama_file."-".$i++.".".$photo->extension();
@@ -70,10 +70,10 @@ class ImportProduk extends Component
             'jenis_sertifikasi' => $this->jenis_sertifikasi,
             'tgl_pendaftaran' => date('Y-m-d H:i:s'),
             'foto_produk' => json_encode($photodata, 128),
-            'factory_id' => $this->plant_id,
+            'factory_id' => $this->factory_id,
             'status' => 1
         ]);
-        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 100));
+        $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 1));
         for ($i=0; $i < count($document); $i++) {
             if (isset($document[$i]->id)) {
                 # code...
@@ -88,7 +88,8 @@ class ImportProduk extends Component
             'product_id' => $id
         ]);
 
-        toast('Import Data Sertifikasi Berhasil!','success');
+        // toast('Import Data Sertifikasi Berhasil!','success');
+        toastr()->success('Import Data Sertifikasi Berhasil!');
         return redirect('/import/data-sertifikasi');
     }
 }

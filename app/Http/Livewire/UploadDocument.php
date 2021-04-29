@@ -15,19 +15,31 @@ class UploadDocument extends Component
 {
     use WithFileUploads;
     public $document_name, $file;
-    public $product,$document, $company, $category, $path;
+    public $product,$document, $company, $category, $path, $nama_perusahaan;
 
     public $nama_dokumen;
 
-    public function mount(){  
-        $id_user = Auth::user()->id;
-        $this->company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
-        
+    public function mount(){
+        $user = Auth::user();
+        if ($user->hasRole('client')) {
+            $this->company = Company::where('user_id', $user->id)->with('factories.produk.document')->get();
+            if (!$this->company) {
+                toastr()->warning('Tidak Ada Data Sertifikasi!');
+                return redirect()->route('home');
+            } 
+        } else {
+            $this->company = Company::where('user_id', 0)->with('factories.produk.document')->get();
+        }
     }
     public function render()
     {
         $produk = $this->product;
-        $this->document = Product::with('document')->where('id', $produk)->find($produk);
+        $this->nama_perusahaan = Company::whereHas('factories', function ($q){
+            $q->whereHas('produk', function($q){
+                $q->where('id', $this->product);
+            });
+        })->value('nama_perusahaan');
+        $this->document = Product::with('document')->where('id', $produk)->first();
         return view('livewire.upload-document');
     }
 
@@ -42,34 +54,38 @@ class UploadDocument extends Component
                 'nama_dokumen' => 'mimes:pdf|max:4096',
             ]);
 
-            $document = Document::with('produk')->whereHas(
+            $document = Document::whereHas(
                 "produk", function($q){ $q->where("products.id", $this->product); }
             )->find($id);
-            // dd($document->produk());
             
             $file = $this->nama_dokumen;
             $nama_file =
-            Str::slug($this->company->nama_perusahaan).'-'.Str::slug($this->document->nama_produk).'-'.
+            Str::slug($this->nama_perusahaan).'-'.Str::slug($this->document->nama_produk).'-'.
             Str::slug($name);
             $data = $nama_file.'.'.$file->extension();
 
-
-            $filename= 'storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $name;
-            if($this->document->nama_dokumen){
-                unlink($filename);
-            }
-
+            // dd($name);
+            $path = 'storage/checklist-dokumen/' . $this->nama_perusahaan;
+            $filename= $path  . '/' . $data;
+            
             foreach ($document->produk as $doc) {
                 if ($doc->id == $this->product ) {
+                    
+                    if (file_exists($filename)) {
+                        // chmod($filename, 0777);
+                        unlink($filename);
+                    }
+
                     $doc->pivot->status = 1;
                     $doc->pivot->nama_dokumen = $data;
                     $doc->pivot->save();
                 }
             }
 
-            $file->storeAs('checklist-dokumen/'. $this->company->nama_perusahaan, $data);
+            $file->storeAs('checklist-dokumen/'. $this->nama_perusahaan, $data);
 
-            session()->flash('success', 'dokumen berhasil diubah');
+            // session()->flash('success', 'dokumen berhasil diubah');
+            toastr()->success('Data Berhasil ditambahkan!');
             return redirect()->route('dokumen-sertifikasi');
         }
     }

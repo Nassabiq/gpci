@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Company;
-use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class ImportPerusahaan extends Component
@@ -26,12 +25,12 @@ class ImportPerusahaan extends Component
             'min' => ':attribute harus diisi minimal :min karakter',
             'max' => ':attribute harus diisi maksimal :max karakter',
             'numeric' => ':attribute harus berupa angka',
-            'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
+            'unique:companies' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
         ];
         $validatedData = $this->validate([
             'nama_perusahaan' => 'required',
             'alamat_perusahaan' => 'required',
-            'email_perusahaan' => 'required|unique:perusahaan|email',
+            'email_perusahaan' => 'required|unique:companies|email',
             'no_telp_perusahaan' => 'required',
             'fax_perusahaan' => 'required',
             'kodepos_perusahaan' => 'required|numeric',
@@ -54,20 +53,20 @@ class ImportPerusahaan extends Component
 
         $contact_perusahaan = [
             "cp_1" => [
-            'nama' => $this->nama1,
-            'jabatan' => $this->jabatan1,
-            'no_hp' => $this->no_hp1,
-            'email' => $this->email1,
-            'no_telp' => $this->no_telp1,
-            'fax' => $this->fax1,
+                'nama' => $this->nama,
+                'jabatan' => $this->jabatan,
+                'no_hp' => $this->no_hp,
+                'email' => $this->email,
+                'no_telp' => $this->no_telp,
+                'fax' => $this->fax,
             ],
             'cp_2' => [
-            'nama2' => $this->nama2,
-            'jabatan2' => $this->jabatan2,
-            'no_hp2' => $this->no_hp2,
-            'email2' => $this->email2,
-            'no_telp2' => $this->no_telp2,
-            'fax2' => $this->fax2,
+                'nama2' => $this->nama2,
+                'jabatan2' => $this->jabatan2,
+                'no_hp2' => $this->no_hp2,
+                'email2' => $this->email2,
+                'no_telp2' => $this->no_telp2,
+                'fax2' => $this->fax2,
             ]
         ];
 
@@ -90,7 +89,8 @@ class ImportPerusahaan extends Component
             'user_id' => 0,
         ]);
 
-        toast('Import Data Sertifikasi Berhasil!','success');
+        // toast('Import Data Sertifikasi Berhasil!','success');
+        toastr()->success('Import Data Sertifikasi Berhasil!');
         return redirect('/import/data-sertifikasi');
     }
 }

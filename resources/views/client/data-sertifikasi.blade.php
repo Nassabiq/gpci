@@ -339,6 +339,40 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td colspan="6" class="collapse" id="detail-plant-{{ $pabrik->id }}">
+                                            <div class="d-flex">
+                                                <div class="col-lg-6 col-md-12">
+                                                    <ul class="list-group shadow">
+                                                        <li class="list-group-item">
+                                                            <b>No Fax</b> :
+                                                            {{ $pabrik->fax_fasilitas }}
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Alamat</b> : {{ $pabrik->alamat_fasilitas }}
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Kode Pos</b> : {{ $pabrik->kodepos_fasilitas }}
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Contact</b> :
+                                                            @php
+                                                                $plant_contact = json_decode($pabrik->contact);
+                                                            @endphp
+                                                            <ul>
+                                                                <li><b>Nama</b> : {{ $plant_contact->nama }}</li>
+                                                                <li><b>Jabatan</b> : {{ $plant_contact->jabatan }}</li>
+                                                                <li><b>No HP</b> : {{ $plant_contact->no_hp }}</li>
+                                                                <li><b>Email</b> : {{ $plant_contact->email }}</li>
+                                                                <li><b>No Telp</b> : {{ $plant_contact->no_telp }}</li>
+                                                                <li><b>Fax</b> : {{ $plant_contact->fax }}</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

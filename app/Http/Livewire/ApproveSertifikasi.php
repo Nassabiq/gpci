@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Product;
 use Carbon\Carbon;
 use Livewire\Component;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class ApproveSertifikasi extends Component
 {
@@ -32,7 +31,8 @@ class ApproveSertifikasi extends Component
         $product->tgl_masa_berlaku = Carbon::now()->addYear()->locale('id');
         $product->save();
 
-        toast('Sertifikasi Berhasil Diverifikasi!','success');
+        toastr()->success('Sertifikasi Berhasil Diverifikasi!');
+        // toast('Sertifikasi Berhasil Diverifikasi!','success');
         return redirect()->to('/approve/approve-sertifikasi/'.$id);
     }
 }

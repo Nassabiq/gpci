@@ -12,7 +12,6 @@ use App\Rating;
 use Carbon\Carbon;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class Wizard extends Component
 {   
@@ -237,8 +236,8 @@ class Wizard extends Component
         Rating::create([
             'product_id' => $id
         ]);
-
-        toast('Pendaftaran Sertifikasi Berhasil!','success');
+        toastr()->success('Pendaftaran Sertifikasi Berhasil!');
+        // toast('Pendaftaran Sertifikasi Berhasil!','success');
         return redirect('/home');
     }
 

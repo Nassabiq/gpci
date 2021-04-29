@@ -38,11 +38,13 @@ Route::group(['middleware' => ['auth', 'revalidate']], function () {
         Route::group(['middleware' => ['role:client|super-admin']], function(){
             Route::get('/add-sertifikasi', 'SertifikasiController@addSertifikasi')->name('add-sertifikasi');
             Route::get('/show-sertifikasi', 'SertifikasiController@showDataSertifikasi')->name('show-sertifikasi');
-            Route::get('/dokumen-sertifikasi', 'DocumentController@index')->name('dokumen-sertifikasi');
             
             // Add Product with Named Company
             Route::get('/add-plant', 'SertifikasiController@addPlant')->name('add-plant');
             Route::get('/add-produk', 'SertifikasiController@addProduk')->name('add-produk');
+        });
+        Route::group(['middleware' => ['role:client|super-admin|admin']], function(){
+            Route::get('/dokumen-sertifikasi', 'DocumentController@index')->name('dokumen-sertifikasi');
         });
         Route::group(['middleware' => ['role:admin|super-admin']], function(){
             Route::get('/data-sertifikasi', 'SertifikasiController@showAllDataSertifikasi')->name('data-sertifikasi');

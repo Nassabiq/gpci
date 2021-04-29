@@ -1,5 +1,6 @@
 <div>
     {{-- Because she competes with no one, no one can compete with her. --}}
+
     <div class="container">
         <h2>Dokumen Sertifikasi</h2>
         <p>
@@ -10,11 +11,13 @@
             <select class="custom-select" id="produk" wire:model="product">
                 <option value="" selected>Jenis Produk</option>
                 @if ($company)
-                    @foreach ($company->factories as $item)
-                        @foreach ($item->produk as $produk)
-                            <option value="{{ $produk->id }}">
-                                {{ $produk->nama_produk }}
-                            </option>
+                    @foreach ($company as $item)
+                        @foreach ($item->factories as $factory)
+                            @foreach ($factory->produk as $produk)
+                                <option value="{{ $produk->id }}">
+                                    {{ $produk->nama_produk }} - {{ $item->nama_perusahaan }}
+                                </option>
+                            @endforeach
                         @endforeach
                     @endforeach
                 @endif
@@ -56,12 +59,12 @@
                                 @else
                                     <td>
                                         {{ $doc->pivot->nama_dokumen }}
-                                        <div class="collapse mt-2" id="editakta" wire:ignore.self>
+                                        <div class="collapse mt-2" id="edit-{{ $doc->id }}" wire:ignore.self>
                                             <div class="card card-body d-flex">
                                                 <div class="d-flex">
                                                     <input type="file" wire:model="nama_dokumen">
                                                     <button type="button" class="btn btn-sm btn-primary"
-                                                        wire:click="uploadDokumen({{ $doc->pivot->id }}, '{{ $doc->pivot->nama_dokumen }}')">Edit</button>
+                                                        wire:click="uploadDokumen({{ $doc->id }}, '{{ $doc->nama_dokumen }}', '{{ $item->nama_perusahaan }}')">Edit</button>
                                                 </div>
                                                 @error('nama_dokumen') <span class="error">{{ $message }}</span>
                                                 @enderror
@@ -70,11 +73,11 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->company->nama_perusahaan . '/' . $doc->pivot->nama_dokumen) }}"
+                                            <a href="{{ asset('storage/checklist-dokumen/' . $this->nama_perusahaan . '/' . $doc->pivot->nama_dokumen) }}"
                                                 class="btn btn-sm btn-primary" target="_blank">Dokumen</a>
                                             @if ($doc->pivot->status !== 2)
                                                 <button class="btn btn-sm btn-success ml-2" data-toggle="collapse"
-                                                    data-target="#editakta">Edit</button>
+                                                    data-target="#edit-{{ $doc->id }}">Edit</button>
                                             @endif
                                         </div>
                                     </td>
@@ -127,12 +130,7 @@
 </div>
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.4/pdfobject.js"
-        integrity="sha512-pOkH5W0iYlsujt/wd8KQwGJlc76bfVQ+gN3wNj2jE671otBKfTqSU17mdb74MdGqU2G7ScJqH9BqQ8UvWL0hdg=="
-        crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"> </script>
-
     <script>
         window.addEventListener('swal:error', event => {
             swal({

@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Company;
 use App\Factory;
-use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class ImportPlant extends Component
@@ -22,26 +21,26 @@ class ImportPlant extends Component
     }
     public function uploadPlant(){
         $messages = [
-        'required' => 'kolom :attribute kosong, harap diisi',
-        'min' => ':attribute harus diisi minimal :min karakter',
-        'max' => ':attribute harus diisi maksimal :max karakter',
-        'numeric' => ':attribute harus berupa angka',
-        'unique:perusahaan' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
+            'required' => 'kolom :attribute kosong, harap diisi',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus berupa angka',
+            'unique:factories' => ':attribute sudah digunakan, silahkan gunakan email yang lain'
         ];
         $validatedData = $this->validate([
-        'nama_fasilitas' => 'required',
-        'email_fasilitas' => 'required|unique:fasilitas_produksi|email',
-        'alamat_fasilitas' => 'required',
-        'kodepos_fasilitas' => 'required|numeric',
-        'no_telp_fasilitas' => 'required',
-        'fax_fasilitas' => 'required',
+            'nama_fasilitas' => 'required',
+            'email_fasilitas' => 'required|unique:factories|email',
+            'alamat_fasilitas' => 'required',
+            'kodepos_fasilitas' => 'required|numeric',
+            'no_telp_fasilitas' => 'required',
+            'fax_fasilitas' => 'required',
 
-        'nama2' => 'required',
-        'jabatan2' => 'required',
-        'no_hp2' => 'required',
-        'email2' => 'required|email',
-        'no_telp2' => 'required',
-        'fax2' => 'required',
+            'nama3' => 'required',
+            'jabatan3' => 'required',
+            'no_hp3' => 'required',
+            'email3' => 'required|email',
+            'no_telp3' => 'required',
+            'fax3' => 'required',
 
         ],$messages);
         
@@ -64,7 +63,8 @@ class ImportPlant extends Component
             'contact' => json_encode($contact_pabrik, 128),
             'company_id' => $this->company_id
         ]);
-        toast('Import Data Sertifikasi Berhasil!','success');
+        // toast('Import Data Sertifikasi Berhasil!','success');
+        toastr()->success('Import Data Sertifikasi Berhasil!');
         return redirect('/import/data-sertifikasi');
     }
 }

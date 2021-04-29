@@ -6,7 +6,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class AccountController extends Controller
 {
@@ -33,7 +32,8 @@ class AccountController extends Controller
                 $user->password = bcrypt($request->new_password);;
                 $user->save();
                 
-                toast('Password Anda telah Berhasil Diubah','success');
+                toastr()->success('Password Anda Telah Berhasil Diubah!');
+                // toast('Password Anda telah Berhasil Diubah','success');
                 return redirect()->route('account');
             }
             else{

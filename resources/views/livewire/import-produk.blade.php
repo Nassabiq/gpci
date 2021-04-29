@@ -8,7 +8,7 @@
                 <hr>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Nama Plant</label>
-                    <select class="form-control" wire:model="plant_id">
+                    <select class="form-control" wire:model="factory_id">
                         <option value="">Select Plant</option>
                         @foreach ($plant as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_fasilitas }} -
@@ -16,6 +16,7 @@
 
                         @endforeach
                     </select>
+                    @error('factory_id') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 {{-- Nama Produk --}}
                 <div class="form-group row">

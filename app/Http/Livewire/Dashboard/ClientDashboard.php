@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Dashboard;
 use App\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class ClientDashboard extends Component

@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Category;
 use App\Document;
-use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class ChecklistDokumen extends Component

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 
 class KategoriProdukController extends Controller
@@ -28,7 +27,8 @@ class KategoriProdukController extends Controller
             'categories' => $request->categories
         ]);
         
-        toast('Data Berhasil Ditambahkan!','success');
+        toastr()->success('Data Berhasil ditambahkan!');
+        // toast('Data Berhasil Ditambahkan!','success');
         return redirect()->route('add-kategori-produk');
     }
 
@@ -44,7 +44,8 @@ class KategoriProdukController extends Controller
         $category->categories = $request->categories;
         $category->save();
 
-        toast('Data Berhasil Diubah!','success');
+        toastr()->success('Data Berhasil diubah!');
+        // toast('Data Berhasil Diubah!','success');
         return redirect()->route('add-kategori-produk');
     }
     public function delete($id)
@@ -52,7 +53,8 @@ class KategoriProdukController extends Controller
         $category = Category::find($id);
         $category->delete();
 
-        toast('Data Berhasil Dihapus!','success');
+        toastr()->success('Data Berhasil dihapus!');
+        // toast('Data Berhasil Dihapus!','success');
         return redirect()->route('add-kategori-produk');
     }
 }
