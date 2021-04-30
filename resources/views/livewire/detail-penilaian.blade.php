@@ -214,11 +214,10 @@
     @endif
 </div>
 @section('js')
-    <script src="https://unpkg.com/sweetalert2@7.8.2/dist/sweetalert2.all.js"></script>
     <script>
         window.addEventListener('hideModal', () => {
-            $('.modal').modal('hide');
             $('.modal-backdrop').remove();
+            $('.modal').modal('hide');
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',

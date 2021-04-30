@@ -67,9 +67,10 @@
                                     <td class="d-flex">
                                         <a href="{{ asset('storage/checklist-dokumen/' . $this->perusahaan->nama_perusahaan . '/' . $doc->pivot->nama_dokumen) }}"
                                             class="btn btn-sm btn-primary" target="_blank">Preview</a>
-
-                                        <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
-                                            data-target="#approve-{{ $doc->id }}">Approve</button>
+                                        @if ($doc->pivot->status !== 2)
+                                            <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
+                                                data-target="#approve-{{ $doc->id }}">Approve</button>
+                                        @endif
 
                                         {{-- Modal --}}
                                         <div class="modal fade" id="approve-{{ $doc->id }}" tabindex="-1">
@@ -157,23 +158,18 @@
 
 @section('js')
     <script>
-        // window.onbeforeunload = function() {
-        //     return "Data will be lost if you leave the page, are you sure?";
-        // };
-
-        window.livewire.on('hideModal', () => {
-            $('.modal').modal('hide');
+        window.addEventListener('hideModal', event => {
             $('.modal-backdrop').remove();
-        });
+            $('.modal').modal('hide');
 
-        // $(document).on('click', '.showmodal', function() {
-        //     let name = $(this).data('name');
-        //     let id = $(this).data('id');
-        //     $('.modal').modal('show');
-        //     let doc = $('#submit');
-        //     doc.attr("wire:click", 'approve' + name + '(' + id + ')');
-        //     console.log(doc);
-        // });
+            swal({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+                dangerMode: true,
+                timer: 1500,
+            });
+        });
 
     </script>
 @endsection

@@ -28,15 +28,12 @@ class DetailPenilaian extends Component
         $product->status = 2;
         $product->save();
 
-        $this->dispatchBrowserEvent('hideModal', [
-            'type' => 'success',
-            'message' => 'Status Produk Sudah Diubah!'
-        ]);
+        toastr()->success('Status Produk Telah Berubah');
+        return redirect('/penilaian/penilaian-sertifikasi/'. $id);
     }
 
     public function download($id){
         $product = Docrating::find($id);
-        // dd($product);
         return response()->download(storage_path('app/template_angket/'.$product->angket_penilaian_doc));
     }
     public function angketPenilaian($id){
@@ -66,6 +63,7 @@ class DetailPenilaian extends Component
             $document->angket_penilaian = $data;
             $document->save();
             
+            toastr()->success('Dokumen Berhasil Di-Upload!');
             return redirect()->to('/penilaian/penilaian-sertifikasi/'.$id);
         }
     }
@@ -95,6 +93,7 @@ class DetailPenilaian extends Component
             $document->laporan_ringkas_verifikasi = $data;
             $document->save();
             
+            toastr()->success('Dokumen Berhasil Di-Upload!');
             return redirect()->to('/penilaian/penilaian-sertifikasi/'.$id);
         }
     }
@@ -125,6 +124,7 @@ class DetailPenilaian extends Component
             $document->recommendation_for_improvement = $data;
             $document->save();
             
+            toastr()->success('Dokumen Berhasil Di-Upload!');
             return redirect()->to('/penilaian/penilaian-sertifikasi/'.$id);
         }
     }

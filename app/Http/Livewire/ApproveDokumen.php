@@ -49,10 +49,13 @@ class ApproveDokumen extends Component
             if ($doc->id == $this->selectedProduct ) {
                 $doc->pivot->status = 2;
                 $doc->pivot->save();
+                $this->dispatchBrowserEvent('hideModal', [
+                    'type' => 'error',
+                    'message' => 'File tidak Ada!'
+                ]);
             }
         }
-
-        $this->emit('hideModal');
+        
     }
     public function addKeterangan($id)
     {

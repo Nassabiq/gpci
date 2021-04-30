@@ -40,7 +40,8 @@
                         @php
                             $no = 1;
                         @endphp
-                        @foreach ($document->document as $doc)
+                        @dump($document->document->count())
+                        @foreach ($document->document as $key => $doc)
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>

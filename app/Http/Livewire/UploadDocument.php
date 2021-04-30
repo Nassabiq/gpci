@@ -39,7 +39,7 @@ class UploadDocument extends Component
                 $q->where('id', $this->product);
             });
         })->value('nama_perusahaan');
-        $this->document = Product::with('document')->where('id', $produk)->first();
+        $this->document = Product::with('document')->withCount('document')->where('id', $produk)->first();
         return view('livewire.upload-document');
     }
 
