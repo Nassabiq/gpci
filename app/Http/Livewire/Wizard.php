@@ -236,13 +236,8 @@ class Wizard extends Component
         Rating::create([
             'product_id' => $id
         ]);
-<<<<<<< Updated upstream
         toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         // toast('Pendaftaran Sertifikasi Berhasil!','success');
-=======
-
-        Alert::toast('Pendaftaran Sertifikasi Berhasil!','success');
->>>>>>> Stashed changes
         return redirect('/home');
     }
 

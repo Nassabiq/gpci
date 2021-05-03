@@ -18,11 +18,7 @@ class ApproveController extends Controller
 
     public function detailSertifikasi($id)
     {
-            $product = Product::with('pabrik.perusahaan')->find($id);
-            if ($product) {
-                return view('client/detail-approve-sertifikasi', compact('product'));
-            } else{
-                return abort(404);
-            }
+            $product = Product::with('pabrik.perusahaan')->findOrFail($id);
+            return view('client/detail-approve-sertifikasi', compact('product'));
     }
 }

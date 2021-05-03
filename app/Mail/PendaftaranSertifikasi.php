@@ -11,16 +11,16 @@ class PendaftaranSertifikasi extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $company;
+    // public $company;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($company)
+    public function __construct()
     {
-        $this->nama_perusahaan = $company->nama_perusahaan;
+        // $this->nama_perusahaan = $company->nama_perusahaan;
         //
     }
 
@@ -31,10 +31,11 @@ class PendaftaranSertifikasi extends Mailable
      */
     public function build()
     {
-        return $this->view('email')
+        return $this->from('notif@gpci.or.id')
+                    ->view('email')
                     ->with(
                         [
-                            'nama_perusahaan' => $this->nama_perusahaan,
+                            'nama_perusahaan' => '$this->nama_perusahaan',
                         ]
                     );
     }

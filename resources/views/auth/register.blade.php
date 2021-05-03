@@ -3,7 +3,7 @@
 @section('content')
     <div class="container con">
         <div class="row justify-content-center">
-            <div class="col-md-7">
+            <div class="col-lg-7 col-12">
                 <div class="card text-center border-dark login-card shadow">
                     <div class="card-body">
                         <h1 class="title">REGISTRATION</h1>
@@ -52,7 +52,7 @@
                                 @enderror
                             </div>
                             <div class="group-register mt-3">
-                                <input class="input-auth" id="password" type="password" name="password_confirmation"
+                                <input class="input-auth" id="password_confirmation" type="password" name="password_confirmation"
                                     required>
                                 <span class="highlight"></span>
                                 <span class="bar"></span>

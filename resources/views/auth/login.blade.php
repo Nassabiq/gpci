@@ -3,7 +3,7 @@
 @section('content')
     <div class="container con">
         <div class="row justify-content-center align-self-center">
-            <div class="col-md-6">
+            <div class="col-lg-6 col-12 ">
                 <div class="card text-center border-dark login-card shadow">
                     <div class="card-body">
                         <img src="{{ asset('img/gpci.png') }}" alt="" class="logo mb-3">

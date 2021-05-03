@@ -20,12 +20,8 @@ class PenilaianController extends Controller
 
     public function detailsProduct($id)
     {
-        $product = Product::with('pabrik.perusahaan')->find($id);
-        if ($product) {
-            return view('client/detail-penilaian-sertifikasi', compact('product'));
-        } else {
-            return abort(404);
-        }
+        $product = Product::with('pabrik.perusahaan')->findOrFail($id);
+        return view('client/detail-penilaian-sertifikasi', compact('product'));
     }
 
     public function angketPenilaian(){

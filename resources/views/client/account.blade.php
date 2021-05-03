@@ -100,9 +100,11 @@
 @endsection
 @section('js')
     <script type="text/javascript">
-        $(document).on('click', '.changePassword', function() {
+    $( document ).ready(function() {
+        $('.changePassword').on('click', function(){
             $('.modal').modal('show');
         })
+    });
 
     </script>
     @if (count($errors) > 0)

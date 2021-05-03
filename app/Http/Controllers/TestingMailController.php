@@ -14,13 +14,16 @@ class TestingMailController extends Controller
         // $id_user = Auth::user()->id;
         $company = Company::find(1);
         // $company = Company::where('user_id', $id_user)->with('factories.produk.document')->first();
-        $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-        $beautymail->send('email', ['nama' => $company->nama_perusahaan ], function($message){
-            $message
-            ->from('bar@example.com')
-            ->to('nasirudin.sabiq16@mhs.uinjkt.ac.id')
-            ->subject('Welcome!');
-        });
+        // $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+        // $beautymail->send('email', ['nama' => '$company->nama_perusahaan' ], function($message){
+        //     $message
+        //     ->from('bar@example.com')
+        //     ->to('nasirudin.sabiq16@mhs.uinjkt.ac.id')
+        //     ->subject('Welcome!');
+        // });
+        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi());
+
+         
 
         return 'berhasil';
     }

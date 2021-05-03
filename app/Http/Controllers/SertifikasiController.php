@@ -31,12 +31,8 @@ class SertifikasiController extends Controller
 
     public function showSelectedDataSertifikasi($id)
     {
-        $company = Company::with('factories.produk.document')->find($id);
-        if ($company) {
-            return view('client/detail-data-sertifikasi', compact('company'));
-        } else {
-            return abort(404);
-        }
+        $company = Company::with('factories.produk.document')->findOrFail($id);
+        return view('client/detail-data-sertifikasi', compact('company'));
     }
     public function cetak_pdf($id, Request $request)
     {
