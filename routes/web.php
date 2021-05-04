@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth', 'revalidate']], function () {
     Route::get('messages', 'MessageController@fetchMessages');
     Route::post('messages', 'MessageController@sendMessage');
 
+    Route::get('/cetak-pdf/{products:id}', 'SertifikasiController@cetak_pdf');
+
     Route::prefix('sertifikasi')->group(function(){
         Route::group(['middleware' => ['role:client|super-admin']], function(){
             Route::get('/add-sertifikasi', 'SertifikasiController@addSertifikasi')->name('add-sertifikasi');
@@ -96,8 +98,4 @@ Route::group(['middleware' => ['auth', 'revalidate']], function () {
 
         });
     });
-    
 });
-
-Route::get('/email', 'TestingMailController@index');
-Route::get('/cetak-pdf/{products:id}', 'SertifikasiController@cetak_pdf');

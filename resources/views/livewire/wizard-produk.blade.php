@@ -188,7 +188,15 @@
                         <button class="btn btn-danger nextBtn prev-button pull-right" type="button"
                             wire:click="back(1)"><i class="fas fa-long-arrow-alt-left pr-2"></i> Back</button>
                         <button class="btn btn-primary nextBtn next-button pull-right" type="button"
-                            wire:click="submitForm">Submit</button>
+                            wire:click="submitForm" wire:loading.attr="disabled" wire:loading.class="btn-secondary"
+                            wire:loading.class.remove="btn-primary">
+                            <div wire:loading>
+                                Loading...
+                            </div>
+                            <div wire:loading.remove>
+                                Submit
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>

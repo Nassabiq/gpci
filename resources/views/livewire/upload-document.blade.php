@@ -15,7 +15,10 @@
                         @foreach ($item->factories as $factory)
                             @foreach ($factory->produk as $produk)
                                 <option value="{{ $produk->id }}">
-                                    {{ $produk->nama_produk }} - {{ $item->nama_perusahaan }}
+                                    {{ $produk->nama_produk }}
+                                    @if (Auth::user()->hasRole(['admin', 'super-admin']))
+                                        - {{ $item->nama_perusahaan }}
+                                    @endif
                                 </option>
                             @endforeach
                         @endforeach
@@ -40,8 +43,8 @@
                         @php
                             $no = 1;
                         @endphp
-                        @dump($document->document->count())
                         @foreach ($document->document as $key => $doc)
+
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>

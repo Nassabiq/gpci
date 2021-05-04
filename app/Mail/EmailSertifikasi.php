@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PendaftaranSertifikasi extends Mailable
+class EmailSertifikasi extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,7 +22,6 @@ class PendaftaranSertifikasi extends Mailable
     {
         $this->company = $company;
         $this->product = $product;
-        //
     }
 
     /**
@@ -33,13 +32,13 @@ class PendaftaranSertifikasi extends Mailable
     public function build()
     {
         return $this->from('notif@gpci.or.id')
-                    ->subject('Pendaftaran Sertifikasi Green Label Indonesia')
-                    ->view('email-client')
+                    ->subject('Data Sertifikasi Green Label Indonesia')
+                    ->view('email-iapmo')
                     ->with(
                         [
                             'nama_perusahaan' => $this->company,
                             'nama_produk' => $this->product,
                         ]
-                    );
+        );
     }
 }

@@ -7,11 +7,14 @@ use Livewire\Component;
 use App\Category;
 use App\Document;
 use App\Factory;
+use App\Mail\EmailSertifikasi;
+use App\Mail\PendaftaranSertifikasi;
 use App\Product;
 use App\Rating;
 use Carbon\Carbon;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class WizardProduk extends Component
 {   
@@ -103,6 +106,8 @@ class WizardProduk extends Component
             'product_id' => $id
         ]);
         // toast('Pendaftaran Sertifikasi Berhasil!','success');
+        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($this->company->nama_perusahaan, $this->nama_produk));
+        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($this->company->nama_perusahaan, $this->nama_produk));
         toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         return redirect('/home');
 
