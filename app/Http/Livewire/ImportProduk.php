@@ -88,8 +88,8 @@ class ImportProduk extends Component
             'product_id' => $id
         ]);
 
-        // toast('Import Data Sertifikasi Berhasil!','success');
-        toastr()->success('Import Data Sertifikasi Berhasil!');
+        toast('Import Data Sertifikasi Berhasil!','success');
+        // toastr()->success('Import Data Sertifikasi Berhasil!');
         return redirect('/import/data-sertifikasi');
     }
 }

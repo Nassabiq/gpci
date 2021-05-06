@@ -50,8 +50,8 @@ class ApproveDokumen extends Component
                 $doc->pivot->status = 2;
                 $doc->pivot->save();
                 $this->dispatchBrowserEvent('hideModal', [
-                    'type' => 'error',
-                    'message' => 'File tidak Ada!'
+                    'type' => 'success',
+                    'message' => 'Dokumen Berhasil di-approve!'
                 ]);
             }
         }
@@ -70,6 +70,10 @@ class ApproveDokumen extends Component
             if ($doc->id == $this->selectedProduct ) {
                 $doc->pivot->keterangan = $this->keterangan;
                 $doc->pivot->save();
+                $this->dispatchBrowserEvent('hideModal', [
+                    'type' => 'success',
+                    'message' => 'Keterangan Berhasil ditambah!'
+                ]);
             }
         }
 

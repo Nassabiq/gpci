@@ -31,8 +31,11 @@ class ApproveSertifikasi extends Component
         $product->tgl_masa_berlaku = Carbon::now()->addYear()->locale('id');
         $product->save();
 
-        toastr()->success('Sertifikasi Berhasil Diverifikasi!');
-        // toast('Sertifikasi Berhasil Diverifikasi!','success');
+        // toastr()->success('Sertifikasi Berhasil Diverifikasi!');
+        $this->dispatchBrowserEvent('submit', [
+            'type' => 'success',
+            'message' => 'Sertifikasi Berhasil di-approve!'
+        ]);
         return redirect()->to('/approve/approve-sertifikasi/'.$id);
     }
 }

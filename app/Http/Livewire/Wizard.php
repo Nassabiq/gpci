@@ -239,9 +239,10 @@ class Wizard extends Component
         Rating::create([
             'product_id' => $id
         ]);
-        toastr()->success('Pendaftaran Sertifikasi Berhasil!');
+        $company = $this->company;
         Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($this->nama_perusahaan, $this->nama_produk));
-        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($this->company->nama_perusahaan,$this->nama_produk));
+        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($this->nama_perusahaan,$this->nama_produk));
+        toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         // toast('Pendaftaran Sertifikasi Berhasil!','success');
         return redirect('/home');
     }

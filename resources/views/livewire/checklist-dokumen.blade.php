@@ -81,6 +81,9 @@
                             <select class="custom-select" wire:model="kategori_input">
                                 <option value="">Kategori</option>
                                 @foreach ($categories as $category)
+                                    @if ($category->id == 1)
+                                        @continue
+                                    @endif
                                     <option value="{{ $category->id }}">
                                         {{ $category->categories }}</option>
                                 @endforeach

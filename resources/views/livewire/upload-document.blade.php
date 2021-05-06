@@ -137,12 +137,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"> </script>
     <script>
         window.addEventListener('swal:error', event => {
-            swal({
+            Swal.fire({
                 title: event.detail.message,
                 text: event.detail.text,
                 icon: event.detail.type,
                 dangerMode: true,
-                timer: 1500,
+                timer: 2500,
+                showConfirmButton: false,
+                timerProgressBar: true
             });
         });
 

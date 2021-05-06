@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/command',function(){
-    Artisan::call('storage:link');
-});
-
 Route::get('/', 'Auth\LoginController@showLoginForm');
 
 // Authentication Routes...
@@ -35,11 +30,6 @@ Route::group(['middleware' => ['auth', 'revalidate']], function () {
     Route::post('/account/edit', 'AccountController@changePassword');
 
     Route::get('/home', 'HomeController@index')->name('home');
-    
-    Route::get('/chats', 'MessageController@index');
-    Route::get('messages', 'MessageController@fetchMessages');
-    Route::post('messages', 'MessageController@sendMessage');
-
     Route::get('/cetak-pdf/{products:id}', 'SertifikasiController@cetak_pdf');
 
     Route::prefix('sertifikasi')->group(function(){

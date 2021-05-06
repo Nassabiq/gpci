@@ -162,12 +162,14 @@
             $('.modal-backdrop').remove();
             $('.modal').modal('hide');
 
-            swal({
+            Swal.fire({
                 title: event.detail.message,
                 text: event.detail.text,
                 icon: event.detail.type,
                 dangerMode: true,
-                timer: 1500,
+                timer: 2500,
+                showConfirmButton: false,
+                timerProgressBar: true
             });
         });
 

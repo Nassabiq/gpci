@@ -20,7 +20,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h5>Approve Dokumen?</h5>
+                    <h5>Approve Sertifikasi?</h5>
                     <p>Score untuk sertifikasi : </p>
                     <select class="custom-select" wire:model="scoring_id">
                         <option>Pilih Score Sertifikasi</option>
@@ -161,14 +161,23 @@
 @section('js')
 
     <script>
-        window.addEventListener('swal:error', event => {
-            swal({
-                title: event.detail.message,
-                text: event.detail.text,
+        window.addEventListener('submit', event => {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
                 icon: event.detail.type,
-                dangerMode: true,
-                timer: 1500,
-            });
+                title: event.detail.message
+            })
         });
 
     </script>

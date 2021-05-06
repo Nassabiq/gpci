@@ -24,7 +24,8 @@ class UploadDocument extends Component
         if ($user->hasRole('client')) {
             $this->company = Company::where('user_id', $user->id)->with('factories.produk.document')->get();
             if (!$this->company) {
-                toastr()->warning('Tidak Ada Data Sertifikasi!');
+                toast('Tidak Ada Data Sertifikasi!','success');
+                // toastr()->warning('Tidak Ada Data Sertifikasi!');
                 return redirect()->route('home');
             } 
         } else {
@@ -85,7 +86,8 @@ class UploadDocument extends Component
             $file->storeAs('checklist-dokumen/'. $this->nama_perusahaan, $data);
 
             // session()->flash('success', 'dokumen berhasil diubah');
-            toastr()->success('Data Berhasil ditambahkan!');
+            // toastr()->success('Data Berhasil ditambahkan!');
+            toast('Data Berhasil ditambahkan!','success');
             return redirect()->route('dokumen-sertifikasi');
         }
     }

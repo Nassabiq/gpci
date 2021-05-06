@@ -94,7 +94,7 @@
                     Download Template Angket Penilaian
                 </button>
             @else
-                <button type="button" class="btn btn-sm btn-success alert-alert">
+                <button type="button" class="btn btn-sm btn-success alert-alert" onclick="showAlert()">
                     <i class="fas fa-file-pdf mr-2"></i>
                     Download Template Angket Penilaian
                 </button>
@@ -236,26 +236,27 @@
             })
         });
         window.addEventListener('swal:error', event => {
-            swal({
+            Swal.fire({
                 title: event.detail.message,
                 text: event.detail.text,
                 icon: event.detail.type,
                 dangerMode: true,
-                timer: 1500,
+                timer: 2500,
+                showConfirmButton: false,
+                timerProgressBar: true
             });
         });
 
-        $('body').on('click', '.alert-alert', function() {
-            // alert('Data Template saat ini belum Tersedia')
-            swal({
+        function showAlert() {
+            Swal.fire({
                 title: "Maaf, Data Belum Tersedia",
                 text: "Saat ini kita akan memperbarui dokumen yang dibutuhkan, harap menunggu",
-                type: "warning",
-                icon: "warning",
-                showCloseButton: true,
+                icon: 'error',
                 showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
             })
-        })
+        }
 
     </script>
 @endsection

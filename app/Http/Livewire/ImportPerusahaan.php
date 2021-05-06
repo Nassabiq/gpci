@@ -89,8 +89,8 @@ class ImportPerusahaan extends Component
             'user_id' => 0,
         ]);
 
-        // toast('Import Data Sertifikasi Berhasil!','success');
-        toastr()->success('Import Data Sertifikasi Berhasil!');
+        toast('Import Data Sertifikasi Berhasil!','success');
+        // toastr()->success('Import Data Sertifikasi Berhasil!');
         return redirect('/import/data-sertifikasi');
     }
 }

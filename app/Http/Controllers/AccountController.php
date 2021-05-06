@@ -32,8 +32,8 @@ class AccountController extends Controller
                 $user->password = bcrypt($request->new_password);;
                 $user->save();
                 
-                toastr()->success('Password Anda Telah Berhasil Diubah!');
-                // toast('Password Anda telah Berhasil Diubah','success');
+                // toastr()->success('Password Anda Telah Berhasil Diubah!');
+                toast('Password Anda telah Berhasil Diubah','success');
                 return redirect()->route('account');
             }
             else{

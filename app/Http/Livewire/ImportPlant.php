@@ -63,8 +63,8 @@ class ImportPlant extends Component
             'contact' => json_encode($contact_pabrik, 128),
             'company_id' => $this->company_id
         ]);
-        // toast('Import Data Sertifikasi Berhasil!','success');
-        toastr()->success('Import Data Sertifikasi Berhasil!');
+        toast('Import Data Sertifikasi Berhasil!','success');
+        // toastr()->success('Import Data Sertifikasi Berhasil!');
         return redirect('/import/data-sertifikasi');
     }
 }

@@ -28,7 +28,8 @@ class DetailPenilaian extends Component
         $product->status = 2;
         $product->save();
 
-        toastr()->success('Status Produk Telah Berubah');
+        toast('Status Produk Telah Berubah!','success');
+        // toastr()->success('Status Produk Telah Berubah');
         return redirect('/penilaian/penilaian-sertifikasi/'. $id);
     }
 
@@ -63,7 +64,8 @@ class DetailPenilaian extends Component
             $document->angket_penilaian = $data;
             $document->save();
             
-            toastr()->success('Dokumen Berhasil Di-Upload!');
+            toast('Dokumen Berhasil Di-Upload!','success');
+            // toastr()->success('Dokumen Berhasil Di-Upload!');
             return redirect()->to('/penilaian/penilaian-sertifikasi/'.$id);
         }
     }
@@ -93,7 +95,8 @@ class DetailPenilaian extends Component
             $document->laporan_ringkas_verifikasi = $data;
             $document->save();
             
-            toastr()->success('Dokumen Berhasil Di-Upload!');
+            toast('Dokumen Berhasil Di-Upload!','success');
+            // toastr()->success('Dokumen Berhasil Di-Upload!');
             return redirect()->to('/penilaian/penilaian-sertifikasi/'.$id);
         }
     }
@@ -124,7 +127,8 @@ class DetailPenilaian extends Component
             $document->recommendation_for_improvement = $data;
             $document->save();
             
-            toastr()->success('Dokumen Berhasil Di-Upload!');
+            toast('Dokumen Berhasil Di-Upload!','success');
+            // toastr()->success('Dokumen Berhasil Di-Upload!');
             return redirect()->to('/penilaian/penilaian-sertifikasi/'.$id);
         }
     }
