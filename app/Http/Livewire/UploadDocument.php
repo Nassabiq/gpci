@@ -52,7 +52,9 @@ class UploadDocument extends Component
             ]);
         } else {
             $this->validate([
-                'nama_dokumen' => 'mimes:pdf|max:4096',
+                'nama_dokumen' => 'mimes:pdf|max:2048',
+            ], [
+                'nama_dokumen.max' => 'Dokumen harus berukuran maksimal 2MB'
             ]);
 
             $document = Document::whereHas(

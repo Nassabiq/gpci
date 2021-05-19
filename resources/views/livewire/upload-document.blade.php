@@ -28,6 +28,14 @@
         </div>
         @if ($document)
             <div class="table-responsive-md">
+                @error('nama_dokumen')
+                    <div class="alert alert-danger" role="alert">
+                        {{ $message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @enderror
                 <table class="table">
                     <thead class="thead-light">
                         <tr>
@@ -53,8 +61,8 @@
                                 @if ($doc->pivot->nama_dokumen == null)
                                     <td>
                                         <input type="file" wire:model="nama_dokumen">
-                                        @error('nama_dokumen') <span class="error">{{ $message }}</span>
-                                        @enderror
+                                        {{-- @error('nama_dokumen') <span class="error">{{ $message }}</span>
+                                        @enderror --}}
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-primary ml-2"
@@ -70,8 +78,8 @@
                                                     <button type="button" class="btn btn-sm btn-primary"
                                                         wire:click="uploadDokumen({{ $doc->id }}, '{{ $doc->nama_dokumen }}', '{{ $item->nama_perusahaan }}')">Edit</button>
                                                 </div>
-                                                @error('nama_dokumen') <span class="error">{{ $message }}</span>
-                                                @enderror
+                                                {{-- @error('nama_dokumen') <span class="error">{{ $message }}</span>
+                                                @enderror --}}
                                             </div>
                                         </div>
                                     </td>

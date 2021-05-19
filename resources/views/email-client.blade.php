@@ -100,8 +100,8 @@
                                                 <span class="font-bitter">
                                                     <span style="color:#000000">Terima kasih atas pendaftaran Sertifikasi
                                                         Green Label Indonesia (GLI) dari
-                                                        <b>{{ Str::upper($nama_perusahaan) }}</b> dengan Nama Produk
-                                                        <b>{{ Str::upper($nama_produk) }}</b>. Formulir pendaftaran
+                                                        {{-- <b>{{ Str::upper($nama_perusahaan) }}</b> dengan Nama Produk --}}
+                                                        {{-- <b>{{ Str::upper($nama_produk) }}</b>. Formulir pendaftaran --}}
                                                         sertifikasi
                                                         GLI telah kami terima dengan baik
                                                     </span>

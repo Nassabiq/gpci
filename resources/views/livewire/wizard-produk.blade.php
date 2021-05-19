@@ -103,7 +103,7 @@
                         </div>
 
                         {{-- Foto Produk --}}
-                        <label>Foto Produk:</label>
+                        <label>Foto Produk / Kemasan:</label>
                         <div class="input-group mb-3 mx-0">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" {{-- wire:model="foto_produk" --}} name="foto_produk[]"

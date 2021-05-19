@@ -11,17 +11,19 @@ class PendaftaranSertifikasi extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $company, $product;
+    // public $company, $product;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($company, $product)
+    public function __construct(
+        // $company, $product
+        )
     {
-        $this->company = $company;
-        $this->product = $product;
+        // $this->company = $company;
+        // $this->product = $product;
         //
     }
 
@@ -35,11 +37,12 @@ class PendaftaranSertifikasi extends Mailable
         return $this->from('notif@gpci.or.id')
                     ->subject('Pendaftaran Sertifikasi Green Label Indonesia')
                     ->view('email-client')
-                    ->with(
-                        [
-                            'nama_perusahaan' => $this->company,
-                            'nama_produk' => $this->product,
-                        ]
-                    );
+                    // ->with(
+                    //     [
+                    //         'nama_perusahaan' => $this->company,
+                    //         'nama_produk' => $this->product,
+                    //     ]
+                    // )
+                    ;
     }
 }

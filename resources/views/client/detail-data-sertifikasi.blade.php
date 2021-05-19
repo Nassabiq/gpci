@@ -244,7 +244,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="collapse" id="detail-{{ $produk->id }}">
-                                                <label>Foto Produk</label>
+                                                <label>Foto Produk / Kemasan</label>
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-12">
                                                         @php

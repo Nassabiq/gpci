@@ -421,11 +421,11 @@
                         </div>
 
                         {{-- Foto Produk --}}
-                        <label>Foto Produk:</label>
+                        <label>Foto Produk / Kemasan:</label>
                         <div class="input-group mb-3 mx-0">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" {{-- wire:model="foto_produk" --}} name="foto_produk[]"
-                                    accept="image/*" wire:model="foto_produk" multiple id="photoproduk">
+                                <input type="file" class="custom-file-input" name="foto_produk[]" accept="image/*"
+                                    wire:model="foto_produk" multiple id="photoproduk">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                             </div>
                         </div>
