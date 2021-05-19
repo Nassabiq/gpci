@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', 'Auth\LoginController@showLoginForm');
-Route::get('/mail', function(){
-    Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi());
-});
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
