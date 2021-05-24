@@ -72,7 +72,7 @@ class CreateTableCompany extends Migration
         });
         Schema::create('documents', function (Blueprint $table) {
             $table->id('id');
-            $table->string('nama_dokumen');
+            $table->longText('nama_dokumen');
 
             $table->foreignId('category_id');
         });

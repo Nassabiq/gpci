@@ -225,10 +225,9 @@ class Wizard extends Component
 
         $document = Document::get()->whereIn('category_id' , array($this->kategori_produk, 1));
         
-        for ($i=0; $i < count($document); $i++) { 
-            if (isset($document[$i]->id)) {
-                # code...
-                $produk->document()->attach($document[$i]->id, ['status' => 0]);
+        foreach ($document as $doc) {
+            if (isset($doc)) {
+                $produk->document()->attach($doc->id, ['status' => 0]);
             }
         }
         
