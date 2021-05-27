@@ -96,7 +96,7 @@
                     <b> {{ $produk->kategoriProduk->categories }}</b>
                 </p>
                 <p class="text-center teks" style="font-size: 12pt; margin-bottom: 0;">Plant Address :</p>
-                <p class="text-center teks" style="font-size: 16pt;"><b>{{ $produk->pabrik->alamat_fasilitas }}</b>
+                <p class="text-center teks" style="font-size: 14pt;"><b>{{ $produk->pabrik->alamat_fasilitas }}</b>
                 </p>
                 <p class="text-center teks" style="font-size: 12pt; margin-bottom: 8px;">Validity :</p>
                 <p class="text-center teks" style="font-size: 11pt; margin-bottom: 0;">
