@@ -11,7 +11,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="pb-3 mt-3 mb-3 user-panel d-flex">
+        <div class="mb-3 user-panel d-flex">
             <div class="info">
                 <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu">
                     <li class="nav-item has-treeview">
@@ -214,6 +214,15 @@
                         <i class="nav-icon fas fa-user-circle"></i>
                         <p>
                             Account
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="https://wa.me/send/?phone=628983359555" target="_blank"
+                        class="nav-link {{ request()->routeIs('account') ? 'active' : '' }}">
+                        <i class="nav-icon fab fa-whatsapp"></i>
+                        <p>
+                            Contact Us
                         </p>
                     </a>
                 </li>

@@ -71,7 +71,7 @@
                             <a href="{{ route('login') }}" class="register">
                                 Login Disini
                             </a>
-                            <a href="#" class="flex register">
+                            <a href="https://wa.me/send/?phone=628983359555" class="flex register">
                                 <i class="fab fa-whatsapp"></i>
                                 <span>
                                     Contact Us
