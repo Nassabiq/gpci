@@ -1,7 +1,7 @@
 <div>
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
     <div class="container">
-        <h2>Approve Dokumen</h2>
+        <h2>{{ Auth::user()->hasRole('visitor') ? 'Dokumen Sertifikasi GLI' : 'Approve Dokumen' }}</h2>
         <hr>
         <div class="row">
             <div class="col-lg-4 col-12">
@@ -67,9 +67,12 @@
                                     <td class="d-flex">
                                         <a href="{{ asset('storage/checklist-dokumen/' . $this->perusahaan->nama_perusahaan . '/' . $doc->pivot->nama_dokumen) }}"
                                             class="btn btn-sm btn-primary" target="_blank">Preview</a>
+
                                         @if ($doc->pivot->status !== 2)
-                                            <button class="btn btn-sm btn-success ml-2 approve" data-toggle="modal"
-                                                data-target="#approve-{{ $doc->id }}">Approve</button>
+                                            @if (Auth::user()->hasRole('verifikator') || Auth::user()->hasRole('super-admin'))
+                                                <button class="ml-2 btn btn-sm btn-success approve" data-toggle="modal"
+                                                    data-target="#approve-{{ $doc->id }}">Approve</button>
+                                            @endif
                                         @endif
 
                                         {{-- Modal --}}
@@ -107,8 +110,10 @@
                                         @if ($doc->pivot->keterangan)
                                             {{ $doc->pivot->keterangan }}
                                         @else
-                                            <button class="btn btn-sm btn-info ml-2" data-toggle="modal"
-                                                data-target="#keterangan{{ $doc->id }}">Keterangan</button>
+                                            @if (Auth::user()->hasRole('verifikator') || Auth::user()->hasRole('super-admin'))
+                                                <button class="ml-2 btn btn-sm btn-info" data-toggle="modal"
+                                                    data-target="#keterangan{{ $doc->id }}">Keterangan</button>
+                                            @endif
 
                                             {{-- Modal Keterangan --}}
                                             <div class="modal fade" tabindex="-1" id="keterangan{{ $doc->id }}"

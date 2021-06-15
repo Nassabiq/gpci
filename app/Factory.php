@@ -8,7 +8,7 @@ class Factory extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'nama_fasilitas', 'alamat_fasilitas', 'no_telp_fasilitas', 'fax_fasilitas', 'email_fasilitas', 'kodepos_fasilitas', 'contact', 'company_id'
+        'nama_fasilitas', 'slug', 'alamat_fasilitas', 'no_telp_fasilitas', 'fax_fasilitas', 'email_fasilitas', 'kodepos_fasilitas', 'contact', 'company_id'
     ];
     
     public function produk(){

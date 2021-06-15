@@ -4,7 +4,7 @@
     <div class="container">
         <h2>Dokumen Sertifikasi</h2>
         <p>
-            Dokumen yang diperbolehkan harus berbentuk <b>PDF</b> <br> dan setiap dokumen memiliki ukuran maksimal 2MB
+            Dokumen yang diperbolehkan harus berbentuk <b>PDF</b> <br> dan setiap dokumen memiliki ukuran maksimal 5MB
         </p>
         <hr>
         <div class="col-3 my-3">

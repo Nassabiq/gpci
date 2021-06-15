@@ -40,8 +40,10 @@ class PenilaianController extends Controller
             'max' => 'batas ukuran file harus kurang dari 4MB'
         ]);
 
+        $category = Category::find($request->category_id);
+
         $file = $request->file('angket_penilaian_doc');
-        $nama_file = 'Angket-Penilaian-'.$request->category_id;
+        $nama_file = 'Angket-Penilaian-'.$category->categories;
         $data = $nama_file.'.'.$file->getClientOriginalExtension();
         $file->storeAs('template_angket/', $data);
         // dd($data);

@@ -13,6 +13,9 @@
                 @case('admin')
                     @livewire('dashboard.admin-dashboard')
                 @break
+                @case('visitor')
+                    @livewire('dashboard.visitor-dashboard')
+                @break
                 @default
                     @livewire('dashboard.admin-dashboard')
             @endswitch

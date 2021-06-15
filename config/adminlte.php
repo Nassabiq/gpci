@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Green Label</b>',
+    'logo' => '<small>Green Product Council - ID</small>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,

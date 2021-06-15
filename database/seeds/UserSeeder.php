@@ -42,8 +42,16 @@ class UserSeeder extends Seeder
             'name' => 'client',
             'email' => 'client@gpci.or.id',
             'password' => bcrypt('clientgpci'),
-            'status' => 0,
+            'status' => 1,
         ]);
         $client->assignRole('client');
+
+        $client = User::create([
+            'name' => 'visitor',
+            'email' => 'visitor@gpci.or.id',
+            'password' => bcrypt('visitorgpci'),
+            'status' => 1,
+        ]);
+        $client->assignRole('visitor');
     }
 }

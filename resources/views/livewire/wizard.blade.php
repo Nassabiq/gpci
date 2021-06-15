@@ -24,6 +24,7 @@
         </div>
 
         <div class="col-lg-8 card card-outline card-teal">
+            {{-- @dump(Auth::user()) --}}
             <div class="container p-4">
                 <div class="card-body setup-content {{ $currentStep != 1 ? 'displayNone' : '' }}" id="step1">
                     {{-- Informasi Perusahaan --}}
@@ -371,11 +372,11 @@
                         </div>
 
                         <div class="form-group row">
-                            {{-- Ukuran --}}
+                            {{-- Dimensi (p x l x t) --}}
                             <div class="cp col-lg-3 col-md-12 col-12 pl-0">
-                                <label>Ukuran</label>
+                                <label>Dimensi (P x L x T)</label>
                                 <input type="text" wire:model="ukuran" class="form-control form-control-sm" id="ukuran"
-                                    placeholder="Ukuran...">
+                                    placeholder="Dimensi (P x L x T)...">
                                 @error('ukuran') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             {{-- Merk Dagang --}}

@@ -53,9 +53,9 @@
                         </div>
 
                         <div class="form-group row">
-                            {{-- Ukuran --}}
+                            {{-- Dimensi (P x L x T) --}}
                             <div class="cp col-lg-3 col-md-12 col-12 pl-0">
-                                <label>Ukuran</label>
+                                <label>Dimensi (P x L x T)</label>
                                 <input type="text" wire:model="ukuran" class="form-control form-control-sm" id="ukuran"
                                     placeholder="Ukuran...">
                                 @error('ukuran') <span class="error">{{ $message }}</span> @enderror

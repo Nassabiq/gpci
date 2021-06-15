@@ -24,6 +24,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::get('/sertifikat/{products:slug}', 'SertifikasiController@cetak_pdf');
 
 Route::group(['middleware' => ['auth', 'revalidate']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
@@ -31,7 +32,6 @@ Route::group(['middleware' => ['auth', 'revalidate']], function () {
     Route::post('/account/edit', 'AccountController@changePassword');
 
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/cetak-pdf/{products:id}', 'SertifikasiController@cetak_pdf');
 
     Route::prefix('sertifikasi')->group(function(){
         Route::group(['middleware' => ['role:client|super-admin']], function(){
@@ -73,9 +73,11 @@ Route::group(['middleware' => ['auth', 'revalidate']], function () {
     });
     Route::prefix('approve')->group(function(){
         Route::group(['middleware' => ['role:admin|super-admin']], function(){
-            Route::get('/approve-dokumen', 'ApproveController@approveDokumen')->name('approve-dokumen');
             Route::get('/approve-sertifikasi', 'ApproveController@approveSertifikasi')->name('approve-sertifikasi');
             Route::get('/approve-sertifikasi/{products:id}', 'ApproveController@detailSertifikasi')->name('detail-approve-sertifikasi');
+        });
+        Route::group(['middleware' => ['role:admin|super-admin|verifikator|visitor']], function(){
+            Route::get('/approve-dokumen', 'ApproveController@approveDokumen')->name('approve-dokumen');
         });
     });
     Route::prefix('user')->group(function(){

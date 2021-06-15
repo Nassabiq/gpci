@@ -13,6 +13,7 @@ use App\Product;
 use App\Rating;
 use Carbon\Carbon;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -58,14 +59,12 @@ class WizardPlant extends Component
             'alamat_fasilitas' => 'required',
             'kodepos_fasilitas' => 'required|numeric',
             'no_telp_fasilitas' => 'required',
-            'fax_fasilitas' => 'required',
 
             'nama3' => 'required',
             'jabatan3' => 'required',
             'no_hp3' => 'required',
             'email3' => 'required|email',
             'no_telp3' => 'required',
-            'fax3' => 'required',
 
         ],$messages);
         $this->currentStep = 2;
@@ -84,7 +83,7 @@ class WizardPlant extends Component
             'tipe_model' => 'required',
             'merk_dagang' => 'required',
             'tipe_pengemasan' => 'required',
-            'foto_produk.*' => 'required|image|max:1024',
+            'foto_produk.*' => 'required|image|max:4096',
             'ukuran' => 'required',
         ],$messages);
         
@@ -105,6 +104,7 @@ class WizardPlant extends Component
         
         $factory = Factory::create([
             'nama_fasilitas' => $this->nama_fasilitas,
+            'slug' => Str::slug($this->nama_fasilitas),
             'email_fasilitas' => $this->email_fasilitas,
             'alamat_fasilitas' => $this->alamat_fasilitas,
             'kodepos_fasilitas' => $this->kodepos_fasilitas,
@@ -132,6 +132,7 @@ class WizardPlant extends Component
         // Produk
         $produk = Product::create([
             'nama_produk' => $this->nama_produk,
+            'slug' => Str::slug($this->nama_produk),
             'deskripsi_produk' => $this->deskripsi_produk,
             'tipe_model' => $this->tipe_model,
             'merk_dagang' => $this->merk_dagang,
@@ -161,9 +162,16 @@ class WizardPlant extends Component
         ]);
         $company = $this->company;
         // session()->flash('success', 'Pendaftaran Berhasil');
+        
+        // Email Local
         Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($company->nama_perusahaan , $this->nama_produk));
         Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($company->nama_perusahaan,$this->nama_produk));
-        // toast('Pendaftaran Sertifikasi Berhasil!','success');
+        
+        // Email Production
+        
+        // Mail::to([$company->email_perusahaan, Auth::user()->email ])->send(new PendaftaranSertifikasi($company->nama_perusahaan , $this->nama_produk));
+        // Mail::to(['info@gpci.or,id', 'ketut.putra@iapmoindonesia.org', 'rista.dianameci@iapmoindonesia.org', 'dahlan@gpci.or.id'])->send(new EmailSertifikasi($company->nama_perusahaan,$this->nama_produk));
+
         toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         return redirect('/home');
     }

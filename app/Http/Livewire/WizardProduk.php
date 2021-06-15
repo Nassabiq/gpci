@@ -11,6 +11,7 @@ use App\Mail\EmailSertifikasi;
 use App\Mail\PendaftaranSertifikasi;
 use App\Product;
 use App\Rating;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +55,7 @@ class WizardProduk extends Component
             'tipe_model' => 'required',
             'merk_dagang' => 'required',
             'tipe_pengemasan' => 'required',
-            'foto_produk.*' => 'required|image|max:1024',
+            'foto_produk.*' => 'required|image|max:4096',
             'ukuran' => 'required',
         ],$messages);
         
@@ -75,6 +76,7 @@ class WizardProduk extends Component
          // Produk
          $produk = Product::create([
             'nama_produk' => $this->nama_produk,
+            'slug' => Str::slug($this->nama_produk),
             'deskripsi_produk' => $this->deskripsi_produk,
             'tipe_model' => $this->tipe_model,
             'merk_dagang' => $this->merk_dagang,
@@ -105,9 +107,15 @@ class WizardProduk extends Component
             'product_id' => $id
         ]);
         $company = $this->company;
-        // dd($company->nama_perusahaan);
+        
+        // Local
         Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($company->nama_perusahaan, $this->nama_produk));
         Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($company->nama_perusahaan, $this->nama_produk));
+        
+        // Production
+        // Mail::to([$company->email_perusahaan, Auth::user()->email])->send(new PendaftaranSertifikasi($company->nama_perusahaan, $this->nama_produk));
+        // Mail::to(['info@gpci.or,id', 'ketut.putra@iapmoindonesia.org', 'rista.dianameci@iapmoindonesia.org','dahlan@gpci.or.id'])->send(new EmailSertifikasi($company->nama_perusahaan, $this->nama_produk));
+        
         // toast('Pendaftaran Sertifikasi Berhasil!','success');
         toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         return redirect('/home');

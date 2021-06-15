@@ -16,6 +16,7 @@ class CreateTableCompany extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('nama_perusahaan');
+            $table->string('slug');
             $table->text('alamat_perusahaan');
             $table->string('email_perusahaan')->unique();
             $table->string('no_telp_perusahaan');
@@ -36,7 +37,8 @@ class CreateTableCompany extends Migration
         Schema::create('factories', function (Blueprint $table) {
             $table->id();
             $table->string('nama_fasilitas');
-            $table->string('alamat_fasilitas');
+            $table->string('slug');
+            $table->text('alamat_fasilitas');
             $table->string('no_telp_fasilitas');
             $table->string('fax_fasilitas')->nullable();
             $table->string('email_fasilitas')->unique();
@@ -47,7 +49,8 @@ class CreateTableCompany extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('nama_produk');
-            $table->string('deskripsi_produk');
+            $table->string('slug');
+            $table->text('deskripsi_produk');
             $table->string('tipe_model');
             $table->string('merk_dagang');
             $table->string('tipe_pengemasan');

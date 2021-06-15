@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Company;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class ImportPerusahaan extends Component
 {
@@ -48,7 +49,6 @@ class ImportPerusahaan extends Component
             'no_hp' => 'required',
             'email' => 'required|email',
             'no_telp' => 'required',
-            'fax' => 'required',
         ], $messages);
 
         $contact_perusahaan = [
@@ -72,10 +72,10 @@ class ImportPerusahaan extends Component
 
         $company = Company::create([
             'nama_perusahaan' => $this->nama_perusahaan,
+            'slug' => Str::slug($this->nama_perusahaan),
             'alamat_perusahaan' => $this->alamat_perusahaan,
             'email_perusahaan' => $this->email_perusahaan,
             'no_telp_perusahaan' => $this->no_telp_perusahaan,
-            'fax_perusahaan' => $this->fax_perusahaan,
             'kodepos_perusahaan' => $this->kodepos_perusahaan,
             'no_akta_notaris' => $this->no_akta_notaris,
             'no_siup' => $this->no_siup,

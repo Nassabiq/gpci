@@ -11,9 +11,13 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="pb-3 mt-3 mb-3 user-panel d-flex">
             <div class="info">
-                <a href="{{ route('account') }}" class="d-block">{{ ucfirst(Auth::user()->name) }}</a>
+                <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu">
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('account') }}" class="nav-link">{{ ucfirst(Auth::user()->name) }}</a>
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -29,7 +33,7 @@
                         </p>
                     </a>
                 </li>
-                @if (Auth::user()->hasRole('client') || Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('admin'))
+                @if (!Auth::user()->hasRole('visitor'))
                     <li class="nav-item has-treeview {{ request()->segment(1) == 'sertifikasi' ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->segment(1) == 'sertifikasi' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-book-reader"></i>
@@ -140,28 +144,34 @@
                         </ul>
                     </li>
                 @endif
-                @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('super-admin'))
+                @if (!Auth::user()->hasRole('client'))
                     <li class="nav-item has-treeview {{ request()->segment(1) == 'approve' ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->segment(1) == 'approve' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-check-double"></i>
+                            <i
+                                class="nav-icon fas {{ Auth::user()->hasRole('visitor') ? 'fa-folder' : 'fa-check-double' }} "></i>
                             <p>
-                                Approve Data
+                                {{ Auth::user()->hasRole('visitor') ? 'Data' : 'Approve Data' }}
                                 <i class="right fas fa-angle-right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('approve-sertifikasi') }}"
-                                    class="nav-link text-sm {{ request()->routeIs('approve-sertifikasi') ? 'active' : '' }}">
-                                    <i class="fas fa-check nav-icon"></i>
-                                    <p>Approve Sertifikasi</p>
-                                </a>
-                            </li>
+                            @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('super-admin'))
+                                <li class="nav-item">
+                                    <a href="{{ route('approve-sertifikasi') }}"
+                                        class="nav-link text-sm {{ request()->routeIs('approve-sertifikasi') ? 'active' : '' }}">
+                                        <i class="fas fa-check nav-icon"></i>
+                                        <p>Approve Sertifikasi</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route('approve-dokumen') }}"
                                     class="nav-link text-sm {{ request()->routeIs('approve-dokumen') ? 'active' : '' }}">
-                                    <i class="fas fa-stamp nav-icon"></i>
-                                    <p>Approve Dokumen</p>
+                                    <i
+                                        class="fas {{ Auth::user()->hasRole('visitor') ? 'fa-file' : 'fa-stamp' }} nav-icon"></i>
+                                    <p>
+                                        {{ Auth::user()->hasRole('visitor') ? 'Dokumen Sertifikasi' : 'Approve Dokumen' }}
+                                    </p>
                                 </a>
                             </li>
                         </ul>

@@ -11,7 +11,7 @@ class ApproveSertifikasi extends Component
     public $product, $produk, $scoring_id;
     public function render()
     {
-        $this->produk = Product::with('ratings')->find($this->product);
+        $this->produk = Product::with('ratings')->findOrFail($this->product);
         return view('livewire.approve-sertifikasi');
     }
     

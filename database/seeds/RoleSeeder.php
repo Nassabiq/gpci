@@ -29,5 +29,9 @@ class RoleSeeder extends Seeder
             'name' => 'verifikator',
             'guard_name' => 'web'
         ]);
+        Role::create([
+            'name' => 'visitor',
+            'guard_name' => 'web'
+        ]);
     }
 }

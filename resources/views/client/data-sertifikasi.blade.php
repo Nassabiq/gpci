@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
         <h2>Data Sertifikasi</h2>
-        <div class="wrap-table mt-4">
+        <div class="mt-4 wrap-table">
             @if (!$company)
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container">
-                        <p class="lead text-center">Belum Ada Data Sertifikasi yang Didaftarkan</p>
+                        <p class="text-center lead">Belum Ada Data Sertifikasi yang Didaftarkan</p>
                     </div>
                 </div>
             @else
@@ -181,11 +181,11 @@
                     </tbody>
 
                 </table>
-                <div class="row justify-content-between mt-3 pb-3">
+                <div class="pb-3 mt-3 row justify-content-between">
                     <div class="col-3">
                         <button type="button" class="btn btn-sm btn-primary" id="showDesc" onclick="showDesc(this)">Data
                             Lengkap
-                            <i class="fas fa-chevron-down showdesc pl-2" id="fa-icon"></i></button>
+                            <i class="pl-2 fas fa-chevron-down showdesc" id="fa-icon"></i></button>
                     </div>
                     <div class="col-2">
                         <select class="custom-select" onchange="showData(this)">
@@ -234,7 +234,7 @@
                                                     Detail
                                                 </button>
                                                 @if ($produk->status == 3)
-                                                    <a href="/cetak-pdf/{{ $produk->id }}" target="_blank"
+                                                    <a href="/sertifikat/{{ $produk->slug }}" target="_blank"
                                                         class="btn btn-sm btn-warning">
                                                         Cetak Sertifikat
                                                     </a>
@@ -253,8 +253,8 @@
                                                             <a href="#" class="imagemodal">
                                                                 <img src="{{ asset('storage/foto_produk/' . $company->nama_perusahaan . '/' . $image) }}"
                                                                     alt="{{ $produk->nama_produk }}" width="200px"
-                                                                    class="mr-2 mb-2" height="200px"
-                                                                    class="border border-primary rounded mx-2">
+                                                                    class="mb-2 mr-2" height="200px"
+                                                                    class="mx-2 border rounded border-primary">
                                                             </a>
                                                         @endforeach
                                                     </div>
@@ -343,7 +343,7 @@
                                         <td colspan="6" class="collapse" id="detail-plant-{{ $pabrik->id }}">
                                             <div class="d-flex">
                                                 <div class="col-lg-6 col-md-12">
-                                                    <ul class="list-group shadow">
+                                                    <ul class="shadow list-group">
                                                         <li class="list-group-item">
                                                             <b>No Fax</b> :
                                                             {{ $pabrik->fax_fasilitas }}

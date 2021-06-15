@@ -12,6 +12,7 @@ use App\Mail\PendaftaranSertifikasi;
 use App\Product;
 use App\Rating;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -61,7 +62,6 @@ class Wizard extends Component
             'alamat_perusahaan' => 'required',
             'email_perusahaan' => 'required|unique:companies|email',
             'no_telp_perusahaan' => 'required',
-            'fax_perusahaan' => 'required',
             'kodepos_perusahaan' => 'required|numeric',
             'no_akta_notaris' => 'required',
             'no_siup' => 'required',
@@ -77,7 +77,6 @@ class Wizard extends Component
             'no_hp1' => 'required',
             'email1' => 'required|email',
             'no_telp1' => 'required',
-            'fax1' => 'required',
         ], $messages);
 
         $this->currentStep = 2;
@@ -96,14 +95,12 @@ class Wizard extends Component
             'alamat_fasilitas' => 'required',
             'kodepos_fasilitas' => 'required|numeric',
             'no_telp_fasilitas' => 'required',
-            'fax_fasilitas' => 'required',
 
             'nama3' => 'required',
             'jabatan3' => 'required',
             'no_hp3' => 'required',
             'email3' => 'required|email',
             'no_telp3' => 'required',
-            'fax3' => 'required',
 
         ],$messages);
         $this->currentStep = 3;
@@ -122,7 +119,7 @@ class Wizard extends Component
             'tipe_model' => 'required',
             'merk_dagang' => 'required',
             'tipe_pengemasan' => 'required',
-            'foto_produk.*' => 'required|image|max:1024',
+            'foto_produk.*' => 'required|image|max:4096',
             'ukuran' => 'required',
         ],$messages);
 
@@ -154,6 +151,7 @@ class Wizard extends Component
 
         $company = Company::create([
             'nama_perusahaan' => $this->nama_perusahaan,
+            'slug' => Str::slug($this->nama_perusahaan),
             'alamat_perusahaan' => $this->alamat_perusahaan,
             'email_perusahaan' => $this->email_perusahaan,
             'no_telp_perusahaan' => $this->no_telp_perusahaan,
@@ -188,6 +186,7 @@ class Wizard extends Component
 
         $factory = Factory::create([
             'nama_fasilitas' => $this->nama_fasilitas,
+            'slug' => Str::slug($this->nama_fasilitas),
             'email_fasilitas' => $this->email_fasilitas,
             'alamat_fasilitas' => $this->alamat_fasilitas,
             'kodepos_fasilitas' => $this->kodepos_fasilitas,
@@ -210,6 +209,7 @@ class Wizard extends Component
         // Produk
         $produk = Product::create([
             'nama_produk' => $this->nama_produk,
+            'slug' => Str::slug($this->nama_produk),
             'deskripsi_produk' => $this->deskripsi_produk,
             'tipe_model' => $this->tipe_model,
             'merk_dagang' => $this->merk_dagang,
@@ -239,8 +239,16 @@ class Wizard extends Component
             'product_id' => $id
         ]);
         $company = $this->company;
+        
+        // Email Local 
         Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($this->nama_perusahaan, $this->nama_produk));
         Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($this->nama_perusahaan,$this->nama_produk));
+        
+        // Email Production
+        
+        // Mail::to([$this->email_perusahaan, Auth::user()->email ])->send(new PendaftaranSertifikasi($this->nama_perusahaan, $this->nama_produk));
+        // Mail::to(['info@gpci.or,id', 'ketut.putra@iapmoindonesia.org', 'rista.dianameci@iapmoindonesia.org', 'dahlan@gpci.or.id'])->send(new EmailSertifikasi($this->nama_perusahaan,$this->nama_produk));
+
         toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         // toast('Pendaftaran Sertifikasi Berhasil!','success');
         return redirect('/home');

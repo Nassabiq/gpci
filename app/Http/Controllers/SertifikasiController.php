@@ -34,9 +34,9 @@ class SertifikasiController extends Controller
         $company = Company::with('factories.produk.document')->findOrFail($id);
         return view('client/detail-data-sertifikasi', compact('company'));
     }
-    public function cetak_pdf($id, Request $request)
+    public function cetak_pdf($slug, Request $request)
     {
-        $produk = Product::with('pabrik.perusahaan', 'kategoriProduk')->find($id);
+        $produk = Product::with('pabrik.perusahaan', 'kategoriProduk')->where('slug', $slug)->first();
         $company = Company::with('factories.produk.document')->get();
         $kategori = Category::with('kategoriProduk')->get();
         return view('sertifikatgold' , compact('produk', 'kategori', 'company'));

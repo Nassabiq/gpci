@@ -7,6 +7,7 @@ use App\Document;
 use App\Factory;
 use App\Product;
 use App\Rating;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -61,6 +62,7 @@ class ImportProduk extends Component
         // Produk
         $produk = Product::create([
             'nama_produk' => $this->nama_produk,
+            'slug' => Str::slug($this->nama_produk),
             'deskripsi_produk' => $this->deskripsi_produk,
             'tipe_model' => $this->tipe_model,
             'merk_dagang' => $this->merk_dagang,

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Company;
 use App\Factory;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class ImportPlant extends Component
@@ -33,14 +34,12 @@ class ImportPlant extends Component
             'alamat_fasilitas' => 'required',
             'kodepos_fasilitas' => 'required|numeric',
             'no_telp_fasilitas' => 'required',
-            'fax_fasilitas' => 'required',
 
             'nama3' => 'required',
             'jabatan3' => 'required',
             'no_hp3' => 'required',
             'email3' => 'required|email',
             'no_telp3' => 'required',
-            'fax3' => 'required',
 
         ],$messages);
         
@@ -55,6 +54,7 @@ class ImportPlant extends Component
 
         $factory = Factory::create([
             'nama_fasilitas' => $this->nama_fasilitas,
+            'slug' => Str::slug($this->nama_fasilitas),
             'email_fasilitas' => $this->email_fasilitas,
             'alamat_fasilitas' => $this->alamat_fasilitas,
             'kodepos_fasilitas' => $this->kodepos_fasilitas,

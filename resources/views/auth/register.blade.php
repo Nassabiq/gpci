@@ -4,13 +4,13 @@
     <div class="container con">
         <div class="row justify-content-center">
             <div class="col-lg-7 col-12">
-                <div class="card text-center border-dark login-card shadow">
+                <div class="text-center shadow card border-dark login-card">
                     <div class="card-body">
                         <h1 class="title">REGISTRATION</h1>
-                        <p class="subtitle pb-4">GREEN PRODUCT COUNCIL INDONESIA</p>
+                        <p class="pb-4 subtitle">GREEN PRODUCT COUNCIL INDONESIA</p>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                            <div class="group-register mt-3">
+                            <div class="mt-3 group-register">
                                 <input class="input-auth" id="name" type="text" name="name" value="{{ old('name') }}"
                                     required>
                                 <span class="highlight"></span>
@@ -20,7 +20,7 @@
                                     <span><strong class="text-danger">{{ $message }}</strong></span>
                                 @enderror
                             </div>
-                            <div class="group-register mt-3">
+                            <div class="mt-3 group-register">
                                 <input class="input-auth" id="email" type="email" name="email" value="{{ old('email') }}"
                                     required>
                                 <span class="highlight"></span>
@@ -31,7 +31,7 @@
                                 @enderror
                             </div>
 
-                            <div class="group-register mt-3">
+                            <div class="mt-3 group-register">
                                 <input class="input-auth" id="phone" type="text" name="phone" value="{{ old('phone') }}"
                                     required>
                                 <span class="highlight"></span>
@@ -42,7 +42,7 @@
                                 @enderror
                             </div>
 
-                            <div class="group-register mt-3">
+                            <div class="mt-3 group-register">
                                 <input class="input-auth" id="password" type="password" name="password" required>
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
@@ -51,25 +51,33 @@
                                     <span><strong class="text-danger">{{ $message }}</strong></span>
                                 @enderror
                             </div>
-                            <div class="group-register mt-3">
-                                <input class="input-auth" id="password_confirmation" type="password" name="password_confirmation"
-                                    required>
+                            <div class="mt-3 group-register">
+                                <input class="input-auth" id="password_confirmation" type="password"
+                                    name="password_confirmation" required>
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label class="label-auth">Ulangi Password</label>
                             </div>
 
 
-                            <button type="submit" class="btn btn-auth border-dark px-5 shadow mb-4">
+                            <button type="submit" class="px-5 mb-4 shadow btn btn-auth border-dark">
                                 <strong>
                                     REGISTER
                                 </strong>
                             </button>
 
                         </form>
-                        <a href="{{ route('login') }}" class="register">
-                            Klik Disini untuk Melakukan Login
-                        </a>
+                        <div class="mx-4 row justify-content-between">
+                            <a href="{{ route('login') }}" class="register">
+                                Login Disini
+                            </a>
+                            <a href="#" class="flex register">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>
+                                    Contact Us
+                                </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
