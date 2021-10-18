@@ -1,0 +1,18 @@
+[22-Jun-2021 04:22:40 UTC] PHP Fatal error:  During class fetch: Uncaught ErrorException: include(): read of 2240 bytes failed with errno=12 Cannot allocate memory in /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'include(): read...', '/home/gpciorid1...', 444, Array)
+#1 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(444): include()
+#2 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/home/gpciorid1...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('Illuminate\\View...')
+#4 /home/gpciorid1/public_html/client/vendor/laravel/framework/src/Illuminate/View/Factory.php(15): spl_autoload_call('Illuminate\\View...')
+#5 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(444): include('/home/gpciorid1...')
+#6 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(32 in /home/gpciorid1/public_html/client/vendor/laravel/framework/src/Illuminate/View/Factory.php on line 15
+[28-Jun-2021 20:58:52 UTC] PHP Fatal error:  During class fetch: Uncaught ErrorException: include(): read of 11881 bytes failed with errno=12 Cannot allocate memory in /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'include(): read...', '/home/gpciorid1...', 444, Array)
+#1 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(444): include()
+#2 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/home/gpciorid1...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('Carbon\\Traits\\U...')
+#4 /home/gpciorid1/public_html/client/vendor/nesbot/carbon/src/Carbon/Traits/Date.php(526): spl_autoload_call('Carbon\\Traits\\U...')
+#5 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(444): include('/home/gpciorid1...')
+#6 /home/gpciorid1/public_html/client/vendor/composer/ClassLoader.php(322): C in /home/gpciorid1/public_html/client/vendor/nesbot/carbon/src/Carbon/Traits/Date.php on line 526

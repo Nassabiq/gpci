@@ -109,12 +109,14 @@ class WizardProduk extends Component
         $company = $this->company;
         
         // Local
-        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($company->nama_perusahaan, $this->nama_produk));
-        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($company->nama_perusahaan, $this->nama_produk));
+        
+        // Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($company->nama_perusahaan, $this->nama_produk));
+        // Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($company->nama_perusahaan, $this->nama_produk));
         
         // Production
-        // Mail::to([$company->email_perusahaan, Auth::user()->email])->send(new PendaftaranSertifikasi($company->nama_perusahaan, $this->nama_produk));
-        // Mail::to(['info@gpci.or,id', 'ketut.putra@iapmoindonesia.org', 'rista.dianameci@iapmoindonesia.org','dahlan@gpci.or.id'])->send(new EmailSertifikasi($company->nama_perusahaan, $this->nama_produk));
+        
+        Mail::to([$company->email_perusahaan, Auth::user()->email])->send(new PendaftaranSertifikasi($company->nama_perusahaan, $this->nama_produk));
+        Mail::to(['info@gpci.or.id', 'ketut.putra@iapmoindonesia.org', 'rista.dianameci@iapmoindonesia.org','dahlan@gpci.or.id'])->send(new EmailSertifikasi($company->nama_perusahaan, $this->nama_produk));
         
         // toast('Pendaftaran Sertifikasi Berhasil!','success');
         toastr()->success('Pendaftaran Sertifikasi Berhasil!');

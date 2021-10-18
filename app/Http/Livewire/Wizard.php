@@ -91,7 +91,7 @@ class Wizard extends Component
         ];
         $validatedData = $this->validate([
             'nama_fasilitas' => 'required',
-            'email_fasilitas' => 'required|unique:factories|email',
+            'email_fasilitas' => 'required|email',
             'alamat_fasilitas' => 'required',
             'kodepos_fasilitas' => 'required|numeric',
             'no_telp_fasilitas' => 'required',
@@ -241,13 +241,14 @@ class Wizard extends Component
         $company = $this->company;
         
         // Email Local 
-        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($this->nama_perusahaan, $this->nama_produk));
-        Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($this->nama_perusahaan,$this->nama_produk));
+        
+        // Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new PendaftaranSertifikasi($this->nama_perusahaan, $this->nama_produk));
+        // Mail::to("nasirudin.sabiq16@mhs.uinjkt.ac.id")->send(new EmailSertifikasi($this->nama_perusahaan,$this->nama_produk));
         
         // Email Production
         
-        // Mail::to([$this->email_perusahaan, Auth::user()->email ])->send(new PendaftaranSertifikasi($this->nama_perusahaan, $this->nama_produk));
-        // Mail::to(['info@gpci.or,id', 'ketut.putra@iapmoindonesia.org', 'rista.dianameci@iapmoindonesia.org', 'dahlan@gpci.or.id'])->send(new EmailSertifikasi($this->nama_perusahaan,$this->nama_produk));
+        Mail::to([$this->email_perusahaan, Auth::user()->email ])->send(new PendaftaranSertifikasi($this->nama_perusahaan, $this->nama_produk));
+        Mail::to(['info@gpci.or.id', 'ketut.putra@iapmoindonesia.org', 'rista.dianameci@iapmoindonesia.org', 'dahlan@gpci.or.id'])->send(new EmailSertifikasi($this->nama_perusahaan,$this->nama_produk));
 
         toastr()->success('Pendaftaran Sertifikasi Berhasil!');
         // toast('Pendaftaran Sertifikasi Berhasil!','success');

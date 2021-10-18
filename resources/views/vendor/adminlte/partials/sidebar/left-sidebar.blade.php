@@ -218,8 +218,8 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="https://wa.me/send/?phone=628983359555" target="_blank"
-                        class="nav-link {{ request()->routeIs('account') ? 'active' : '' }}">
+                    <a href="https://wa.me/send/?phone=6281212937770" target="_blank"
+                        class="nav-link">
                         <i class="nav-icon fab fa-whatsapp"></i>
                         <p>
                             Contact Us

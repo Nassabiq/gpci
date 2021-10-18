@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Role;
 class UserAdministrationController extends Controller
 {
     public function index(){
-        $roles = Role::get()->where("name" ,'!=', "client");
+        $roles = Role::get();
         $users = User::with('roles')->paginate(5);
         return view('client.user-control', compact('users', 'roles'));
     }
